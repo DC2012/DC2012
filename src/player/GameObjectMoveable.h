@@ -6,8 +6,11 @@
 class GameObjectMoveable : public GameObject
 {
 	protected:
+		int PlayerID;
 		Direction ObjDir;
 	public:
+		virtual void Accelerate() = 0;
+		virtual void Decelerate() = 0;
 		virtual GOPos Position() = 0;
 };
 

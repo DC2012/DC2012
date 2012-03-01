@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const int GObjID,
-					   const int spriteID,
-					   const int posX,
-					   const int poxY)
+GameObject::GameObject(int GObjID,
+					   int spriteID,
+					   int posX,
+					   int posY)
 : GObjID_(GObjID), spriteID_(spriteID), pos_(posX, posY)
 {
 	// constructor
@@ -19,13 +19,13 @@ int GameObject::getSpriteID() const
 	return spriteID_;
 }
 
-Point::Point& GameObject::getPosition() const
+Point GameObject::getPosition() const
 {
-	return &pos_;
+	return pos_;
 }
 
 // for testing purposes
-void GameObject::print(ostream& os) const
+void GameObject::print(std::ostream& os) const
 {
 	os << "GObjID: \t" << GObjID_ << std::endl;
 	os << "spriteID: \t" << spriteID_ << std::endl;

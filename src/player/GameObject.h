@@ -15,18 +15,18 @@ class GameObject
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(const int GObjID = 0,
-							const int spriteID = 0,
-							const int posX = 0,
-							const int poxY = 0);
+		explicit GameObject(int GObjID = 0,
+							int spriteID = 0,
+							int posX = 0,
+							int posY = 0);
 
 		// default destructor
 		virtual ~GameObject(){}
 
 		// getters
-		int getGObjID() const;
-		int getSpriteID() const;
-		virtual Point& getPosition() const;
+		virtual int getGObjID() const;
+		virtual int getSpriteID() const;
+		virtual Point getPosition() const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

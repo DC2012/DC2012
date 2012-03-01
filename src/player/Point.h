@@ -28,6 +28,11 @@ class Point
 			y_ += rhs.getY();
 			return *this;
 		}
+
+		void print(std::ostream& os) const
+		{
+			os << "Point: x(" << x_ << ") y(" << y_ << ")" << std::endl;
+		}
 };
 
 #endif

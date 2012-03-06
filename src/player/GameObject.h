@@ -7,9 +7,9 @@
 // Abstract Base Class
 class GameObject
 {
-	private:			// private vairables will be inherited as well, no need for protected
+	protected:
 		int GObjID_;
-		int spriteID_;
+		int direction; // in degrees
 		Point pos_;
 
 	public:

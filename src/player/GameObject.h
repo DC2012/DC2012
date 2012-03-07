@@ -2,6 +2,7 @@
 #define GAMEOBJECT_H_
 
 #include "Point.h"
+#include "Degree.h"
 #include <iostream>
 
 // Abstract Base Class
@@ -9,7 +10,7 @@ class GameObject
 {
 	protected:
 		int GObjID_;
-		int direction; // in degrees
+		Degree degree_;
 		Point pos_;
 
 	public:

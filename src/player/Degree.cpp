@@ -15,3 +15,14 @@ void Degree::rotate(int degree)
 	while(degree_ < 0)
 		degree_ += 360;
 }
+
+void Degree::setDegree(int degree)
+{
+	degree_ = degree;
+	rotate(0);
+}
+
+int Degree::getDegree()
+{
+	return degree_;
+}

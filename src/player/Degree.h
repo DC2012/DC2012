@@ -6,7 +6,7 @@ class Degree
 	private:
 		int degree_;
 	public:
-		Degree(int degree);
+		explicit Degree(int degree);
 		void rotate(int degree);
 };
 

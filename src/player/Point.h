@@ -31,7 +31,7 @@ class Point
 
 		void print(std::ostream& os) const
 		{
-			os << "Point: \t\tx(" << x_ << ") y(" << y_ << ")" << std::endl;
+			os << "Point:\t\tx(" << x_ << ") y(" << y_ << ")" << std::endl;
 		}
 };
 

@@ -18,8 +18,8 @@ class GameObjectMoveable : public GameObject
 									int playerID,
 									int speed)
 		: GameObject(objID, degree, posX, posY), playerID_(playerID), speed_(speed){}
-		virtual void accelerate() = 0;
-		virtual void decelerate() = 0;
+		virtual void accelerate(int amount) = 0;
+		virtual void decelerate(int amount) = 0;
 };
 
 #endif

@@ -25,7 +25,7 @@ class GOM_Projectile : public GameObjectMoveable
 
 		// inherited from GameObjectMoveable
 		virtual void accelerate(int amount);
-		virtual void deccelerate(int amount);
+		virtual void decelerate(int amount);
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

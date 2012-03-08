@@ -23,7 +23,7 @@ void GOM_Projectile::accelerate(int amount)
 	speed_ += amount;
 }
 
-void GOM_Projectile::deccelerate(int amount)
+void GOM_Projectile::decelerate(int amount)
 {
 	speed_ -= amount;
 }

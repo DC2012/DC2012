@@ -12,5 +12,13 @@ int main()
 							  30,	// ttl
 							  100) ;// damage
 	projectile.print(std::cout);
+
+	printf("Accelerate by 10\n");
+	projectile.accelerate(10);
+	projectile.print(std::cout);
+
+	printf("Decelerate by 20\n");
+	projectile.decelerate(20);
+	projectile.print(std::cout);
 	getchar();
 }

@@ -18,12 +18,8 @@ class GameObjectMoveable : public GameObject
 									int playerID,
 									int speed)
 		: GameObject(objID, degree, posX, posY), playerID_(playerID), speed_(speed){}
-		//virtual void Accelerate() = 0;
-		//virtual void Decelerate() = 0;
-		//virtual GOPos Position() = 0;
-
-		// for testing purposes
-		virtual void print(std::ostream& os) const = 0;
+		virtual void accelerate() = 0;
+		virtual void decelerate() = 0;
 };
 
 #endif

@@ -26,12 +26,9 @@ class GameObject
 		virtual ~GameObject(){}
 
 		// getters
-		//virtual int getGObjID() const;
-		//virtual int getSpriteID() const;
-		//virtual Point getPosition() const;
-
-		// for testing purposes
-		virtual void print(std::ostream& os) const = 0;
+		//virtual int getObjID() const = 0;
+		//virtual Degree getDegree() const = 0;
+		//virtual Point getPosition() const = 0;
 };
 
 #endif

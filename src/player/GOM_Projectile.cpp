@@ -18,6 +18,16 @@ GOM_Projectile::GOM_Projectile(int objID,
 	projectileCount_++;
 }
 
+void GOM_Projectile::accelerate(int amount)
+{
+	speed_ += amount;
+}
+
+void GOM_Projectile::deccelerate(int amount)
+{
+	speed_ -= amount;
+}
+
 void GOM_Projectile::print(std::ostream& os)const
 {
 	os << "Number #" << projectileCount_ << " projectile" << std::endl;

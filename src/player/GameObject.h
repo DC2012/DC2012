@@ -9,28 +9,26 @@
 class GameObject
 {
 	protected:
-		int GObjID_;
+		int objID_;
 		Degree degree_;
 		Point pos_;
 
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int GObjID = 0,
-							int spriteID = 0,
-							int posX = 0,
-							int posY = 0);
+		explicit GameObject(int objID,
+							int degree,
+							int posX,
+							int posY)
+		: objID_(objID), degree_(degree), pos_(posX, posY){}
 
 		// default destructor
 		virtual ~GameObject(){}
 
 		// getters
-		virtual int getGObjID() const;
-		virtual int getSpriteID() const;
-		virtual Point getPosition() const;
-
-		// for testing purposes
-		virtual void print(std::ostream& os) const;
+		//virtual int getObjID() const = 0;
+		//virtual Degree getDegree() const = 0;
+		//virtual Point getPosition() const = 0;
 };
 
 #endif

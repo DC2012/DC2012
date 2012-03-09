@@ -14,12 +14,17 @@ class DlgConnection : public QDialog
 public:
     explicit DlgConnection(QWidget *parent = 0);
     ~DlgConnection();
-    std::string getIP();
-    std::string getPort();
+    QString getIP();
+    QString getPort();
+    QString getUsername();
+
+    void setIP(QString addr);
+    void setPort(QString port);
+    void setUsername(QString name);
     
 private:
     Ui::DlgConnection *ui;
-    QString port, name;
+    QString server_port, server_addr, username;
 
 public slots:
     void connectTo();

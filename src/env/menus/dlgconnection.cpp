@@ -24,7 +24,38 @@ void DlgConnection::connectTo()
     /* remove this whenever */
     QMessageBox mBox;
 
-    mBox.setText("Woo did something");
+    setUsername(ui->lineUsername->text());
+
+    mBox.setText(getUsername());
     mBox.exec();
+}
+
+void DlgConnection::setUsername(QString name)
+{
+    this->username = name;
+}
+void DlgConnection::setPort(QString port)
+{
+    this->server_port = port;
+}
+void DlgConnection::setIP(QString ip)
+{
+    this->server_addr = ip;
+}
+
+
+QString DlgConnection::getUsername()
+{
+    return this->username;
+}
+
+QString DlgConnection::getIP()
+{
+    return this->server_addr;
+}
+
+QString DlgConnection::getPort()
+{
+    return this->server_port;
 }
 

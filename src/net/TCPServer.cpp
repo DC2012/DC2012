@@ -61,6 +61,7 @@ bool TCPServer::startListen(unsigned short port)
 void TCPServer::doRead(int numReady, fd_set* pReadySet)
 {
   std::map<int, in_addr>::iterator it;
+  pthread_mutex_lock(&clientMapMutex_);
   for(it = clientMap_.begin(); it != clientMap_.end(); it++)
   {
     if(FD_ISSET(it->first, pReadySet))
@@ -72,6 +73,7 @@ void TCPServer::doRead(int numReady, fd_set* pReadySet)
       }      
     }
   }
+  pthread_mutex_unlock(&clientMapMutex_);
 }
 
 void TCPServer::shutdown()
@@ -92,16 +94,20 @@ void TCPServer::addClient(int& maxfd)
     maxfd = newSocket; 
   }
   FD_SET(newSocket, &allSet_);
+  pthread_mutex_lock(&clientMapMutex_);
   clientMap_[newSocket] = clientAddress.sin_addr;
+  pthread_mutex_unlock(&clientMapMutex_);
 }
 
 void TCPServer::write(Message* message)
 {
   std::map<int, in_addr>::iterator it;
+  pthread_mutex_lock(&clientMapMutex_);
   for(it = clientMap_.begin(); it != clientMap_.end(); it++)
   {
     TCPConnection::write(it->first, message);
-  }  
+  }
+  pthread_mutex_unlock(&clientMapMutex_);
 }
 
 

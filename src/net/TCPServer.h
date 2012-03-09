@@ -26,12 +26,15 @@ class TCPServer
     {
       if(instance_ == 0)
       {
-	instance_ = new TCPServer(q);
+        instance_ = new TCPServer(q);
       }
       return instance_;
     }
   private:
-    TCPServer(BlockingQueue* q):running_(false), q_(q){}
+    TCPServer(BlockingQueue* q):running_(false), q_(q)
+    {
+      pthread_mutex_init(&clientMapMutex_, 0);
+    }
     static void* startThread(void* param);
     void listenRead();
     void addClient(int& maxfd);
@@ -45,6 +48,7 @@ class TCPServer
     bool running_;
     BlockingQueue* q_;
     pthread_t readThread_;
+    pthread_mutex_t clientMapMutex_;
 };
 
 

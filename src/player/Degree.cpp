@@ -22,7 +22,7 @@ void Degree::setDegree(int degree)
 	rotate(0);
 }
 
-int Degree::getDegree()
+int Degree::getDegree()const
 {
 	return degree_;
 }

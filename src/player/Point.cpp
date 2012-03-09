@@ -18,7 +18,7 @@ Point& Point::operator+=(const Point& rhs)
 	return *this;
 }
 
-void Point::print(std::ostream& os)
+void Point::print(std::ostream& os)const
 {
 	os << "Point:\t\tx(" << x_ << ") y(" << y_ << ")" << std::endl;
 }

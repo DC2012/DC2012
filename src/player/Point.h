@@ -37,7 +37,7 @@ class Point
 		int getX();
 		int getY();
 		Point& operator+=(const Point& rhs); // adding two Points
-		void print(std::ostream& os);
+		void print(std::ostream& os)const;
 };
 
 #endif

@@ -30,5 +30,5 @@ void GOM_Projectile::print(std::ostream& os)const
 	os << "playerID:\t" << playerID_ << std::endl;
 	os << "speed:\t\t" << speed_ << std::endl;
 	os << "ttl:\t\t" << ttl_ << std::endl;
-	os << "damage:\t\t" << damage_ << std::endl;
+	os << "damage:\t\t" << damage_ << std::endl << std::endl << std::endl;
 }

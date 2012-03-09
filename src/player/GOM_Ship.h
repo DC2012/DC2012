@@ -35,6 +35,7 @@ class GOM_Ship : public GameObjectMoveable
 	private:
 		int health_;
 		int attackPower_;
+		static size_t shipCount_;
 		
 	public:
 		//constructor

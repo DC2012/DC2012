@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					GOS_PowerUp
+--	PARENT CLASS:
+--					GameObjectStationary
 --	CONSTRUCTOR:
 --
 --	DESTROCTOR:
@@ -10,13 +10,19 @@
 --	FUNCTIONS:
 --
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	PROGRAMMER:
---
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GOS_POWERUP_H_

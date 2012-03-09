@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					GOM_Ship
+--	PARENT CLASS:
+--					GameObjectMoveable
 --	CONSTRUCTOR:
 --
 --	DESTROCTOR:
@@ -10,13 +10,19 @@
 --	FUNCTIONS:
 --
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	PROGRAMMER:
---
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GOM_SHIP_H_

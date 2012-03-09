@@ -1,22 +1,23 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					Point
 --	CONSTRUCTOR:
---
+--					Point(int x, int y)
 --	DESTROCTOR:
---
+--					Default
 --	FUNCTIONS:
---
+--					int getX()
+--					int getY()
+--					Point & operator+=(const Point &rhs)
+--					void print(std::ostream &os)
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Po Hsu
 --	PROGRAMMER:
---
+--					Po Hsu
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GOPOS_H_

@@ -1,22 +1,28 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					GameObjectStationary
+--	PARENT CLASS:
+--					GameObject
 --	CONSTRUCTOR:
---
+--					GameObjectStationary(int objID, int degree, int posX, int posY)
 --	DESTROCTOR:
 --
 --	FUNCTIONS:
 --
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	PROGRAMMER:
---
+--					Aiko Rose
+--					Po Hsu
+--					Roger Fan
+--					Zach Smoroden
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GAMEOBJECTSTATIONARY_H_

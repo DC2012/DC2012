@@ -1,6 +1,4 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---					GameObject.h
 --	CLASS NAME:
 --					GameObject
 --	CONSTRUCTOR:
@@ -13,7 +11,7 @@
 --					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
+--	DESIGNER:
 --					Aiko Rose
 --					Po Hsu
 --					Roger Fan

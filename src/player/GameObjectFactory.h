@@ -1,8 +1,6 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					GameObjectFactory
 --	CONSTRUCTOR:
 --
 --	DESTROCTOR:
@@ -10,13 +8,13 @@
 --	FUNCTIONS:
 --
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Zach Smoroden
 --	PROGRAMMER:
---
+--					Zach Smoroden
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GAMEOBJECTMOVEABLE_H_

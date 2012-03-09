@@ -1,22 +1,22 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:
---
 --	CLASS NAME:
---
+--					Degree
 --	CONSTRUCTOR:
---
+--					Degree(int degree)
 --	DESTROCTOR:
---
+--					Default
 --	FUNCTIONS:
---
+--					void rotate(int degree)
+--					void setDegree(int degree)
+--					int getDegree()
 --	DATE:
---
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:
---
+--	DESIGNER:
+--					Roger Fan
 --	PROGRAMMER:
---
+--					Roger Fan
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef DEGREE_H_

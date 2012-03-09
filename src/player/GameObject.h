@@ -1,28 +1,28 @@
 /*----------------------------------------------------------------------
---	SORCE FILE:		GameObject.h
---
---	CLASS NAME:		GameObject
---
---	CONSTRUCTOR:	GameObject(int objID, int degree, int posX, int posY)
---
---	DESTROCTOR:		~GameObject()
---
+--	SORCE FILE:
+--					GameObject.h
+--	CLASS NAME:
+--					GameObject
+--	CONSTRUCTOR:
+--					GameObject(int objID, int degree, int posX, int posY)
+--	DESTROCTOR:
+--					~GameObject()
 --	FUNCTIONS:
 --
---	DATE:			March 9, 2012
---
+--	DATE:
+--					March 9, 2012
 --	REVISIONS:
 --
---	DESIGNERS:		Aiko Rose
+--	DESIGNERS:
+--					Aiko Rose
 --					Po Hsu
 --					Roger Fan
 --					Zach Smoroden
---
---	PROGRAMMER:		Aiko Rose
+--	PROGRAMMER:		
+--					Aiko Rose
 --					Po Hsu
 --					Roger Fan
 --					Zach Smoroden
---
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GAMEOBJECT_H_

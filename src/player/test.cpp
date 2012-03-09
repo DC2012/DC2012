@@ -14,8 +14,14 @@ int main()
 							  30,	// ttl
 							  100) ;// damage
 	projectile.print(std::cout);
+	printf("decelerate by 10\n");
+	projectile.decelerate(10);
+	projectile.print(std::cout);
 
 	GOM_Ship ship(234,0,6,6,2,30,1,100,77) ;
+	ship.print(std::cout);
+	printf("accelerate by 20\n");
+	ship.accelerate(20);
 	ship.print(std::cout);
 	getchar();
 }

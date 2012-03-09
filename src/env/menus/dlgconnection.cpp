@@ -16,23 +16,15 @@ DlgConnection::~DlgConnection()
     delete ui;
 }
 
-/*
-string DlgConnection::getPort()
+/* This is where we will pull the user's info from
+  IP, Port and Username
+*/
+void DlgConnection::connectTo()
 {
-    return;
-
-}
-
-string DlgConnection::getIP()
-{
-    return;
-}
-
-void DlgConnection::on_pushButton_Connect()
-{
+    /* remove this whenever */
     QMessageBox mBox;
 
     mBox.setText("Woo did something");
     mBox.exec();
 }
-*/
+

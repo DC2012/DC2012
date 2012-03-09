@@ -21,8 +21,8 @@ private:
     Ui::DlgConnection *ui;
     QString port, name;
 
-private slots:
-
+public slots:
+    void connectTo();
 };
 
 #endif // DLGCONNECTION_H

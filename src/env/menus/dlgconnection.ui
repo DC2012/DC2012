@@ -101,14 +101,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_connect</sender>
+   <sender>pushButton_cancel</sender>
    <signal>clicked()</signal>
    <receiver>DlgConnection</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>156</x>
-     <y>102</y>
+     <x>50</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>109</x>
@@ -116,5 +116,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_connect</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgConnection</receiver>
+   <slot>connectTo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>97</x>
+     <y>86</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>connectTo()</slot>
+ </slots>
 </ui>

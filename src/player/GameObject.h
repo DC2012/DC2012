@@ -16,11 +16,11 @@ class GameObject
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int objID,
-							int degree,
-							int posX,
-							int posY)
-		: objID_(objID), degree_(degree), pos_(posX, posY){}
+		explicit GameObject(	int objID,
+								int degree,
+								int posX,
+								int posY)
+		:objID_(objID), degree_(degree), pos_(posX, posY){}
 
 		// default destructor
 		virtual ~GameObject(){}

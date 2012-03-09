@@ -1,3 +1,24 @@
+/*----------------------------------------------------------------------
+--	SORCE FILE:
+--
+--	CLASS NAME:
+--
+--	CONSTRUCTOR:
+--
+--	DESTROCTOR:
+--
+--	FUNCTIONS:
+--
+--	DATE:
+--
+--	REVISIONS:
+--
+--	DESIGNERS:
+--
+--	PROGRAMMER:
+--
+--	NOTES:
+----------------------------------------------------------------------*/
 #ifndef GOM_SHIP_H_
 #define GOM_SHIP_H_
 

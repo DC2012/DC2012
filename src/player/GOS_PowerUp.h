@@ -1,3 +1,24 @@
+/*----------------------------------------------------------------------
+--	SORCE FILE:
+--
+--	CLASS NAME:
+--
+--	CONSTRUCTOR:
+--
+--	DESTROCTOR:
+--
+--	FUNCTIONS:
+--
+--	DATE:
+--
+--	REVISIONS:
+--
+--	DESIGNERS:
+--
+--	PROGRAMMER:
+--
+--	NOTES:
+----------------------------------------------------------------------*/
 #ifndef GOS_POWERUP_H_
 #define GOS_POWERUP_H_
 

@@ -1,3 +1,24 @@
+/*----------------------------------------------------------------------
+--	SORCE FILE:
+--
+--	CLASS NAME:
+--
+--	CONSTRUCTOR:
+--
+--	DESTROCTOR:
+--
+--	FUNCTIONS:
+--
+--	DATE:
+--
+--	REVISIONS:
+--
+--	DESIGNERS:
+--
+--	PROGRAMMER:
+--
+--	NOTES:
+----------------------------------------------------------------------*/
 #ifndef DEGREE_H_
 #define DEGREE_H_
 

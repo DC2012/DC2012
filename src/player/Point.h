@@ -1,3 +1,24 @@
+/*----------------------------------------------------------------------
+--	SORCE FILE:
+--
+--	CLASS NAME:
+--
+--	CONSTRUCTOR:
+--
+--	DESTROCTOR:
+--
+--	FUNCTIONS:
+--
+--	DATE:
+--
+--	REVISIONS:
+--
+--	DESIGNERS:
+--
+--	PROGRAMMER:
+--
+--	NOTES:
+----------------------------------------------------------------------*/
 #ifndef GOPOS_H_
 #define GOPOS_H_
 #include <iostream>

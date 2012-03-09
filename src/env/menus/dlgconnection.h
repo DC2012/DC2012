@@ -22,7 +22,7 @@ private:
     QString port, name;
 
 private slots:
-    void DlgConnection::on_pushButton_Connect();
+
 };
 
 #endif // DLGCONNECTION_H

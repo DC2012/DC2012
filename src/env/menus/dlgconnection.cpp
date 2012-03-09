@@ -16,6 +16,7 @@ DlgConnection::~DlgConnection()
     delete ui;
 }
 
+/*
 string DlgConnection::getPort()
 {
     return;
@@ -34,3 +35,4 @@ void DlgConnection::on_pushButton_Connect()
     mBox.setText("Woo did something");
     mBox.exec();
 }
+*/

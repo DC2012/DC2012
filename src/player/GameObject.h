@@ -26,9 +26,9 @@ class GameObject
 		virtual ~GameObject(){}
 
 		// getters
-		//virtual int getObjID() const = 0;
-		//virtual Degree getDegree() const = 0;
-		//virtual Point getPosition() const = 0;
+		int getObjID();
+		Degree getDegree();
+		Point getPosition();
 };
 
 #endif

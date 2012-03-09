@@ -1,4 +1,6 @@
 #include "TCPServer.h"
+#include "Server.h"
+
 TCPServer* TCPServer::instance_ = 0;
 
 void* TCPServer::startThread(void* param)
@@ -96,6 +98,7 @@ void TCPServer::addClient(int& maxfd)
   FD_SET(newSocket, &allSet_);
   pthread_mutex_lock(&clientMapMutex_);
   clientMap_[newSocket] = clientAddress.sin_addr;
+  Server::getInstance()->updateClientList();
   pthread_mutex_unlock(&clientMapMutex_);
 }
 
@@ -108,6 +111,11 @@ void TCPServer::write(Message* message)
     TCPConnection::write(it->first, message);
   }
   pthread_mutex_unlock(&clientMapMutex_);
+}
+
+std::map<int, in_addr> TCPServer::getClients()
+{
+  return clientMap_;
 }
 
 

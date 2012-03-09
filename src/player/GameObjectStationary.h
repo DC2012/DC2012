@@ -11,7 +11,7 @@ class GameObjectStationary : public GameObject
 										int degree,
 										int posX,
 										int posY)
-		: GameObject(objID, degree, posX, posY) {}
+		:GameObject(objID, degree, posX, posY){}
 };
 
 #endif

@@ -19,7 +19,7 @@ class TCPServer
 {
   public:
     bool startListen(unsigned short port);
-    void write(const Message& message);
+    void write(Message* message);
     void shutdown();
     std::map<int, in_addr> getClients(){return clientMap_;}
     static TCPServer* getInstance(BlockingQueue* q)

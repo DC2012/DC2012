@@ -95,4 +95,13 @@ void TCPServer::addClient(int& maxfd)
   clientMap_[newSocket] = clientAddress.sin_addr;
 }
 
+void TCPServer::write(Message* message)
+{
+  std::map<int, in_addr>::iterator it;
+  for(it = clientMap_.begin(); it != clientMap_.end(); it++)
+  {
+    TCPConnection::write(it->first, message);
+  }  
+}
+
 

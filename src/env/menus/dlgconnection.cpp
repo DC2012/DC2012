@@ -25,11 +25,16 @@ void DlgConnection::connectTo()
     QMessageBox mBox;
 
     setUsername(ui->lineUsername->text());
+    setIP(ui->lineServerIP->text());
+    setPort(ui->lineServerPort->text());
 
-    mBox.setText(getUsername());
+    mBox.setText("This is where we Connec to server");
     mBox.exec();
-}
 
+}
+/* Setters
+*   Will probably want to do Data Validation here too
+*/
 void DlgConnection::setUsername(QString name)
 {
     this->username = name;
@@ -43,6 +48,9 @@ void DlgConnection::setIP(QString ip)
     this->server_addr = ip;
 }
 
+/* Getters
+* Returns the values that are stored in the DlgConnection class
+*/
 
 QString DlgConnection::getUsername()
 {

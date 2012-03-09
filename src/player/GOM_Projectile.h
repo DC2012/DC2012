@@ -11,14 +11,8 @@ class GOM_Projectile : public GameObjectMoveable
 		static size_t projectileCount_;
 	public:
 		// contructor
-		explicit GOM_Projectile(	int GObjID		= 0,
-									int degree		= 0,
-									int posX		= 0,
-									int posY		= 0,
-									int playerID	= 0,
-									int speed		= 0,
-									int ttl			= 0,
-									int damage		= 0);
+		explicit GOM_Projectile(int GObjID = 0, int degree = 0, int posX = 0, int posY = 0, 
+			int playerID = 0, int speed = 0, int ttl = 0, int damage = 0);
 
 		// destructor
 		virtual ~GOM_Projectile(){}

@@ -9,12 +9,7 @@ class GameObjectMoveable : public GameObject
 		int playerID_;
 		int speed_;
 	public:
-		explicit GameObjectMoveable(	int objID,
-										int degree,
-										int posX,
-										int posY,
-										int playerID,
-										int speed)
+		explicit GameObjectMoveable(int objID, int degree, int posX, int posY, int playerID, int speed)
 		:GameObject(objID, degree, posX, posY), playerID_(playerID), speed_(speed){}
 		
 		// virtual void accelerate(int amount) = 0;

@@ -15,7 +15,7 @@ int main()
 							  100) ;// damage
 	projectile.print(std::cout);
 
-	GOM_Ship ship(234,0,6,6,2,30,100,77) ;
+	GOM_Ship ship(234,0,6,6,2,30,1,100,77) ;
 	ship.print(std::cout);
 	getchar();
 }

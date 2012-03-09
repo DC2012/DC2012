@@ -12,27 +12,10 @@ class Point
 		// explicit to indicate no implicit conversion
 		explicit Point(int x = 0, int y = 0): x_(x), y_(y) {}
 
-		int getX() const
-		{
-			return x_;
-		}
-
-		int getY() const
-		{
-			return y_;
-		}
-
-		// adding two Points
-		Point& operator+=(const Point& rhs) {
-			x_ += rhs.getX();
-			y_ += rhs.getY();
-			return *this;
-		}
-
-		void print(std::ostream& os) const
-		{
-			os << "Point:\t\tx(" << x_ << ") y(" << y_ << ")" << std::endl;
-		}
+		int getX();
+		int getY();
+		Point& operator+=(const Point& rhs); // adding two Points
+		void print(std::ostream& os);
 };
 
 #endif

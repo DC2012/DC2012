@@ -3,7 +3,6 @@
 #include <iostream>
 
 // testing functionality of the GOM_Projectile class 2012/03/08 -Po
-//
 int main()
 {
 	GOM_Projectile projectile(123,	// object id

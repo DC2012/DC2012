@@ -35,7 +35,7 @@ class GOS_Obstacle : public GameObjectStationary
 	private:
 	public:
 		// constructor for now
-		explicit GOS_Obstacle(int objID = 0, int degree = 0, int posX = 0, int posY = 0);
+		explicit GOS_Obstacle(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0);
 
 		// destructor
 		virtual ~GOS_Obstacle(){}

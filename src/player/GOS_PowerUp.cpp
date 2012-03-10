@@ -1,8 +1,8 @@
 #include "GOS_PowerUp.h"
 
 // constructor
-GOS_PowerUp::GOS_PowerUp(int objID, int degree, int posX, int posY)
-: GameObjectStationary(objID, degree, posX, posY)
+GOS_PowerUp::GOS_PowerUp(int objID, int type, int degree, int posX, int posY)
+: GameObjectStationary(objID, type, degree, posX, posY)
 {
 	// empty for now
 }

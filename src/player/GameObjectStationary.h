@@ -34,8 +34,8 @@ class GameObjectStationary : public GameObject
 {
 	protected:
 	public:
-		explicit GameObjectStationary(int objID, int degree, int posX, int posY)
-		:GameObject(objID, degree, posX, posY){}
+		explicit GameObjectStationary(int objID, int type, int degree, int posX, int posY)
+		:GameObject(objID, type, degree, posX, posY){}
 };
 
 #endif

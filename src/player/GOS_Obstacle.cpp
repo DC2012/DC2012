@@ -1,8 +1,8 @@
 #include "GOS_Obstacle.h"
 
 // constructor
-GOS_Obstacle::GOS_Obstacle(int objID, int degree, int posX, int posY)
-: GameObjectStationary(objID, degree, posX, posY)
+GOS_Obstacle::GOS_Obstacle(int objID, int type, int degree, int posX, int posY)
+: GameObjectStationary(objID, type, degree, posX, posY)
 {
 	// empty for now
 }

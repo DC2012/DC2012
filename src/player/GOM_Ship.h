@@ -33,15 +33,14 @@
 class GOM_Ship : public GameObjectMoveable
 {
 	private:
-		int type_;
 		int health_;
 		int attackPower_;
 		static size_t shipCount_;
 		
 	public:
 		//constructor
-		explicit GOM_Ship(int GObjID = 0, int degree = 0, int posX = 0, int posY = 0, 
-			int playerID = 0, int speed = 0, int type = 0, int health = 0, int attackPower = 0);
+		explicit GOM_Ship(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0, 
+			int playerID = 0, int speed = 0, int health = 0, int attackPower = 0);
 		// destructor
 		virtual ~GOM_Ship(){}
 

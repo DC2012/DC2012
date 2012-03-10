@@ -35,20 +35,22 @@ class GameObject
 {
 	protected:
 		int objID_;
+		int type_;
 		Degree degree_;
 		Point pos_;
 
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int objID, int degree, int posX, int posY)
-		:objID_(objID), degree_(degree), pos_(posX, posY){}
+		explicit GameObject(int objID, int type, int degree, int posX, int posY)
+		:objID_(objID), type_(type), degree_(degree), pos_(posX, posY){}
 
 		// default destructor
 		virtual ~GameObject(){}
 
 		// getters
 		int getObjID();
+		int getType();
 		Degree getDegree();
 		Point getPosition();
 };

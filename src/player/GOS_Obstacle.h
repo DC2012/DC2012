@@ -33,6 +33,7 @@
 class GOS_Obstacle : public GameObjectStationary
 {
 	private:
+		static size_t obstacleCount_;
 	public:
 		// constructor for now
 		explicit GOS_Obstacle(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0);

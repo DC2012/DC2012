@@ -33,6 +33,7 @@
 class GOS_PowerUp : public GameObjectStationary
 {
 	private:
+		static size_t powerUpCount_;
 	public:
 		// constructor for now
 		explicit GOS_PowerUp(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0);

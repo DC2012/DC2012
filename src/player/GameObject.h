@@ -22,6 +22,7 @@
 --					Roger Fan
 --					Zach Smoroden
 --	NOTES:
+--
 ----------------------------------------------------------------------*/
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_

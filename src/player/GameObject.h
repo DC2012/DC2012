@@ -53,6 +53,9 @@ class GameObject
 		int getType();
 		Degree getDegree();
 		Point getPosition();
+
+		// for testing purposes
+		virtual void print(std::ostream& os) const;
 };
 
 #endif

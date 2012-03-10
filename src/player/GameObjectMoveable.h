@@ -41,6 +41,9 @@ class GameObjectMoveable : public GameObject
 		
 		virtual void accelerate(int amount) = 0;
 		virtual void decelerate(int amount) = 0;
+
+		// for testing purposes
+		virtual void print(std::ostream& os) const;
 };
 
 #endif

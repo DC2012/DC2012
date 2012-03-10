@@ -19,3 +19,11 @@ Point GameObject::getPosition()
 {
 	return pos_;
 }
+
+void GameObject::print(std::ostream& os)const
+{
+	os << "objID:\t\t" << objID_ << std::endl;
+	os << "type:\t\t" << type_ << std::endl;
+	os << "degree:\t\t" << degree_.getDegree() << std::endl;
+	pos_.print(os);
+}

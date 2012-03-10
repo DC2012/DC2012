@@ -24,12 +24,7 @@ void GOM_Projectile::decelerate(int amount)
 void GOM_Projectile::print(std::ostream& os)const
 {
 	os << "Number #" << projectileCount_ << " projectile" << std::endl;
-	os << "objID:\t\t" << objID_ << std::endl;
-	os << "type:\t\t" << type_ << std::endl;
-	os << "degree:\t\t" << degree_.getDegree() << std::endl;
-	pos_.print(os);
-	os << "playerID:\t" << playerID_ << std::endl;
-	os << "speed:\t\t" << speed_ << std::endl;
+	GameObjectMoveable::print(os);
 	os << "ttl:\t\t" << ttl_ << std::endl;
 	os << "damage:\t\t" << damage_ << std::endl << std::endl << std::endl;
 }

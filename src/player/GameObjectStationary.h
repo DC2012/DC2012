@@ -36,6 +36,9 @@ class GameObjectStationary : public GameObject
 	public:
 		explicit GameObjectStationary(int objID, int type, int degree, int posX, int posY)
 		:GameObject(objID, type, degree, posX, posY){}
+
+		// for testing purposes
+		virtual void print(std::ostream& os) const;
 };
 
 #endif

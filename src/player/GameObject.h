@@ -49,10 +49,10 @@ class GameObject
 		virtual ~GameObject(){}
 
 		// getters
-		int getObjID();
-		int getType();
-		Degree getDegree();
-		Point getPosition();
+		int getObjID() const;
+		int getType() const;
+		Degree getDegree() const;
+		Point getPosition() const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

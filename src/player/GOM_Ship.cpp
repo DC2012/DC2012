@@ -10,6 +10,11 @@ GOM_Ship::GOM_Ship(int objID, int type, int degree,int posX, int posY,
 {
 	shipCount_++;
 }
+
+int GOM_Ship::getHealth()const
+{
+	return health_;
+}
     
 void GOM_Ship::accelerate(int amount)
 {

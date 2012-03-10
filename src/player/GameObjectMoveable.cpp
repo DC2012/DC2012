@@ -1,5 +1,15 @@
 #include "GameObjectMoveable.h"
 
+int GameObjectMoveable::getPlayerID()const
+{
+	return playerID_;
+}
+
+int GameObjectMoveable::getSpeed()const
+{
+	return speed_;
+}
+
 void GameObjectMoveable::print(std::ostream& os)const
 {
 	GameObject::print(os);

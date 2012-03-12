@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     QMap<int , GameObjectMoveable*> ships;
 
     //server assigns ship ID later
-    GOM_ship *myship;
+    GOM_Ship *myship;
 
     //QMap<int, int> bullets;
     //keyInput k;

@@ -7,6 +7,6 @@
 #include "keyinput.h"
 #include "mouseEvent.h"
 #include "../../gamemap.h"
-#include "GameObjectMoveable.h"
-#include "GOM_Ship.h"
+#include "../../../player/GameObjectMoveable.h"
+#include "../../../player/GOM_Ship.h"
 #endif // MAIN_H

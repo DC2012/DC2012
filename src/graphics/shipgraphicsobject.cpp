@@ -33,7 +33,12 @@ class ShipGraphicsObject : public GraphicsObject {
 
     }
 /**
+<<<<<<< HEAD
   Gets all the object's information
+=======
+  Gets all the object's info. These methods need to be provided by
+  the team creating the objects.
+>>>>>>> 9094163dbc18e55838ccfd5443a5922597374f49
   */
     void update(GameObject* obj) {
         position_ = obj->getPosition();

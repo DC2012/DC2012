@@ -38,13 +38,13 @@ class GameObjectFactory
 			  return 0;
 			if (type == "P")
 			{
-				*in_ >> objID >> degree >> posX >> playerID >> speed >> ttl >> damage;
+				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> damage;
 				return new GOM_Projectile(objId, degree, posX, posY, playerID, speed, ttl, damage);
 			}
 			  
 			if (type == "S")
 			{
-				*in_ >> objID >> degree >> posX >> playerID >> speed >> health >> attackPower;
+				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> health >> attackPower;
 				return new GOM_Ship(objId, degree, posX, posY, playerID, speed, health, attackPower);
 			}
 			  

@@ -11,7 +11,7 @@ class GraphicsObject
 {
 public:
     GraphicsObject();
-    virtual void draw(GameObject*);
+    virtual void draw(GameObject* obj);
 private:
     virtual ~GraphicsObject();
 };

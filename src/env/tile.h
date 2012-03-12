@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include "Point.h"
+#include "../../../player/Point.h"
 #include "TileGraphicObject.h"
 
 

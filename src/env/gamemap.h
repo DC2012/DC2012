@@ -5,8 +5,9 @@
 #include <qmap.h>
 #include <qlist.h>
 #include <qstring.h>
+#include "tile.h"
 
-#include "GameObjectStationary.h"
+#include "../../../player/GameObjectStationary.h"
 #include "landtile.h"
 #include "seatile.h"
 
@@ -21,7 +22,7 @@ class GameMap
     private:
         QFile                           xmlMap_;
         QMap<int, GameObjectStationary> mapObjects_;
-        Tile[][]                        gameTiles_;
+        Tile                        gameTiles_[][];
 
 };
 

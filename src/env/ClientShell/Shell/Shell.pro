@@ -22,6 +22,11 @@ HEADERS  += \
     mouseEvent.h \
     shipcomponent.h \
     client.h \
-    ../../gamemap.h
+    ../../gamemap.h \
+    ../../tile.h \
+    ../../../player/Point.h \
+    ../../../player/GameObjectMoveable.h \
+    ../../../player/GameObjectStationary.h \
+    ../../../player/GOM_Ship.h
 
 FORMS    +=

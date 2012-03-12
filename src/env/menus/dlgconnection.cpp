@@ -16,8 +16,9 @@ DlgConnection::~DlgConnection()
     delete ui;
 }
 
-/* This is where we will pull the user's info from
-  IP, Port and Username
+/*
+*   This is where we will pull the user's info from
+*   IP, Port and Username
 */
 void DlgConnection::connectTo()
 {
@@ -49,7 +50,7 @@ void DlgConnection::setIP(QString ip)
 }
 
 /* Getters
-* Returns the values that are stored in the DlgConnection class
+*   Returns the values that are stored in the DlgConnection class
 */
 
 QString DlgConnection::getUsername()

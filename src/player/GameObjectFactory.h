@@ -34,28 +34,32 @@ class GameObjectFactory
 		{
 			std::string type;
 			int objID, degree, posX, posY, playerID, speed, health, ttl, damage, attackPower;
+            int type;
 			if (!(*in_ >> type))
 			  return 0;
+            //Projectile
 			if (type == "P")
 			{
-				*in_ >> objID >> degree >> posX >> playerID >> speed >> ttl >> damage;
+				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> damage;
 				return new GOM_Projectile(objId, degree, posX, posY, playerID, speed, ttl, damage);
 			}
-			  
+			//Ship
 			if (type == "S")
 			{
-				*in_ >> objID >> degree >> posX >> playerID >> speed >> health >> attackPower;
+				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> health >> attackPower;
 				return new GOM_Ship(objId, degree, posX, posY, playerID, speed, health, attackPower);
 			}
-			  
+			//Obstacle  
 			if (type == "O")
 			{
-				return new GOS_Obstacle(*in_);
+                *in_ >> objID >> type >> degree >> posX >> posY;
+				return new GOS_Obstacle(objId, type, degree, posX, posY);
 			}
-			  
+			//Powerup  
 			if (type == "B")
 			{
-				return new GOS_Powerup(*in_);
+                *in_ >> objID >> type >> degree >> posX >> posY;
+				return new GOS_Powerup(objId, type, degree, posX, posY);
 			}
 			
 			return 0;  // if it's not one of the valid types

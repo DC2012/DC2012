@@ -30,7 +30,7 @@ class Degree
 		explicit Degree(int degree);
 		void rotate(int degree);
 		void setDegree(int degree);
-		int getDegree()const;
+		int getValue()const;
 };
 
 #endif

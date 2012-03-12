@@ -33,10 +33,16 @@
 class GOS_Obstacle : public GameObjectStationary
 {
 	private:
+		static size_t obstacleCount_;
 	public:
-		// constructor for now.. will be adding more stuffs to the class later
-		explicit GOS_Obstacle(int objID, int degree, int posX, int posY)
-		:GameObject(objID, degree, posX, posY){}
+		// constructor for now
+		explicit GOS_Obstacle(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0);
+
+		// destructor
+		virtual ~GOS_Obstacle(){}
+
+		// for testing purposes
+		virtual void print(std::ostream& os) const;
 };
 
 #endif

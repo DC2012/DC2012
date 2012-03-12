@@ -18,6 +18,7 @@ private:
     int pixmapIndex_;
     int animateState_;
     int previousState_;
+    int animateCounter_;
     int speed_;
     Point position_;
     void update(GameObject* obj);

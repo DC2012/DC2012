@@ -10,7 +10,7 @@ class ShipGraphicsObject : public GraphicsObject {
         speed_ = 0;
         animateState_ = NO_ANIMATION;
         previousState = NO_ANIMATION;
-
+        initGraphics();
     }
 
     ~ShipGraphicsObject() {
@@ -33,7 +33,7 @@ class ShipGraphicsObject : public GraphicsObject {
 
     }
 /**
-  Gets all the objects
+  Gets all the object's information
   */
     void update(GameObject* obj) {
         position_ = obj->getPosition();
@@ -50,12 +50,17 @@ class ShipGraphicsObject : public GraphicsObject {
         case 0:
             return;
         }
+        case 1:
+            for(animateCounter = 0; animateCounter < 4; animateCounter++) {
+                pixmapIndex
+            }
+            break;
         previousState_ = flag;
     }
 /**
   This method will return the current pixmap item so that it can be added to the scene.
   */
-    QGraphicsPixmapItem getPixmap() {
+    QGraphicsPixmapItem getPixmapItem() {
         return currentPixmapItem_;
     }
 }

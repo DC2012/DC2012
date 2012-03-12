@@ -21,6 +21,7 @@ HEADERS  += \
     keyinput.h \
     mouseEvent.h \
     shipcomponent.h \
-    client.h
+    client.h \
+    ../../gamemap.h
 
 FORMS    +=

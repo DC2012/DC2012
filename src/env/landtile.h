@@ -7,10 +7,12 @@ class LandTile : public Tile
 {
     public:
         LandTile();
+        LandTile(Point point);
 
     private:
-        int     type;
-        Point   position_;
+        int                 type_;
+        Point               position_;
+        TileGraphicObject   graphic_;
 };
 
 #endif // LANDTILE_H

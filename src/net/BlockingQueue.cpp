@@ -2,52 +2,53 @@
 
 BlockingQueue::BlockingQueue()
 {
-  key_t cntkey, binkey;
-  if((cntkey = ftok(".", 'a')) == -1)
+  key_t cntkey;
+  if((cntkey = ftok(".", (int)getpid())) == -1)
   {
     throw "cntkey ftok failed";
   }
-  if((binkey = ftok(".", 'b')) == -1)
-  {
-    throw "binkey ftok failed";
-  }
-  if((cntsemid_ = initsem(cntkey)) == -1)
+  if((cntsemid_ = initsem(cntkey, 0)) == -1)
   {
     throw "cnt initsem failed";
   }
-  if((binsemid_ = initsem(binkey)) == -1)
-  {
-    throw "bin initsem failed";
-  }
-  V(binsemid_);
+  pthread_mutex_init(&queueLock, 0);
 }
 
 BlockingQueue::~BlockingQueue()
 {
-  P(binsemid_);//wait till not in use
+  pthread_mutex_lock(&queueLock);//wait till not in use
   while(!q_.empty())//remove all messages
   {
     delete q_.front();
     q_.pop();
   }
-  closeSem(binsemid_);
+  pthread_mutex_unlock(&queueLock);
+  pthread_mutex_destroy(&queueLock);
   closeSem(cntsemid_);
 }
 
-void BlockingQueue::push(Message* t)
+void BlockingQueue::push(Message* m)
 {
-  P(binsemid_);//get queue lock
-  q_.push(t);
+  pthread_mutex_lock(&queueLock);//get queue lock
+  q_.push(m);
   V(cntsemid_); //increment message count
-  V(binsemid_); //release queue lock
+  pthread_mutex_unlock(&queueLock); //release queue lock
 }
 
 Message* BlockingQueue::pop()
 {
+  Message* result;
   P(cntsemid_); //decrement message count, block at 0
-  P(binsemid_); //get queue lock
-  Message* t(q_.front()); // set to to first element
-  q_.pop(); //remove front of queue
-  V(binsemid_); //release queue lock
-  return t;
+  pthread_mutex_lock(&queueLock); //get queue lock
+  if(q_.size() == 0)
+  {
+    result = 0; 
+  }
+  else
+  {
+    result = q_.front(); // set to to first element
+    q_.pop(); //remove front of queue
+  }
+  pthread_mutex_unlock(&queueLock); //release queue lock
+  return result;
 }

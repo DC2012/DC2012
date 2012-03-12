@@ -1,5 +1,6 @@
 #include "GOS_Obstacle.h"
 #include "GOS_PowerUp.h"
+#include <cstdio>
 
 int main()
 {

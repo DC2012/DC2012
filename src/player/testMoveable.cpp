@@ -1,5 +1,6 @@
 #include "GOM_Projectile.h"
 #include "GOM_Ship.h"
+#include <cstdio>
 
 int main()
 {

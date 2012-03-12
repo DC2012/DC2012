@@ -7,20 +7,21 @@
 #include <qstring.h>
 
 #include "GameObjectStationary.h"
-#include "tile.h"
+#include "landtile.h"
+#include "seatile.h"
 
 class GameMap
 {
-public:
-    GameMap();
-    GameMap(QString fileName);
+    public:
+        GameMap();GameMap(int xSize, int ySize);
 
+        GameMap(QString fileName);
+        int addTile(Tile tile);
 
-private:
-    QFile                           xmlMap_;
-    QMap<int, GameObjectStationary> mapObjects;
-    QList<Tile>                     gameTiles;
-
+    private:
+        QFile                           xmlMap_;
+        QMap<int, GameObjectStationary> mapObjects_;
+        Tile[][]                        gameTiles_;
 
 };
 

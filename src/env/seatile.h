@@ -3,19 +3,16 @@
 
 #include "tile.h"
 
-
-
-#define     SEA     O
-#define     LAND    1
-
 class SeaTile : public Tile
 {
     public:
         SeaTile();
+        SeaTile(Point point);
 
     private:
-        int     type_;
-        Point   position_;
+        int                 type_;
+        Point               position_;
+        TileGraphicObject   graphic_;
 };
 
 #endif // SEATILE_H

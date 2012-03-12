@@ -5,7 +5,7 @@
 
 extern int errno;
 
-int initsem(key_t key)
+int initsem(key_t key, int initialValue)
 {
   int sid, status=0;
 
@@ -18,7 +18,7 @@ int initsem(key_t key)
   }
   else   /* if created, set initial value to 0 */
   {
-      status = semctl (sid, 0, SETVAL, 0);
+      status = semctl (sid, 0, SETVAL, initialValue);
   }
   if((sid == -1) || status == -1)
   {

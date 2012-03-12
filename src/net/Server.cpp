@@ -23,3 +23,13 @@ void Server::updateClientList()
 {
   clientMap_ = tcpServer_->getClients();
 }
+
+void Server::shutdown()
+{
+  tcpServer_->shutdown(); 
+}
+
+bool Server::listen(unsigned short port)
+{
+  return tcpServer_->startListen(port); 
+}

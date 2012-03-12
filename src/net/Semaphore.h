@@ -25,7 +25,7 @@
 -- NOTES:
 -- This is a wrapper function to semget. Creates a new semaphore with initial value 0, or the existing one.
 ----------------------------------------------------------------------------------------------------------------------*/
-int initsem(key_t key);
+int initsem(key_t key, int initialValue);
 
 /*------------------------------------------------------------------------------------------------------------------
 -- FUNCTION: closeSem

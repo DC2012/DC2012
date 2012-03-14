@@ -4,7 +4,7 @@ size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
 GOM_Ship::GOM_Ship(int objID, int type, double degree, double posX, double posY, 
-	int playerID, int speed, int health, int attackPower)
+	int playerID, double speed, int health, int attackPower)
 :GameObjectMoveable(objID, type, degree ,posX ,posY ,playerID ,speed), 
 	health_(health), attackPower_(attackPower)
 {
@@ -20,14 +20,14 @@ int GOM_Ship::getHealth()const
 	return health_;
 }
     
-void GOM_Ship::accelerate(int amount)
+void GOM_Ship::accelerate()
 {
-    speed_ += amount;
+    speed_ *= ACCEL_MULT;
 }    
 
-void GOM_Ship::decelerate(int amount)
+void GOM_Ship::decelerate()
 {
-    speed_ -= amount;
+    speed_ *= DECEL_MULT;
 }
 
 void GOM_Ship::print(std::ostream& os)const

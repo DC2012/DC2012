@@ -13,7 +13,7 @@
 --					March 9, 2012
 --	REVISIONS:
 --					March 14, 2012 (Roger)
---						- switched to using double type in Point & Degree
+--						- switched to using double type in Point & Degree & speed
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -34,10 +34,12 @@
 #include <vector>
 
 // array indexes for the actionFlags vector
-#define ROTATEL		0
-#define ROTATER		1
-#define ACCELERATE	2
-#define DECELERATE	3
+#define ROTATE_L	0
+#define ROTATE_R	1
+#define ACCEL		2
+#define DECEL		3
+#define ACCEL_MULT	1.5
+#define DECEL_MULT	0.8
 
 class GOM_Ship : public GameObjectMoveable
 {
@@ -50,7 +52,7 @@ class GOM_Ship : public GameObjectMoveable
 	public:
 		//constructor
 		explicit GOM_Ship(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0, 
-			int playerID = 0, int speed = 0, int health = 0, int attackPower = 0);
+			int playerID = 0, double speed = 0, int health = 0, int attackPower = 0);
 
 		// destructor
 		virtual ~GOM_Ship(){}
@@ -59,8 +61,8 @@ class GOM_Ship : public GameObjectMoveable
 		int getHealth()const;
 
 		// inherited from GameObjectMoveable
-		virtual void accelerate(int amount);
-		virtual void decelerate(int amount);
+		virtual void accelerate();
+		virtual void decelerate();
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

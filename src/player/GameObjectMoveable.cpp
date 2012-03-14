@@ -5,7 +5,7 @@ int GameObjectMoveable::getPlayerID()const
 	return playerID_;
 }
 
-int GameObjectMoveable::getSpeed()const
+double GameObjectMoveable::getSpeed()const
 {
 	return speed_;
 }

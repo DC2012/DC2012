@@ -2,21 +2,27 @@
 #define TILE_H
 
 #include "../../../player/Point.h"
-#include "TileGraphicObject.h"
+#include "../../../graphics/tilegraphicsobject.h"
 
 
-#define     SEA     O
+#define     SEA     0
 #define     LAND    1
 
 class Tile
 {
     public:
-        Tile();
-        Tile(Point point);
+        Tile(const Point& position);
         virtual int getTileType();
         virtual void setPosition(int x, int y);
         virtual Point getPosition();
-        virtual void setGraphic(int type_, Point position_);
+        virtual void setGraphic();
+
+    private:
+        int                 type_;
+        Point               position_;
+
+    protected:
+        TileGraphicsObject  *graphic_;
 };
 
 #endif // TILE_H

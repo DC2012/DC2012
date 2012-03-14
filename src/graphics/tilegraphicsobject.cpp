@@ -1,20 +1,20 @@
 #include "tilegraphicsobject.h"
 
-TileGraphicsObject::TileGraphicsObject(int type, Position position)
+TileGraphicsObject::TileGraphicsObject(int type, Point position)
 {
     position_ = position;
     type_ = type;
-    draw(type_), positon_;
+    draw(type_, position_);
 }
 
 void initGraphics() {
 // initialize pixmapArray[]
 }
 
-void draw(int type, Position pos) {
-    if (type == SEA_TILE) {
+void draw(int type, Point position) {
+    if (type == 0) {
     // use the sea tile pixmap
-    } else if (type == LAND_TILE) {
+    } else if (type == 1) {
     // use the land tile pixmap
     } else {
     // error

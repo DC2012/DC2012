@@ -4,7 +4,7 @@ keyInput::keyInput()
 {
 
 }
-
+/*
 void keyInput::keyPressEvent( QKeyEvent *k )
 {
     switch ( tolower(k->ascii()) )
@@ -19,3 +19,4 @@ void keyInput::keyPressEvent( QKeyEvent *k )
             break;
     }
 }
+*/

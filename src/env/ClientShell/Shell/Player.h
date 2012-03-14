@@ -1,5 +1,5 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef Player_H
+#define Player_H
 
 #include <QMap>
 #include <QThread>
@@ -16,17 +16,17 @@ public:
 
 
 
-class client : public QObject
+class Player : public QObject
 {
 
     Q_OBJECT
 
 public:
-    client();
+    Player();
 
 public slots:
     void updateplayer();
 
 };
 
-#endif // CLIENT_H
+#endif // Player_H

@@ -6,13 +6,8 @@
 class SeaTile : public Tile
 {
     public:
-        SeaTile();
-        SeaTile(Point point);
-
-    private:
-        int                 type_;
-        Point               position_;
-        TileGraphicObject   graphic_;
+        SeaTile(const Point& position);
+        void setGraphic();
 };
 
 #endif // SEATILE_H

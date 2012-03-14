@@ -10,19 +10,20 @@
 #include "../../../player/GameObjectStationary.h"
 #include "landtile.h"
 #include "seatile.h"
-
+#include <vector>
 class GameMap
 {
     public:
-        GameMap();GameMap(int xSize, int ySize);
-
+        GameMap();
+        GameMap(int xSize, int ySize);
         GameMap(QString fileName);
         int addTile(Tile tile);
 
     private:
         QFile                           xmlMap_;
         QMap<int, GameObjectStationary> mapObjects_;
-        Tile                        gameTiles_[][];
+        //Tile                        gameTiles_;
+        std::vector<std::vector<Tile*> > gameTiles_;
 
 };
 

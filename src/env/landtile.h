@@ -6,13 +6,9 @@
 class LandTile : public Tile
 {
     public:
-        LandTile();
-        LandTile(Point point);
+        LandTile(const Point& point);
+        void setGraphic();
 
-    private:
-        int                 type_;
-        Point               position_;
-        TileGraphicObject   graphic_;
 };
 
 #endif // LANDTILE_H

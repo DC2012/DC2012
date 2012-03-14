@@ -3,7 +3,7 @@
 
 #include <QtConcurrentRun>
 #include <QFuture>
-#include "client.h"
+#include "Player.h"
 #include "keyinput.h"
 #include "mouseEvent.h"
 #include "../../gamemap.h"

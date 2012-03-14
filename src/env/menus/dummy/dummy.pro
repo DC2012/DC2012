@@ -1,22 +1,18 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2012-02-21T11:18:20
+# Project created by QtCreator 2012-03-14T10:52:27
 #
 #-------------------------------------------------
 
 QT       += core gui
 
-TARGET = ships
+TARGET = dummy
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    dlgconnection.cpp
+        mainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    dlgconnection.h
+HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
-
-FORMS    += dlgconnection.ui

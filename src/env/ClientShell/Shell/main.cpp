@@ -3,7 +3,6 @@
 #include "main.h"
 
 
-
 #include <QtGui/QApplication>
 
 int main(int argc, char *argv[])
@@ -22,7 +21,7 @@ int main(int argc, char *argv[])
     //char keypressed;
 
     //QTimer *timer = new QTimer(&player);
-    GameMap map = new GameMap(10,10);
+    GameMap *map = new GameMap(10, 10);
 
     return app.exec();
 }

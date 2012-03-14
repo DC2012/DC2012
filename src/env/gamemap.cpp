@@ -22,7 +22,8 @@
 
 
 #include "gamemap.h"
-
+#include "landtile.h"
+#include "seatile.h"
 
 /*-----------------------------------------------------------------------------------
 --  FUNCTION:   Default GameMap ctor
@@ -70,11 +71,11 @@ GameMap :: GameMap(int xSize, int ySize)
         {
             if(i == 0 || i == xSize - 1 || j == 0 || j == ySize - 1)
             {
-                gameTiles_[i][j] = new LandTile(new Point(xSize, ySize));
+                gameTiles_[i][j] = new LandTile(Point(xSize, ySize));
             }
             else
             {
-                gameTiles_[i][j] = new SeaTile(new Point(xSize, ySize));
+                gameTiles_[i][j] = new SeaTile(Point(xSize, ySize));
             }
         }
     }

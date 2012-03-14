@@ -31,12 +31,20 @@
 #define GOM_SHIP_H_
 
 #include "GameObjectMoveable.h"
+#include <vector>
+
+// array indexes for the actionFlags vector
+#define ROTATEL		0
+#define ROTATER		1
+#define ACCELERATE	2
+#define DECELERATE	3
 
 class GOM_Ship : public GameObjectMoveable
 {
 	private:
 		int health_;
 		int attackPower_;
+		std::vector<bool> actionFlags_;
 		static size_t shipCount_;
 		
 	public:

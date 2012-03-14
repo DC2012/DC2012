@@ -11,20 +11,24 @@ class DlgConnection : public QDialog
 {
     Q_OBJECT
     
+signals:
+    void connect_init(QString port, QString ip);
+
 public:
     explicit DlgConnection(QWidget *parent = 0);
     ~DlgConnection();
     QString getIP();
-    QString getPort();
+    int getPort();
     QString getUsername();
 
     void setIP(QString addr);
-    void setPort(QString port);
+    void setPort(int port);
     void setUsername(QString name);
     
 private:
     Ui::DlgConnection *ui;
-    QString server_port, server_addr, username;
+    QString server_addr, username;
+    int server_port;
 
 public slots:
     void connectTo();

@@ -18,11 +18,11 @@ void MouseEvent::mousePressEvent ( QMouseEvent * e )
 void MouseEvent::mouseReleaseEvent ( QMouseEvent * e )
 {
 
-    /*// check if cursor not moved since click beginning
+    // check if cursor not moved since click beginning
     if ((m_mouseClick) && (e->pos() == m_lastPoint))
     {
         // emit Click signal
         emit mouseClickEvent;
     }
-    */
+
 }

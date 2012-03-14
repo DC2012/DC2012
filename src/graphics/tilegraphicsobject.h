@@ -2,7 +2,9 @@
 #define TILEGRAPHICSOBJECT_H
 
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 #include "graphicsobject.h"
+#include "sprites.h"
 
 class TileGraphicsObject
 {

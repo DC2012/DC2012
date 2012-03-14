@@ -13,13 +13,14 @@ void initGraphics() {
 
 void draw(int type, Position pos) {
     if (type == SEA_TILE) {
-    // use the sea tile pixmap
+        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_WATER1));
     } else if (type == LAND_TILE) {
-    // use the land tile pixmap
+        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_LAND1));
     } else {
     // error
     }
+}
 
-// call the graphics controller method to add
-// the pixmap item to the scene
+QGraphicsPixmapItem* getPixmapItem() {
+    return currentPixmapitem_;
 }

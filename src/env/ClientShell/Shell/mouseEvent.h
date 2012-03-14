@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QGraphicsView>
-#include <QMouseEvent>
+
 class MouseEvent : public QWidget
 {
     Q_OBJECT

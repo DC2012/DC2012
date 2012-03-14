@@ -21,6 +21,6 @@ void MouseEvent::mouseReleaseEvent ( QMouseEvent * e )
     if ((m_mouseClick) && (e->pos() == m_lastPoint))
     {
         // emit Click signal
-        emit mouseClickEvent();
+        emit mouseClickEvent;
     }
 }

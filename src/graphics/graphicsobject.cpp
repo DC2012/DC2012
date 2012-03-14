@@ -11,4 +11,8 @@ class GraphicsObject {
 
     virtual void draw() {
     }
+
+    virtual getPixmapItem() {
+
+    }
 }

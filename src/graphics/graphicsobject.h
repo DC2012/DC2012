@@ -12,6 +12,7 @@ class GraphicsObject
 public:
     GraphicsObject();
     virtual void draw(GameObject* obj);
+    virtual QGraphicsPixmapItem getPixmapItem();
 private:
     virtual ~GraphicsObject();
 };

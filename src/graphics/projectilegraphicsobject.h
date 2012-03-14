@@ -5,6 +5,13 @@ class ProjectileGraphicsObject
 {
 public:
     ProjectileGraphicsObject();
+    QGraphicsPixmapItem getPixmapItem();
+private:
+    ~ProjectileGraphicsObject();
+    Point position_;
+    QPixmap currentPixmap_;
+    QGraphicsPixmapItem pixmapItem_;
+    void draw (Point pos);
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

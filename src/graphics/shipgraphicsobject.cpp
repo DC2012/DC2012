@@ -22,7 +22,11 @@ class ShipGraphicsObject : public GraphicsObject {
   For now we'll just need a basic set of images.
   */
     initGraphics() {
-       //pixmapArray[0] = Ship image one
+       pixmapArray[0] = new QPixmap(new SPRITE_SHIP1);
+       pixmapArray[1] = new QPixmap(new SPRITE_SHIP1_MOVE1);
+       pixmapArray[2] = new QPixmap(new SPRITE_SHIP1_MOVE2);
+       pixmapArray[3] = new QPixmap(new SPRITE_SHIP1_MOVE3);
+       pixmapArray[4] = new QPixmap(new SPRITE_SHIP1_HIT);
        // etc etc with the proper names.
     }
 /**
@@ -52,11 +56,9 @@ class ShipGraphicsObject : public GraphicsObject {
             return;
         }
         case 1:
-            for(animateCounter = 0; animateCounter < 4; animateCounter++) {
-                pixmapIndex_ = 1;
-                currentPixmapItem_ =
-                        new QGraphicsPixmapitem(new QPixmap(new SPRITE_SHIP1_MOVE1));
-                pixmapIndex_ += animateCounter;
+            for(animateCounter = 1; animateCounter < 5; animateCounter++) {
+                pixmapIndex_ = animateCounter;
+                currentPixmapItem_ = new QGraphicsPixmapItem();
             }
             break;
         previousState_ = flag;

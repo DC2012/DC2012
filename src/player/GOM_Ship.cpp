@@ -23,11 +23,13 @@ int GOM_Ship::getHealth()const
 void GOM_Ship::accelerate()
 {
     speed_ *= ACCEL_MULT;
+    speed_++;
 }    
 
 void GOM_Ship::decelerate()
 {
     speed_ *= DECEL_MULT;
+    speed_--;
 }
 
 void GOM_Ship::print(std::ostream& os)const

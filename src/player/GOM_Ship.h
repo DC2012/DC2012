@@ -61,8 +61,8 @@ class GOM_Ship : public GameObjectMoveable
 		int getHealth()const;
 
 		// inherited from GameObjectMoveable
-		virtual void accelerate();
-		virtual void decelerate();
+		void accelerate();
+		void decelerate();
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

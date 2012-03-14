@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -39,7 +41,7 @@ class GOM_Ship : public GameObjectMoveable
 		
 	public:
 		//constructor
-		explicit GOM_Ship(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0, 
+		explicit GOM_Ship(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0, 
 			int playerID = 0, int speed = 0, int health = 0, int attackPower = 0);
 
 		// destructor

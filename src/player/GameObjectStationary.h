@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -34,7 +36,7 @@ class GameObjectStationary : public GameObject
 {
 	protected:
 	public:
-		explicit GameObjectStationary(int objID, int type, int degree, int posX, int posY)
+		explicit GameObjectStationary(int objID, int type, double degree, double posX, double posY)
 		:GameObject(objID, type, degree, posX, posY){}
 
 		// for testing purposes

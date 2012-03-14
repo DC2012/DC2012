@@ -10,11 +10,14 @@
 --	DATE:
 --					March 12, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type for width & height
 --
 --	DESIGNER:
 --					Po Hsu
 --	PROGRAMMER:
 --					Po Hsu
+--					Roger Fan
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef HITBOX_H
@@ -29,7 +32,7 @@ class Hitbox
 	public:
 		// constructor
 		// width and height will be provided by the Graphics object
-		Hitbox(const Point& org, const int& width, const int& height);
+		Hitbox(const Point& org, const double& width, const double& height);
 
 		// destructor
 		~Hitbox(){}

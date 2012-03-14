@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012
+--						- switched to using floating-point type, double
 --
 --	DESIGNER:
 --					Roger Fan
@@ -25,12 +27,12 @@
 class Degree
 {
 	private:
-		int degree_;
+		double degree_;
 	public:
-		explicit Degree(int degree);
-		void rotate(int degree);
-		void setDegree(int degree);
-		int getValue()const;
+		explicit Degree(double degree);
+		void rotate(double degree);
+		void setDegree(double degree);
+		double getDegree()const;
 };
 
 #endif

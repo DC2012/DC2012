@@ -3,7 +3,7 @@
 size_t GOS_Obstacle::obstacleCount_;
 
 // constructor
-GOS_Obstacle::GOS_Obstacle(int objID, int type, int degree, int posX, int posY)
+GOS_Obstacle::GOS_Obstacle(int objID, int type, double degree, double posX, double posY)
 : GameObjectStationary(objID, type, degree, posX, posY)
 {
 	obstacleCount_++;

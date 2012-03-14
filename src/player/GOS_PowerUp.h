@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -36,7 +38,7 @@ class GOS_PowerUp : public GameObjectStationary
 		static size_t powerUpCount_;
 	public:
 		// constructor for now
-		explicit GOS_PowerUp(int objID = 0, int type = 0, int degree = 0, int posX = 0, int posY = 0);
+		explicit GOS_PowerUp(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0);
 
 		// destructor
 		virtual ~GOS_PowerUp(){}

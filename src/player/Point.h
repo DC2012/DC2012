@@ -13,11 +13,14 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012
+--						- switched to using foating-point type, double
 --
 --	DESIGNER:
 --					Po Hsu
 --	PROGRAMMER:
 --					Po Hsu
+--					Roger Fan
 --	NOTES:
 ----------------------------------------------------------------------*/
 #ifndef GOPOS_H_
@@ -28,19 +31,19 @@
 class Point
 {
 	private:
-		int x_, y_;
+		double x_, y_;
 	public:
 		// contructor
 		// explicit to indicate no implicit conversion
-		explicit Point(int x = 0, int y = 0): x_(x), y_(y) {}
+		explicit Point(double x = 0, double y = 0): x_(x), y_(y) {}
 
 		// getters
-		int getX()const;
-		int getY()const;
+		double getX()const;
+		double getY()const;
 
 		// setters
-		void setX(const int& x);
-		void setY(const int& y);
+		void setX(const double& x);
+		void setY(const double& y);
 
 		Point& operator+=(const Point& rhs); // adding two Points
 		void print(std::ostream& os)const;

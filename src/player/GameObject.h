@@ -10,6 +10,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -42,7 +44,7 @@ class GameObject
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int objID, int type, int degree, int posX, int posY)
+		explicit GameObject(int objID, int type, double degree, double posX, double posY)
 		:objID_(objID), type_(type), degree_(degree), pos_(posX, posY){}
 
 		// default destructor

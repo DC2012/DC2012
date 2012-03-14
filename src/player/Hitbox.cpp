@@ -1,12 +1,12 @@
 #include "Hitbox.h"
 #include <iostream>
 
-Hitbox::Hitbox(const Point& org, const int& width, const int& height)
+Hitbox::Hitbox(const Point& org, const double& width, const double& height)
 {
-	int leftX 	= org.getX() - (width/2);
-	int rightX 	= org.getX() + (width/2);
-	int topY 	= org.getY() + (height/2);
-	int bottomY = org.getY() - (height/2);
+	double leftX 	= org.getX() - (width/2);
+	double rightX 	= org.getX() + (width/2);
+	double topY 	= org.getY() + (height/2);
+	double bottomY = org.getY() - (height/2);
 
 	tLeft_.setX(leftX);
 	tLeft_.setY(topY);

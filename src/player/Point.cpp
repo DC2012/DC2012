@@ -1,22 +1,22 @@
 #include "Point.h"
 #include <iostream>
 
-int Point::getX()const
+double Point::getX()const
 {
 	return x_;
 }
 
-int Point::getY()const
+double Point::getY()const
 {
 	return y_;
 }
 
-void Point::setX(const int& x)
+void Point::setX(const double& x)
 {
 	x_ = x;
 }
 
-void Point::setY(const int& y)
+void Point::setY(const double& y)
 {
 	y_ = y;
 }

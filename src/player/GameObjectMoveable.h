@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -36,7 +38,7 @@ class GameObjectMoveable : public GameObject
 		int playerID_;
 		int speed_;
 	public:
-		explicit GameObjectMoveable(int objID, int type, int degree, int posX, int posY, int playerID, int speed)
+		explicit GameObjectMoveable(int objID, int type, double degree, double posX, double posY, int playerID, int speed)
 		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
 		// destructor

@@ -3,7 +3,7 @@
 size_t GOS_PowerUp::powerUpCount_ = 0;
 
 // constructor
-GOS_PowerUp::GOS_PowerUp(int objID, int type, int degree, int posX, int posY)
+GOS_PowerUp::GOS_PowerUp(int objID, int type, double degree, double posX, double posY)
 : GameObjectStationary(objID, type, degree, posX, posY)
 {
 	powerUpCount_++;

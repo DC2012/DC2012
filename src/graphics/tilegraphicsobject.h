@@ -2,8 +2,12 @@
 #define TILEGRAPHICSOBJECT_H
 
 #include <QGraphicsPixmapItem>
+#include <QPixmap>
 #include "graphicsobject.h"
-#include "shipgraphicsobject.h"
+#include "sprites.h"
+
+#define SEA_TILE    0
+#define LAND_TILE   1
 
 class TileGraphicsObject
 {

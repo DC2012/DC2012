@@ -15,8 +15,12 @@
   Going to need to be hard set once we have all the animation frames.
   For now we'll just need a basic set of images.
   */
-    void initGraphics() {
-       //pixmapArray[0] = Ship image one
+    initGraphics() {
+       pixmapArray[0] = new QPixmap(new SPRITE_SHIP1);
+       pixmapArray[1] = new QPixmap(new SPRITE_SHIP1_MOVE1);
+       pixmapArray[2] = new QPixmap(new SPRITE_SHIP1_MOVE2);
+       pixmapArray[3] = new QPixmap(new SPRITE_SHIP1_MOVE3);
+       pixmapArray[4] = new QPixmap(new SPRITE_SHIP1_HIT);
        // etc etc with the proper names.
     }
 /**

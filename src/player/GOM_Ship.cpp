@@ -20,14 +20,14 @@ int GOM_Ship::getHealth()const
 	return health_;
 }
     
-void GOM_Ship::accelerate(int amount)
+void GOM_Ship::accelerate()
 {
-    speed_ += amount;
+    speed_++;
 }    
 
-void GOM_Ship::decelerate(int amount)
+void GOM_Ship::decelerate()
 {
-    speed_ -= amount;
+    speed_--;
 }
 
 void GOM_Ship::print(std::ostream& os)const

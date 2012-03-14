@@ -117,7 +117,7 @@ private:
   TCPClient* tcpClient_;
  // UDPClient udpClient_;
   BlockingQueue* queue_;
-  sockaddr_in * sockAddr_;
+  sockaddr_in sockAddr_;
 };
 
 #endif

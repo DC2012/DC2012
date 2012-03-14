@@ -17,7 +17,7 @@ void Client::write(Message* message)
 }
 bool Client::connectClient(int portNumber, std::string ip_addr)
 {  
-  if(!tcpClient_->connectClient(portNumber,ip_addr,sockAddr_,queue_))
+  if(!tcpClient_->connectClient(portNumber,ip_addr,&sockAddr_,queue_))
   {
     return false;
   }

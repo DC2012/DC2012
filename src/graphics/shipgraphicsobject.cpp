@@ -53,7 +53,10 @@ class ShipGraphicsObject : public GraphicsObject {
         }
         case 1:
             for(animateCounter = 0; animateCounter < 4; animateCounter++) {
-                pixmapIndex
+                pixmapIndex_ = 1;
+                currentPixmapItem_ =
+                        new QGraphicsPixmapitem(new QPixmap(new SPRITE_SHIP1_MOVE1));
+                pixmapIndex_ += animateCounter;
             }
             break;
         previousState_ = flag;

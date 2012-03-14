@@ -3,15 +3,17 @@
 
 #include <QGraphicsPixmapItem>
 #include "graphicsobject.h"
+#include "shipgraphicsobject.h"
 
 class TileGraphicsObject
 {
 public:
-    TileGraphicsObject(int type, Position position);
-    void draw(GameObject* obj);
+    TileGraphicsObject(int type, Point position);
+    ~TileGraphicsObject();
+    void draw(int type, Point position);
     QGraphicsPixmapItem getPixmapItem();
 private:
-    ~TileGraphicsObject();
+
     QGraphicsPixmapItem* currentPixmapItem_;
     QPixmap pixmapArray[];
     int type_;

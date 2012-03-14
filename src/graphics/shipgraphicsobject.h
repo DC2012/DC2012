@@ -7,11 +7,10 @@
 class ShipGraphicsObject
 {
 public:
-    ShipGraphicsObject();
-    void draw(GameObject* obj);
-    QGraphicsPixmapItem getPixmapItem();
+    ShipGraphicsObject(int type, Point position);
+    void draw();
+    QGraphicsPixmapItem* getPixmapItem();
 private:
-    ~ShipGraphicsObject();
     QGraphicsPixmapItem* currentPixmapItem_;
     QPixmap pixmapArray[];
     int type_;
@@ -21,8 +20,9 @@ private:
     int animateCounter_;
     int speed_;
     Point position_;
-    void update(GameObject* obj);
+    void update();
     void animate(int flag);
+    void initGraphics();
 };
 
 #endif // SHIPGRAPHICSOBJECT_H

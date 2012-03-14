@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include "dlgconnection.h"
+#include "../../../net/client.h"
 
 namespace Ui {
 class MainWindow;
@@ -13,15 +14,20 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
+public slots:
+    void connect_accept(QString port, QString ip);
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
 private slots:
-    void on_actionConnect_triggered();
+    void dialog_popup();
 
 private:
     Ui::MainWindow *ui;
+    DlgConnection mDialog;
+    Client* client_;
 };
 
 #endif // MAINWINDOW_H

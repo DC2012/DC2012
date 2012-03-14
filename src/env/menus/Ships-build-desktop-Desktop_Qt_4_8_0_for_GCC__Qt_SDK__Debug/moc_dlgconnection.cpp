@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'dlgconnection.h'
 **
-** Created: Wed Mar 14 12:21:41 2012
+** Created: Wed Mar 14 12:34:49 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -34,14 +34,14 @@ static const uint qt_meta_data_DlgConnection[] = {
       23,   15,   14,   14, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      49,   14,   14,   14, 0x0a,
+      53,   14,   14,   14, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_DlgConnection[] = {
-    "DlgConnection\0\0port,ip\0connect_init(int,QString)\0"
-    "connectTo()\0"
+    "DlgConnection\0\0port,ip\0"
+    "connect_init(QString,QString)\0connectTo()\0"
 };
 
 void DlgConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -50,7 +50,7 @@ void DlgConnection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         Q_ASSERT(staticMetaObject.cast(_o));
         DlgConnection *_t = static_cast<DlgConnection *>(_o);
         switch (_id) {
-        case 0: _t->connect_init((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 0: _t->connect_init((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 1: _t->connectTo(); break;
         default: ;
         }
@@ -97,7 +97,7 @@ int DlgConnection::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void DlgConnection::connect_init(int _t1, QString _t2)
+void DlgConnection::connect_init(QString _t1, QString _t2)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);

@@ -12,6 +12,8 @@
 --	DATE:
 --					March 9, 2012
 --	REVISIONS:
+--					March 14, 2012 (Roger)
+--						- switched to using double type in Point & Degree
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -29,25 +31,38 @@
 #define GOM_SHIP_H_
 
 #include "GameObjectMoveable.h"
+#include <vector>
+
+// array indexes for the actionFlags vector
+#define ROTATEL		0
+#define ROTATER		1
+#define ACCELERATE	2
+#define DECELERATE	3
 
 class GOM_Ship : public GameObjectMoveable
 {
 	private:
 		int health_;
 		int attackPower_;
+		std::vector<bool> actionFlags_;
+		static size_t shipCount_;
 		
 	public:
 		//constructor
-		explicit GOM_Ship(int GObjID = 0, int degree = 0, int posX = 0, int posY = 0, 
+		explicit GOM_Ship(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0, 
 			int playerID = 0, int speed = 0, int health = 0, int attackPower = 0);
+
 		// destructor
-		virtual ~GOM_Projectile(){}
+		virtual ~GOM_Ship(){}
+
+		// getters
+		int getHealth()const;
 
 		// inherited from GameObjectMoveable
 		virtual void accelerate(int amount);
 		virtual void decelerate(int amount);
 
-		//for testing
+		// for testing purposes
 		virtual void print(std::ostream& os) const;
 };
 

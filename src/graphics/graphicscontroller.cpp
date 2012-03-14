@@ -1,17 +1,21 @@
 #include "graphicscontroller.h"
 
-GraphicsController::GraphicsController(QGraphicsScene *scene, QObject *parent) :
-    QObject(parent), scene_(scene)
+GraphicsController::GraphicsController(QWidget *parent) :
+    QGraphicsView(parent)
 {
+    setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+    scene_ = new QGraphicsScene();
+    setScene(scene_);
 
+    scene_->setSceneRect(0, 0, 700, 500);
 }
 
-void QGraphicsController::addGraphic(const GraphicsObject *graphic)
+void GraphicsController::addGraphic(const GraphicsObject *graphic) const
 {
-    scene->addItem(graphic->getPixmapItem());
+    scene_->addItem(graphic->getPixmapItem());
 }
 
-void QGraphicsController::removeGraphic(const GraphicsObject *graphic)
+void GraphicsController::removeGraphic(const GraphicsObject *graphic) const
 {
-    scene->removeItem(graphic->getPixmapItem());
+    scene_->removeItem(graphic->getPixmapItem());
 }

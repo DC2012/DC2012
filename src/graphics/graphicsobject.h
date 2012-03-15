@@ -11,5 +11,6 @@ class GraphicsObject
 {
 public:
     GraphicsObject();
+};
 
 #endif // GRAPHICSOBJECT_H

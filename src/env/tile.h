@@ -1,8 +1,8 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include "../../../player/Point.h"
-#include "../../../graphics/tilegraphicsobject.h"
+#include "../player/Point.h"
+#include "../graphics/tilegraphicsobject.h"
 
 
 #define     SEA     0

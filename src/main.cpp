@@ -9,7 +9,7 @@ int main(int argc, char **argv)
     GameWindow *gameWindow = new GameWindow();
 
     gameWindow->setFocus();
-    gameWindow->show();
+    gameWindow->start();
 
     return app.exec();
 }

@@ -1,7 +1,7 @@
 //#include "graphicarea.h"
 #include "shipcomponent.h"
 #include "main.h"
-
+#include "../../menus/mainwindow.h"
 
 #include <QtGui/QApplication>
 
@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
     //QTimer *timer = new QTimer(&player);
     GameMap *map = new GameMap(10, 10);
+    MainWindow window;
 
+    window.show();
     return app.exec();
 }

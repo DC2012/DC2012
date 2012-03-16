@@ -32,7 +32,9 @@ SOURCES += main.cpp \
     ../../../player/Degree.cpp \
     ../../../graphics/tilegraphicsobject.cpp \
     ../../../graphics/shipgraphicsobject.cpp \
-    ../../../graphics/graphicsobject.cpp
+    ../../../graphics/graphicsobject.cpp \
+    ../../menus/dlgconnection.cpp \
+    ../../menus/mainwindow.cpp
 
 HEADERS  += \
     main.h \
@@ -59,6 +61,10 @@ HEADERS  += \
     ../../../player/GOS_Obstacle.h \
     ../../../player/GOM_Projectile.h \
     ../../../player/GameObjectFactory.h \
-    ../../../player/Degree.h
+    ../../../player/Degree.h \
+    ../../menus/mainwindow.h \
+    ../../menus/dlgconnection.h
 
-FORMS    +=
+FORMS    += \
+    ../../menus/mainwindow.ui \
+    ../../menus/dlgconnection.ui

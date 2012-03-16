@@ -4,6 +4,7 @@
 #include "TCPServer.h"
 #include "Message.h"
 #include "BlockingQueue.h"
+#include "UDP.h"
 
 class Server
 {
@@ -25,14 +26,14 @@ class Server
   private:
     BlockingQueue* queue_;
     TCPServer* tcpServer_;
-    //UDPServer* udpServer_;
+    UDP* udpServer_;
     static Server* instance_;
     std::map<int, in_addr> clientMap_;
     Server()
     {
         queue_     = new BlockingQueue;
         tcpServer_ = TCPServer::getInstance(queue_);
-        //udpServer_ = UDPServer::getInstance(queue_);
+        udpServer_ = UDP::getInstance(queue_);
         instance_  = this;
     }    
 };

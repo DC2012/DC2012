@@ -7,7 +7,7 @@
 #include <qstring.h>
 #include "tile.h"
 
-#include "../../../player/GameObjectStationary.h"
+#include "../player/GameObjectStationary.h"
 #include "landtile.h"
 #include "seatile.h"
 #include <vector>

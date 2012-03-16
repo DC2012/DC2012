@@ -1,1 +1,12 @@
+# Compiled object files
 *.o
+*.slo
+*.lo
+
+# Vim backup
+*.swp
+
+# Qt 
+*.pro.user
+moc_*.*
+moc_*.*

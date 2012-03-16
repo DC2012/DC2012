@@ -15,10 +15,10 @@ public:
     TileGraphicsObject(int type, Point position);
     ~TileGraphicsObject();
     void draw(int type, Point position);
-    QGraphicsPixmapItem getPixmapItem();
+    QGraphicsPixmapItem * getPixmapItem();
 private:
 
-    QGraphicsPixmapItem* currentPixmapItem_;
+    QGraphicsPixmapItem * currentPixmapItem_;
     QPixmap pixmapArray[];
     int type_;
     Point position_;

@@ -11,16 +11,16 @@ void initGraphics() {
 // initialize pixmapArray[]
 }
 
-void draw(int type, Position pos) {
+void TileGraphicsObject::draw(int type, Point pos) {
     if (type == SEA_TILE) {
-        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_WATER1));
+        currentPixmapItem_ = new QGraphicsPixmapItem(QPixmap(TILE_WATER1, 0, 0));
     } else if (type == LAND_TILE) {
-        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_LAND1));
+        currentPixmapItem_ = new QGraphicsPixmapItem(QPixmap(TILE_LAND1, 0, 0));
     } else {
     // error
     }
 }
 
-QGraphicsPixmapItem* getPixmapItem() {
-    return currentPixmapitem_;
+QGraphicsPixmapItem * TileGraphicsObject::getPixmapItem() {
+    return currentPixmapItem_;
 }

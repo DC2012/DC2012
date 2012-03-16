@@ -50,8 +50,27 @@
 class Client
 {
 public:
-  Client();
   
+/*---------------------------------------------------------------------------------------------------------------------
+--  METHOD:     getInstance
+--
+--  DATE:       March 6, 2012
+--
+--  REVISIONS:  None
+--
+--  DESIGNER:   Kendra Kohler, James Rupert
+--
+--  PROGRAMMER: Kendra Kohler
+--
+--  INTERFACE:  static Client* getInstance()
+--
+--  RETURNS:    a pointer to the Client object
+--
+--  NOTES:      This method checks to see if the instance_ member(the only pointer to the object) is null and if it 
+--		isn't, it creates the object. Once this check is done, it returns the instance_.
+--
+----------------------------------------------------------------------------------------------------------------------*/
+  static Client* getInstance(void);
 /*---------------------------------------------------------------------------------------------------------------------
 --  METHOD:     read
 --
@@ -115,10 +134,12 @@ public:
   bool connectClient(int portNumber, std::string ip_addr);
   
 private:
-  TCPClient* tcpClient_;
-  UDP* udpClient_;
-  BlockingQueue* queue_;
-  sockaddr_in sockAddr_;
+  TCPClient* 		tcpClient_;
+  UDP* 			udpClient_;
+  BlockingQueue*	queue_;
+  sockaddr_in 		sockAddr_;
+  Client();
+  static Client*   	instance_;
 };
 
 #endif

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dlgconnection.h"
+#include "../../../graphics/gamewindow.h"
+
 #include <QtCore>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -31,6 +33,15 @@ void MainWindow::connect_accept(QString port, QString ip)
 
     i = ip.toUtf8().constData();
     p = port.toInt();
-    client_->connectClient(p, i);
+
+    //if (client_->connectClient(p, i))
+    //{
+        GameWindow *gameWindow = new GameWindow();
+        gameWindow->setFocus();
+        gameWindow->show();
+
+        mDialog.close();
+        this->hide();
+    //}
 }
 

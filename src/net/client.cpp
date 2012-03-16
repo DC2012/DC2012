@@ -1,5 +1,19 @@
 #include "client.h"
 
+Client* Client::instance_ = 0;
+
+using namespace std;
+
+
+Client* Client::getInstance()
+{
+  if(instance_ == 0)
+  {
+    instance_ = new Client();
+  }
+  return instance_;
+}
+
 Client::Client()
 {
   queue_     = new BlockingQueue();

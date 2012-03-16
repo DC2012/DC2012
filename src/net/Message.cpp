@@ -1,6 +1,7 @@
 #include "Message.h"
-
-Message::Message(unsigned char clientID):clientID_(clientID){}
+const size_t Message::MSGHEADER = sizeof(Message::length_) + sizeof(Message::clientID_) + sizeof(char);
+const size_t Message::MAXMSGSIZE = Message::MAXMSGDATA + Message::MSGHEADER;
+Message::Message(int clientID):clientID_(clientID){}
 
 std::string Message::getData()
 {
@@ -46,14 +47,26 @@ bool Message::setAll(const std::string& data, MessageType type)
 char* Message::serialize()
 {
   char* result = new char[MSGHEADER + length_];
-  result[0] = (char)length_;
-  result[1] = (char)clientID_;
-  result[2] = (char)messageType_;
-  strcpy(result + 3, data_.c_str());
+  memcpy(result, &length_, sizeof(length_));
+  memcpy(result + sizeof(length_), &clientID_, sizeof(clientID_));
+  result[sizeof(length_) + sizeof(clientID_)] = (char)messageType_;
+  strcpy(result + sizeof(length_) + sizeof(clientID_) + sizeof(char), data_.c_str());
   return result;
 }
 
 Message::Message(const char* message):length_((unsigned char) message[0]),
-                                      clientID_((unsigned char) message[1]), 
-                                      messageType_((MessageType) message[2]),
-                                      data_(message + 3){}
+                                      messageType_((MessageType) message[sizeof(length_) + sizeof(clientID_)]),
+                                      data_(message + sizeof(length_) + sizeof(clientID_) + sizeof(char))
+{
+  clientID_ = *((int*)(message + sizeof(length_)));
+}
+
+int Message::getID()
+{
+  return clientID_;
+}
+
+void Message::setID(int id)
+{
+  clientID_ = id;
+}

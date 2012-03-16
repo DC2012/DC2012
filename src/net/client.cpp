@@ -2,9 +2,10 @@
 
 Client::Client()
 {
+  queue_     = new BlockingQueue();
   tcpClient_ = TCPClient::getInstance();
-  //udpClient_ = new UDPClient();
-  queue_    = new BlockingQueue();
+  udpClient_ = UDP::getInstance(queue_);
+
 }
 
 Message* Client::read(void)
@@ -13,15 +14,22 @@ Message* Client::read(void)
 }
 void Client::write(Message* message)
 {
-  tcpClient_->send(message);
+  if(message->getType() == Message::UPDATE)
+  {
+    udpClient_->write(message, sockAddr_);
+  }
+  else
+  {
+    tcpClient_->send(message); 
+  }
 }
 bool Client::connectClient(int portNumber, std::string ip_addr)
 {  
-  if(!tcpClient_->connectClient(portNumber,ip_addr,sockAddr_,queue_))
+  if(!tcpClient_->connectClient(portNumber,ip_addr,&sockAddr_,queue_))
   {
     return false;
   }
- // udpClient_.connectClient(&sockAddr_);
+  udpClient_->startRead(0);
   tcpClient_->startReading();
   
   return true;

@@ -5,6 +5,7 @@
 #define PORT 7000
 #include "Message.h"
 #include "tcpClient.h"
+#include "UDP.h"
 
 /*---------------------------------------------------------------------------------------------------------------------
 --  
@@ -115,9 +116,9 @@ public:
   
 private:
   TCPClient* tcpClient_;
- // UDPClient udpClient_;
+  UDP* udpClient_;
   BlockingQueue* queue_;
-  sockaddr_in * sockAddr_;
+  sockaddr_in sockAddr_;
 };
 
 #endif

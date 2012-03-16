@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    client_ = new Client();
+    client_ = Client::getInstance();
     /* connecting signal to slot to pass in port and ip settings */
     connect(&mDialog, SIGNAL(connect_init(QString, QString)), this, SLOT(connect_accept(QString, QString)));
 }

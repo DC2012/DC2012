@@ -6,7 +6,7 @@ void Server::write(Message* message)
 {
   if(message->getType() == Message::UPDATE)
   {
-    //udpServer_->write(message);
+    udpServer_->write(message, clientMap_);
   }
   else
   {
@@ -31,5 +31,14 @@ void Server::shutdown()
 
 bool Server::listen(unsigned short port)
 {
-  return tcpServer_->startListen(port); 
+  if(!tcpServer_->startListen(port))
+  {
+    return false;
+  }
+  if(!udpServer_->startRead(port))
+  {
+    tcpServer_->shutdown();
+    return false;
+  }
+  return true;
 }

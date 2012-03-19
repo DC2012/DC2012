@@ -25,6 +25,7 @@
 ----------------------------------------------------------------------*/
 #ifndef GOPOS_H_
 #define GOPOS_H_
+#include <QPointF>
 #include <iostream>
 
 // A class that takes two integer values to represent x & y coordinates
@@ -40,6 +41,7 @@ class Point
 		// getters
 		double getX()const;
 		double getY()const;
+		QPointF getQPointF()const;
 
 		// setters
 		void setX(const double& x);

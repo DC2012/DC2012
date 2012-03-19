@@ -10,9 +10,9 @@ int GameObject::getType()const
 	return type_;
 }
 
-Degree GameObject::getDegree()const
+double GameObject::getDegree()const
 {
-	return degree_;
+	return degree_.getDegree();
 }
 
 Point GameObject::getPosition()const

@@ -12,6 +12,9 @@ GOM_Ship::GOM_Ship(int objID, int type, double degree, double posX, double posY,
 	actionFlags_.push_back(false);
 	actionFlags_.push_back(false);
 	actionFlags_.push_back(false);
+	accel_ = 0.5;
+	decel_ = 0.5;
+	maxSpeed_ = 5;
 	shipCount_++;
 }
 
@@ -22,12 +25,29 @@ int GOM_Ship::getHealth()const
     
 void GOM_Ship::accelerate()
 {
-    speed_ *= ACCEL_MULT;
+    speed_ += accel_;
+	if(speed_ > maxSpeed_)
+		speed_ = maxSpeed_;
 }    
 
 void GOM_Ship::decelerate()
 {
-    speed_ *= DECEL_MULT;
+    speed_ -= decel_;
+	if(speed_ < -maxSpeed_)
+		speed_ = -maxSpeed_;
+}
+
+void GOM_Ship::move()
+{
+	Point pt;
+	pt = getDirectionalPoint(speed_, degree_.getDegree());
+	pos_.setX(pos_.getX() + pt.getX());
+	pos_.setY(pos_.getY() + pt.getY());
+}
+
+void GOM_Ship::rotate(double degrees)
+{
+	degree_.rotate(degrees);
 }
 
 void GOM_Ship::print(std::ostream& os)const
@@ -37,8 +57,8 @@ void GOM_Ship::print(std::ostream& os)const
 	os << "health:\t\t" << health_ << std::endl;
 	os << "attackPower:\t" << attackPower_ << std::endl;
 	os << "flags:\t\t";
-	os << "rotateL=" << actionFlags_[ROTATEL];
-	os << " rotateR=" << actionFlags_[ROTATER];
-	os << " accelerate=" << actionFlags_[ACCELERATE];
-	os << " decelerate=" << actionFlags_[DECELERATE] << std::endl << std::endl;
+	os << "rotateL=" << actionFlags_[ROTATE_L];
+	os << " rotateR=" << actionFlags_[ROTATE_R];
+	os << " accelerate=" << actionFlags_[ACCEL];
+	os << " decelerate=" << actionFlags_[DECEL] << std::endl << std::endl;
 }

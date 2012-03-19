@@ -38,8 +38,6 @@
 #define ROTATE_R	1
 #define ACCEL		2
 #define DECEL		3
-#define ACCEL_MULT	1.5
-#define DECEL_MULT	0.8
 
 class GOM_Ship : public GameObjectMoveable
 {
@@ -48,6 +46,9 @@ class GOM_Ship : public GameObjectMoveable
 		int attackPower_;
 		std::vector<bool> actionFlags_;
 		static size_t shipCount_;
+		double accel_;
+		double decel_;
+		double maxSpeed_;
 		
 	public:
 		//constructor
@@ -63,6 +64,8 @@ class GOM_Ship : public GameObjectMoveable
 		// inherited from GameObjectMoveable
 		void accelerate();
 		void decelerate();
+		void move();
+		void rotate(double);
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

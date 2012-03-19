@@ -9,7 +9,7 @@ GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    setCursor(QCursor(QPixmap("../../sprites/spriteCursor.png")));
+    setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
     setFixedSize(CLIENT_WIDTH, CLIENT_HEIGHT);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -19,8 +19,8 @@ GameWindow::GameWindow(QWidget *parent)
     setScene(scene_);
 
     // load map - the positions will eventually be stored in an xml file
-    QPixmap land("../../sprites/tileLand1.png");
-    QPixmap sea("../../sprites/tileWater1.png");
+    QPixmap land("sprites/tileLand1.png");
+    QPixmap sea("sprites/tileWater1.png");
     for (int x = 0; x < CLIENT_WIDTH; x += 50)
     {
         for(int y = 0; y < CLIENT_HEIGHT / 3; y += 50)
@@ -40,7 +40,7 @@ GameWindow::GameWindow(QWidget *parent)
 
     // these pixmap objects will be replaced by proper
     // game objects once the implementation is complete
-    QPixmap ship("../../sprites/spriteShip1.png");
+    QPixmap ship("sprites/spriteShip1.png");
     ship_ = new QGraphicsPixmapItem(ship);
     ship_->setPos(20, 20);
     scene_->addItem(ship_);

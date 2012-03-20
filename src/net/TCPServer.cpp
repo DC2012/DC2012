@@ -64,11 +64,25 @@ void TCPServer::doRead(int numReady, fd_set* pReadySet)
 {
   std::map<int, in_addr>::iterator it;
   pthread_mutex_lock(&clientMapMutex_);
+  Message* message;
   for(it = clientMap_.begin(); it != clientMap_.end(); it++)
   {
     if(FD_ISSET(it->first, pReadySet))
     {
-      q_->push(TCPConnection::read(it->first));
+      message = TCPConnection::read(it->first);
+      if(message == 0)
+      {
+	clientMap_.erase(it->first);
+	Server::getInstance()->updateClientList();	
+      }
+      else
+      {
+	if(message->getID() == 0)
+	{
+	  message->setID(it->first); 
+	}
+	q_->push(message);
+      }
       if(--numReady == 0)
       {	
         break; 
@@ -113,8 +127,16 @@ void TCPServer::write(Message* message)
   pthread_mutex_unlock(&clientMapMutex_);
 }
 
+void TCPServer::write(Message* message, int clientID)
+{
+  TCPConnection::write(clientID, message);
+}
+
 std::map<int, in_addr> TCPServer::getClients()
 {
+  pthread_mutex_lock(&clientMapMutex_);
+  std::map<int, in_addr> result(clientMap_);
+  pthread_mutex_unlock(&clientMapMutex_);
   return clientMap_;
 }
 

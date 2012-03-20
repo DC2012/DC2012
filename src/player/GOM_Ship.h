@@ -61,11 +61,13 @@ class GOM_Ship : public GameObjectMoveable
 		// getters
 		int getHealth()const;
 
-		// inherited from GameObjectMoveable
+		// movement
 		void accelerate();
 		void decelerate();
 		void move();
-		void rotate(double);
+		
+		// set actionFlags_
+		void setActionFlag(int flag, bool val);
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

@@ -41,12 +41,12 @@ void GOM_Ship::move()
 {
 	Point pt;
 	
-	if(actionFlags_[ROTATE_L] && speed_ > 0.5) // rotation not allowed when ship is moving too slowly
+	if(actionFlags_[ROTATE_L])
 	{
 		degree_.rotate(-1);
 	}
 	
-	if(actionFlags_[ROTATE_R] && speed_ > 0.5)
+	if(actionFlags_[ROTATE_R])
 	{
 		degree_.rotate(1);
 	}

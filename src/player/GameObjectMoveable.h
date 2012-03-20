@@ -13,7 +13,7 @@
 --					March 9, 2012
 --	REVISIONS:
 --					March 14, 2012 (Roger)
---						- switched to using double type in Point & Degree
+--						- switched to using double type in Point & Degree & speed
 --						- implemented object movement functions
 --						- removed accelerate() & decelerate(), they'll be
 --						implemented in GOM_Ship class
@@ -42,9 +42,9 @@ class GameObjectMoveable : public GameObject
 {
 	protected:
 		int playerID_;
-		int speed_;
+		double speed_; // speed's unit is pixel
 	public:
-		explicit GameObjectMoveable(int objID, int type, double degree, double posX, double posY, int playerID, int speed)
+		explicit GameObjectMoveable(int objID, int type, double degree, double posX, double posY, int playerID, double speed)
 		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
 		// destructor
@@ -52,7 +52,7 @@ class GameObjectMoveable : public GameObject
 
 		// getters
 		int getPlayerID()const;
-		int getSpeed()const;
+		double getSpeed()const;
 		
 		// rotates Point "pt" around Point "centre_pt" by "degree" degrees
 		void rotatePointAround(Point &pt, const Point &centre_pt, const double &degree);

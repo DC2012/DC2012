@@ -40,14 +40,38 @@ void GOM_Ship::decelerate()
 void GOM_Ship::move()
 {
 	Point pt;
+	
+	if(actionFlags_[ROTATE_L])
+	{
+		degree_.rotate(1);
+	}
+	
+	if(actionFlags_[ROTATE_R])
+	{
+		degree_.rotate(-1);
+	}
+	
+	if(actionFlags_[ACCEL])
+	{
+		accelerate();
+	}
+	
+	if(actionFlags_[DECEL])
+	{
+		decelerate();
+	}
+	
 	pt = getDirectionalPoint(speed_, degree_.getDegree());
 	pos_.setX(pos_.getX() + pt.getX());
 	pos_.setY(pos_.getY() + pt.getY());
 }
 
-void GOM_Ship::rotate(double degrees)
+void GOM_Ship::setActionFlag(int flag, bool val)
 {
-	degree_.rotate(degrees);
+	if(flag >= 0 && flag < (int)actionFlags_.size())
+	{
+		actionFlags_[flag] = val;
+	}
 }
 
 void GOM_Ship::print(std::ostream& os)const

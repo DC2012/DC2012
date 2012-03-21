@@ -40,14 +40,15 @@ class TCPServer
     }
     static void* startThread(void* param);
     void listenRead();
-    void addClient(int& maxfd);
+    void addClient();
     void doRead(int, fd_set*);
+    void removeClient(int clientID);
     
     
     static TCPServer* instance_;
     std::map<int, in_addr> clientMap_;
     fd_set allSet_;
-    int listenSocket_;
+    int listenSocket_, maxfd_;
     bool running_;
     BlockingQueue* q_;
     pthread_t readThread_;

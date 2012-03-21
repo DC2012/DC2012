@@ -12,20 +12,20 @@ void* TCPServer::startThread(void* param)
 
 void TCPServer::listenRead()
 {
-  int    maxfd, numReady;
+  int    numReady;
   fd_set readySet;
   
-  maxfd = listenSocket_;
+  maxfd_ = listenSocket_;
   FD_ZERO(&allSet_);
   FD_SET(listenSocket_, &allSet_);
   
   while(true)
   {
     readySet = allSet_;
-    numReady = select(maxfd + 1, &readySet, NULL, NULL, NULL);
+    numReady = select(maxfd_ + 1, &readySet, NULL, NULL, NULL);
     if(FD_ISSET(listenSocket_, &readySet))
     {
-      addClient(maxfd);
+      addClient();
       --numReady;
     }
     if(numReady > 0)
@@ -72,8 +72,7 @@ void TCPServer::doRead(int numReady, fd_set* pReadySet)
       message = TCPConnection::read(it->first);
       if(message == 0)
       {
-	clientMap_.erase(it->first);
-	Server::getInstance()->updateClientList();	
+	removeClient(it->first);
       }
       else
       {
@@ -97,7 +96,7 @@ void TCPServer::shutdown()
   close(listenSocket_);
 }
 
-void TCPServer::addClient(int& maxfd)
+void TCPServer::addClient()
 {
   int newSocket;
   sockaddr_in clientAddress;
@@ -105,15 +104,16 @@ void TCPServer::addClient(int& maxfd)
   {
     return;
   }
-  if(newSocket > maxfd)
-  {
-    maxfd = newSocket; 
-  }
+
   FD_SET(newSocket, &allSet_);
   pthread_mutex_lock(&clientMapMutex_);
   clientMap_[newSocket] = clientAddress.sin_addr;
   Server::getInstance()->updateClientList();
-  pthread_mutex_unlock(&clientMapMutex_);
+  if(newSocket > maxfd_)
+  {
+    maxfd_ = newSocket; 
+  }
+  pthread_mutex_unlock(&clientMapMutex_);  
 }
 
 void TCPServer::write(Message* message)
@@ -138,6 +138,26 @@ std::map<int, in_addr> TCPServer::getClients()
   std::map<int, in_addr> result(clientMap_);
   pthread_mutex_unlock(&clientMapMutex_);
   return clientMap_;
+}
+
+void TCPServer::removeClient(int clientID)
+{
+  pthread_mutex_lock(&clientMapMutex_);
+  clientMap_.erase(clientID); //remove from map
+  FD_CLR(clientID, &allSet_); //remove from set
+  if(clientID == maxfd_)      //need to update maxfd_
+  {
+    if(clientMap_.size() == 0) //nothing in map
+    {
+      maxfd_ = listenSocket_; //set maxfd_ to listen socket
+    }
+    else
+    {
+      maxfd_ = clientMap_.rbegin()->first; //set maxfd_ to highest element in map
+    }
+  }
+  Server::getInstance()->updateClientList();
+  pthread_mutex_unlock(&clientMapMutex_);  
 }
 
 

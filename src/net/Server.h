@@ -19,6 +19,7 @@ class Server
     }
     Message* read();//this is currently a blocking call, can  be modified to return null pointer when empty if that helps
     void write(Message* message);
+    void write(Message* message, int clientID);    
     bool listen(unsigned short port);//starts the server listening on the port
     void shutdown();//stops thelisten, closes the entire class down basically
     void updateClientList();

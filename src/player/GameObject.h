@@ -53,7 +53,7 @@ class GameObject
 		// getters
 		int getObjID() const;
 		int getType() const;
-		Degree getDegree() const;
+		double getDegree() const;
 		Point getPosition() const;
 
 		// for testing purposes

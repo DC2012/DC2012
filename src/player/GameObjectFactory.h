@@ -44,13 +44,13 @@ class GameObjectFactory
 			if (type == "P")
 			{
 				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> damage;
-				return new GOM_Projectile(objId, double(degree), double(posX), double(posY), playerID, speed, ttl, damage);
+				return new GOM_Projectile(objId, double(degree), double(posX), double(posY), playerID, double(speed), ttl, damage);
 			}
 			//Ship
 			if (type == "S")
 			{
 				*in_ >> objID >> degree >> posX >> posY >> playerID >> speed >> health >> attackPower;
-				return new GOM_Ship(objId, double(degree), double(posX), double(posY), playerID, speed, health, attackPower);
+				return new GOM_Ship(objId, double(degree), double(posX), double(posY), playerID, double(speed), health, attackPower);
 			}
 			//Obstacle  
 			if (type == "O")

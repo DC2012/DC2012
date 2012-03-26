@@ -2,6 +2,10 @@
 #define GRAPHICSCONTROLLER_H
 
 #include <QObject>
+#include <QMutex>
+
+#include <queue>
+#include "../net/Message.h"
 
 class GraphicsController : public QObject
 {
@@ -12,8 +16,11 @@ public:
 signals:
     
 public slots:
+    void addMessage(Message* message);
     
 private:
+    std::queue<Message *> messageQueue_;
+    QMutex mutex_;
 
 };
 

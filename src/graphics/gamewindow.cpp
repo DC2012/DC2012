@@ -1,16 +1,18 @@
 #include "gamewindow.h"
 #include "sprites.h"
+#include "messagereadworker.h"
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
-#include <QMessageBox>
 #include <QCursor>
+#include <QMessageBox>
+#include <QThread>
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this)
+    : QGraphicsView(parent), timer_(this), gcontroller_(this), currentScale_(1)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    setCursor(QCursor(QPixmap(SPRITE_CURSOR)));
+    setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
     setFixedSize(CLIENT_WIDTH, CLIENT_HEIGHT);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -43,7 +45,7 @@ GameWindow::GameWindow(QWidget *parent)
     // game objects once the implementation is complete
     QPixmap ship("sprites/spriteShip1.png");
     ship_ = new QGraphicsPixmapItem(ship);
-    ship_->setPos(20, 20);
+    ship_->setPos(100, 100);
     scene_->addItem(ship_);
 
     connect(&timer_, SIGNAL(timeout()), this, SLOT(updateGame()));
@@ -53,6 +55,15 @@ GameWindow::GameWindow(QWidget *parent)
 
 void GameWindow::start()
 {
+    QThread* readThread = new QThread(this);
+    MessageReadWorker* worker = new MessageReadWorker();
+
+    worker->moveToThread(readThread);
+    qRegisterMetaType<Message *>("Message *");
+    connect(worker, SIGNAL(messageReceived(Message*)), &gcontroller_, SLOT(addMessage(Message*)));
+    connect(readThread, SIGNAL(started()), worker, SLOT(readMessages()));
+
+    readThread->start();
     timer_.start(1000 / FRAME_RATE);
 }
 
@@ -62,6 +73,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
     case Qt::Key_Up:
+        scale(currentScale_ + .10, currentScale_ + .10);
         ship_->setOffset(ship_->offset().x(), ship_->offset().y() - 1);
         break;
     case Qt::Key_A:
@@ -70,6 +82,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_S:
     case Qt::Key_Down:
+        scale(currentScale_ - .10, currentScale_ - .10);
         ship_->setOffset(ship_->offset().x(), ship_->offset().y() + 1);
         break;
     case Qt::Key_D:

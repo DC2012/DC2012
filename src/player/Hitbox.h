@@ -39,6 +39,8 @@ class Hitbox
 
 		// for testing purposes
 		void print(std::ostream& os) const;
+		
+		bool isCollision(const Hitbox& other);
 };
 
 #endif

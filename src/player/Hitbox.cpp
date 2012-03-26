@@ -34,3 +34,25 @@ void Hitbox::print(std::ostream& os)const
 	bRight_.print(os);
 	os << std::endl << std::endl;
 }
+
+bool
+Hitbox::isCollision(const Hitbox& other)
+{
+	/* Top Left Point inside of box */
+	if(other.tLeft_.getY() < tLeft_.getY() && other.tLeft_.getY() > bRight_.getY()
+	&& other.tLeft_.getX() > tLeft_.getX() && other.tLeft_.getX() < bRight_.getX())
+		return true;
+	/* Bottom Right Point inside of box */
+	if(other.bRight_.getY() > tLeft_.getY() && other.bRight_.getY() > bRight_.getY()
+	&& other.bRight_.getX() > tLeft_.getX() && other.bRight_.getX() < bRight_.getX())
+		return true;
+	/* Bottom Left Point inside of box */
+	if(other.bLeft_.getY() < tRight_.getY() && other.bLeft_.getY() > bLeft_.getY()
+	&& other.bLeft_.getX() > tLeft_.getX() && other.bLeft_.getX() < bRight_.getX())
+		return true;
+	/* Top Right Point inside of box */
+	if(other.tRight_.getY() < tRight_.getY() && other.tRight_.getY() > bRight_.getY()
+	&& other.tRight_.getX() > tLeft_.getX() && other.tRight_.getX() < bRight_.getX())
+		return true;
+	return false;
+}

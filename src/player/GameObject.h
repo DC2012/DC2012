@@ -39,7 +39,7 @@
 #define SHIP1_SPRITE_HEIGHT 110
 
 #define SHIP2_WIDTH 30
-#defein SHIP2_HEIGHT 125
+#define SHIP2_HEIGHT 125
 #define SHIP2_SPRITE_WIDTH 50
 #define SHIP2_SPRITE_HEIGHT 160
 
@@ -56,8 +56,7 @@ class GameObject
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int objID, int type, double degree, double posX, double posY)
-		:objID_(objID), type_(type), degree_(degree), pos_(posX, posY){}
+        explicit GameObject(int objID, int type, double degree, double posX, double posY);
 
 		// default destructor
 		virtual ~GameObject(){}

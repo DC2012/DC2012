@@ -7,7 +7,7 @@ class LandTile : public Tile
 {
     public:
         LandTile(const Point& point);
-        void setGraphic();
+        //void setGraphic();
 
 };
 

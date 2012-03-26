@@ -28,35 +28,28 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
+#include "ObjectType.h"
 #include "Point.h"
 #include "Degree.h"
+#include "Hitbox.h"
+#include "../../sprites/sprites.h"
 #include <iostream>
-
-// temporary definitions of the ship sizes
-#define SHIP1_WIDTH 20
-#define SHIP1_HEIGHT 90
-#define SHIP1_SPRITE_WIDTH 41
-#define SHIP1_SPRITE_HEIGHT 110
-
-#define SHIP2_WIDTH 30
-#define SHIP2_HEIGHT 125
-#define SHIP2_SPRITE_WIDTH 50
-#define SHIP2_SPRITE_HEIGHT 160
 
 // Abstract Base Class
 class GameObject
 {
 	protected:
 		int objID_;
-		int type_;
+		ObjectType type_;
 		Degree degree_;
 		Point pos_;
 		Point spritePt_;
+		Hitbox hb_;
 
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-        explicit GameObject(int objID, int type, double degree, double posX, double posY);
+        explicit GameObject(int objID, ObjectType type, double degree, double posX, double posY);
 
 		// default destructor
 		virtual ~GameObject(){}

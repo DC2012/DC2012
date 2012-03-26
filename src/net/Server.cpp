@@ -14,6 +14,18 @@ void Server::write(Message* message)
   }
 }
 
+void Server::write(Message* message, int clientID)
+{
+  if(message->getType() == Message::UPDATE)
+  {
+    udpServer_->write(message, clientMap_[clientID]);
+  }
+  else
+  {
+    tcpServer_->write(message, clientID);
+  }
+}
+
 Message* Server::read()//this is currently a blocking call, can  be modified to return null pointer when empty if that helps
 {
   return queue_->pop();

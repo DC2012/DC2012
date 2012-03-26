@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::ChatDlg *ui;
+
+ public slots:
+    void doChat();
 };
 
 #endif // CHATDLG_H

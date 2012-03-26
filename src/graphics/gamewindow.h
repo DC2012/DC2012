@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
+#include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -13,6 +14,9 @@ class GameWindow : public QGraphicsView
 public:
     explicit GameWindow(QWidget *parent = 0);
     void start();
+
+    void setChatting(bool b);
+    bool isChatting();
     
 signals:
     
@@ -26,6 +30,10 @@ private:
 
     QGraphicsScene *scene_;
     QTimer timer_;
+
+    // env chat message box
+    ChatDlg *chatdlg_;
+    bool isChatting_;
 
     // this will be removed later, just for testing until the proper
     // graphic object interfaces are implemented

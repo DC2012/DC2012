@@ -63,9 +63,11 @@ SeaTile::SeaTile(const Point& position)
 --  NOTES:
 -------------------------------------------------------------------------------------*/
 
+/*
 void SeaTile::setGraphic()
 {
-    graphic_ = new TileGraphicsObject(SEA, Tile::getPosition());
+    graphic_ = new TileGraphicsObject(Tile::getPosition(), SEA);
 }
+*/
 
 

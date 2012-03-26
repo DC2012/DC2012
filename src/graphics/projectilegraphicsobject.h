@@ -3,17 +3,10 @@
 
 #include "graphicsobject.h"
 
-class ProjectileGraphicsObject
+class ProjectileGraphicsObject : public GraphicsObject
 {
 public:
-    ProjectileGraphicsObject(Point position);
-    QGraphicsPixmapItem getPixmapItem();
-private:
-    ~ProjectileGraphicsObject();
-    Point position_;
-    QPixmap currentPixmap_;
-    QGraphicsPixmapItem pixmapItem_;
-    void draw (Point pos);
+    ProjectileGraphicsObject(const Point& initialPoint);
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

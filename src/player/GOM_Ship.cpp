@@ -44,13 +44,13 @@ void GOM_Ship::move()
 	if(actionFlags_[ROTATE_L])
 	{
 		degree_.rotate(-1);
-		rotatePointAround(spritePt_, pos_, -1);
+		rotateHitbox(-1);
 	}
 	
 	if(actionFlags_[ROTATE_R])
 	{
 		degree_.rotate(1);
-		rotatePointAround(spritePt_, pos_, 1);
+		rotateHitbox(1);
 	}
 	
 	if(actionFlags_[ACCEL])
@@ -66,6 +66,31 @@ void GOM_Ship::move()
 	pt = getDirectionalPoint(speed_, degree_.getDegree());
 	pos_.setX(pos_.getX() + pt.getX());
 	pos_.setY(pos_.getY() + pt.getY());
+	moveHitbox(pt.getX(), pt.getY());
+}
+
+void GOM_Ship::rotateHitbox(double degree)
+{
+	rotatePointAround(hb_.tLeft, pos_, degree);
+	rotatePointAround(hb_.tRight, pos_, degree);
+	rotatePointAround(hb_.bLeft, pos_, degree);
+	rotatePointAround(hb_.bRight, pos_, degree);
+}
+
+void GOM_Ship::moveHitbox(double x, double y)
+{
+	// tLeft
+	hb_.tLeft.setX(hb_.tLeft.getX() + x);
+	hb_.tLeft.setY(hb_.tLeft.getY() + y);
+	// tRight
+	hb_.tRight.setX(hb_.tRight.getX() + x);
+	hb_.tRight.setY(hb_.tRight.getY() + y);
+	// bLeft
+	hb_.bLeft.setX(hb_.bLeft.getX() + x);
+	hb_.bLeft.setY(hb_.bLeft.getY() + y);
+	// bRight
+	hb_.bRight.setX(hb_.bRight.getX() + x);
+	hb_.bRight.setY(hb_.bRight.getY() + y);
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)

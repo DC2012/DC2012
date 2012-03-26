@@ -5,12 +5,14 @@ GameObject::GameObject(int objID, int type, double degree, double posX, double p
 {
 	switch(type_)
 	{
-		case 1:
+		case SHIP1:
             spritePt_ = Point(posX-(double(SHIP1_SPRITE_WIDTH)/2.0),
                 posY-(double(SHIP1_SPRITE_HEIGHT)/2.0));
-		case 2:
+			break;
+		case SHIP2:
 			spritePt_ = Point(posX-(double(SHIP2_SPRITE_WIDTH)/2.0), 
                 posY-(double(SHIP2_SPRITE_HEIGHT)/2.0));
+			break;
 	}
 }
 

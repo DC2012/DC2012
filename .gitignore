@@ -8,5 +8,9 @@
 
 # Qt 
 *.pro.user
+*.pro
+ui_*.h
 moc_*.*
 moc_*.*
+Makefile
+DC2012

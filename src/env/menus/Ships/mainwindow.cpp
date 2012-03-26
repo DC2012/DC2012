@@ -38,7 +38,7 @@ void MainWindow::connect_accept(QString port, QString ip)
     //{
         GameWindow *gameWindow = new GameWindow();
         gameWindow->setFocus();
-        gameWindow->show();
+        gameWindow->start();
 
         mDialog.close();
         this->hide();

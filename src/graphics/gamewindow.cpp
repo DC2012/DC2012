@@ -1,4 +1,5 @@
 #include "gamewindow.h"
+#include "sprites.h"
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -9,7 +10,7 @@ GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
+    setCursor(QCursor(QPixmap(SPRITE_CURSOR)));
     setFixedSize(CLIENT_WIDTH, CLIENT_HEIGHT);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -19,8 +20,8 @@ GameWindow::GameWindow(QWidget *parent)
     setScene(scene_);
 
     // load map - the positions will eventually be stored in an xml file
-    QPixmap land("sprites/tileLand1.png");
-    QPixmap sea("sprites/tileWater1.png");
+    QPixmap land(TILE_LAND1);
+    QPixmap sea(TILE_WATER1);
     for (int x = 0; x < CLIENT_WIDTH; x += 50)
     {
         for(int y = 0; y < CLIENT_HEIGHT / 3; y += 50)

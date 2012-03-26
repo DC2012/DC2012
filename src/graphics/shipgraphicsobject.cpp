@@ -1,5 +1,6 @@
 #include "shipgraphicsobject.h"
 
+/*
     ShipGraphicsObject::ShipGraphicsObject(int type, Point position)
     {
         type_ = type;
@@ -10,11 +11,11 @@
         previousState_ = NO_ANIMATION;
         initGraphics();
     }
-/**
-  This method is going to go through and initialize the pixmap array.
-  Going to need to be hard set once we have all the animation frames.
-  For now we'll just need a basic set of images.
-  */
+
+//  This method is going to go through and initialize the pixmap array.
+//  Going to need to be hard set once we have all the animation frames.
+//  For now we'll just need a basic set of images.
+
     initGraphics() {
        pixmapArray[0] = new QPixmap(new SPRITE_SHIP1);
        pixmapArray[1] = new QPixmap(new SPRITE_SHIP1_MOVE1);
@@ -23,16 +24,16 @@
        pixmapArray[4] = new QPixmap(new SPRITE_SHIP1_HIT);
        // etc etc with the proper names.
     }
-/**
-  This method requires a GameObject to be passed to it.
-  */
+
+//  This method requires a GameObject to be passed to it.
+
     void ShipGraphicsObject::draw() {
         update();
     }
-/**
-  Gets all the object's info. These methods need to be provided by
-  the team creating the objects.
-  */
+
+//  Gets all the object's info. These methods need to be provided by
+//  the team creating the objects.
+
     void ShipGraphicsObject::update() {
         //position_ = obj->getPosition();
         //type_ = obj->getType();
@@ -52,10 +53,10 @@
         }
         previousState_ = flag;
     }
-/**
-  This method will return the current pixmap item so that it can be added to the scene.
-  */
+
+ // This method will return the current pixmap item so that it can be added to the scene.
+
     QGraphicsPixmapItem* ShipGraphicsObject::getPixmapItem() {
         return currentPixmapItem_;
     }
-
+*/

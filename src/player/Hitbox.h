@@ -35,7 +35,7 @@ class Hitbox
 		Hitbox(const Point& org, const double& width, const double& height);
 
 		// destructor
-		~Hitbox(){}
+		~Hitbox() {}
 
 		// for testing purposes
 		void print(std::ostream& os) const;

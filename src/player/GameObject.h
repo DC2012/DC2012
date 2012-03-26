@@ -32,6 +32,17 @@
 #include "Degree.h"
 #include <iostream>
 
+// temporary definitions of the ship sizes
+#define SHIP1_WIDTH 20
+#define SHIP1_HEIGHT 90
+#define SHIP1_SPRITE_WIDTH 41
+#define SHIP1_SPRITE_HEIGHT 110
+
+#define SHIP2_WIDTH 30
+#defein SHIP2_HEIGHT 125
+#define SHIP2_SPRITE_WIDTH 50
+#define SHIP2_SPRITE_HEIGHT 160
+
 // Abstract Base Class
 class GameObject
 {
@@ -40,6 +51,7 @@ class GameObject
 		int type_;
 		Degree degree_;
 		Point pos_;
+		Point spritePt_;
 
 	public:
 		// constructor

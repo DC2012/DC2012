@@ -26,13 +26,11 @@
 
 class Hitbox
 {
-	private:
-		Point tLeft_, tRight_, bLeft_, bRight_;
-
 	public:
+		Point tLeft, tRight, bLeft, bRight;
 		// constructor
 		// width and height will be provided by the Graphics object
-		Hitbox(const Point& org, const double& width, const double& height);
+		Hitbox(const Point& org = Point(0, 0), const double& width = 0, const double& height = 0);
 
 		// destructor
 		~Hitbox() {}

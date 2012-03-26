@@ -50,6 +50,15 @@ class GOM_Ship : public GameObjectMoveable
 		double decel_;
 		double maxSpeed_;
 		
+		// movement
+		void accelerate();
+		void decelerate();
+		
+		// rotate hitbox
+		void rotateHitbox(double degree);
+		// move hitbox
+		void moveHitbox(double x, double y);
+		
 	public:
 		//constructor
 		explicit GOM_Ship(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0, 
@@ -62,8 +71,6 @@ class GOM_Ship : public GameObjectMoveable
 		int getHealth()const;
 
 		// movement
-		void accelerate();
-		void decelerate();
 		void move();
 		
 		// set actionFlags_

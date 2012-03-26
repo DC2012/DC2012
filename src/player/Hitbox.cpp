@@ -5,33 +5,33 @@ Hitbox::Hitbox(const Point& org, const double& width, const double& height)
 {
 	double leftX 	= org.getX() - (width/2);
 	double rightX 	= org.getX() + (width/2);
-	double topY 	= org.getY() + (height/2);
-	double bottomY = org.getY() - (height/2);
+	double topY 	= org.getY() - (height/2);
+	double bottomY = org.getY() + (height/2);
 
-	tLeft_.setX(leftX);
-	tLeft_.setY(topY);
+	tLeft.setX(leftX);
+	tLeft.setY(topY);
 
-	tRight_.setX(rightX);
-	tRight_.setY(topY);
+	tRight.setX(rightX);
+	tRight.setY(topY);
 
-	bLeft_.setX(leftX);
-	bLeft_.setY(bottomY);
+	bLeft.setX(leftX);
+	bLeft.setY(bottomY);
 
-	bRight_.setX(rightX);
-	bRight_.setY(bottomY);
+	bRight.setX(rightX);
+	bRight.setY(bottomY);
 }
 
 void Hitbox::print(std::ostream& os)const
 {
 	os << "**Hitbox**\n" << std::endl;
 	os << "Top left:\t";
-	tLeft_.print(os);
+	tLeft.print(os);
 	os << std::endl << "Top right:\t";
-	tRight_.print(os);
+	tRight.print(os);
 	os << std::endl << "Bottom left:\t";
-	bLeft_.print(os);
+	bLeft.print(os);
 	os << std::endl << "Bottom right:\t";
-	bRight_.print(os);
+	bRight.print(os);
 	os << std::endl << std::endl;
 }
 
@@ -39,20 +39,20 @@ bool
 Hitbox::isCollision(const Hitbox& other)
 {
 	/* Top Left Point inside of box */
-	if(other.tLeft_.getY() < tLeft_.getY() && other.tLeft_.getY() > bRight_.getY()
-	&& other.tLeft_.getX() > tLeft_.getX() && other.tLeft_.getX() < bRight_.getX())
+	if(other.tLeft.getY() < tLeft.getY() && other.tLeft.getY() > bRight.getY()
+	&& other.tLeft.getX() > tLeft.getX() && other.tLeft.getX() < bRight.getX())
 		return true;
 	/* Bottom Right Point inside of box */
-	if(other.bRight_.getY() > tLeft_.getY() && other.bRight_.getY() > bRight_.getY()
-	&& other.bRight_.getX() > tLeft_.getX() && other.bRight_.getX() < bRight_.getX())
+	if(other.bRight.getY() > tLeft.getY() && other.bRight.getY() > bRight.getY()
+	&& other.bRight.getX() > tLeft.getX() && other.bRight.getX() < bRight.getX())
 		return true;
 	/* Bottom Left Point inside of box */
-	if(other.bLeft_.getY() < tRight_.getY() && other.bLeft_.getY() > bLeft_.getY()
-	&& other.bLeft_.getX() > tLeft_.getX() && other.bLeft_.getX() < bRight_.getX())
+	if(other.bLeft.getY() < tRight.getY() && other.bLeft.getY() > bLeft.getY()
+	&& other.bLeft.getX() > tLeft.getX() && other.bLeft.getX() < bRight.getX())
 		return true;
 	/* Top Right Point inside of box */
-	if(other.tRight_.getY() < tRight_.getY() && other.tRight_.getY() > bRight_.getY()
-	&& other.tRight_.getX() > tLeft_.getX() && other.tRight_.getX() < bRight_.getX())
+	if(other.tRight.getY() < tRight.getY() && other.tRight.getY() > bRight.getY()
+	&& other.tRight.getX() > tLeft.getX() && other.tRight.getX() < bRight.getX())
 		return true;
 	return false;
 }

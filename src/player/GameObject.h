@@ -31,6 +31,7 @@
 #include "ObjectType.h"
 #include "Point.h"
 #include "Degree.h"
+#include "Hitbox.h"
 #include "../../sprites/sprites.h"
 #include <iostream>
 
@@ -43,6 +44,7 @@ class GameObject
 		Degree degree_;
 		Point pos_;
 		Point spritePt_;
+		Hitbox hb_;
 
 	public:
 		// constructor

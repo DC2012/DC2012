@@ -44,13 +44,11 @@ void GOM_Ship::move()
 	if(actionFlags_[ROTATE_L])
 	{
 		degree_.rotate(-1);
-		rotatePointAround(spritePt_, pos_, -1);
 	}
 	
 	if(actionFlags_[ROTATE_R])
 	{
 		degree_.rotate(1);
-		rotatePointAround(spritePt_, pos_, 1);
 	}
 	
 	if(actionFlags_[ACCEL])

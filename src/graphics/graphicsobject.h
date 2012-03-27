@@ -3,7 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include "../player/GameObject.h"
-#include "sprites.h"
+#include "../../sprites/sprites.h"
 
 #define NO_ANIMATION        0;
 #define ANIMATE_MOVING      1;

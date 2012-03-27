@@ -1,5 +1,5 @@
 #include "gamewindow.h"
-#include "sprites.h"
+#include "../../sprites/sprites.h"
 #include "messagereadworker.h"
 
 #include <QGraphicsPixmapItem>
@@ -97,5 +97,5 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 
 void GameWindow::updateGame()
 {
-
+    gcontroller_.processMessages();
 }

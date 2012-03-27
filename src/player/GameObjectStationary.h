@@ -36,7 +36,7 @@ class GameObjectStationary : public GameObject
 {
 	protected:
 	public:
-		explicit GameObjectStationary(int objID, int type, double degree, double posX, double posY)
+		explicit GameObjectStationary(int objID, ObjectType type, double degree, double posX, double posY)
 		:GameObject(objID, type, degree, posX, posY){}
 
 		// for testing purposes

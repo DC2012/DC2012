@@ -1,14 +1,16 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <QObject>
 #include <string>
 #include <string.h>
-class Message
+class Message : public QObject
 {
 public:
   enum MessageType { 
 	CHAT, 
 	CREATION, 
+    CONNECTION,
 	DELETION, 
 	UPDATE, 
 	ACTION, 

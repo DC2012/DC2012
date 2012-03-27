@@ -1,3 +1,6 @@
+#ifndef SPRITES_H
+#define SPRITES_H
+
 #define SPRITE_SHIP1 QString("../../sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString("../../sprites/spriteShip1Hit.png")
 #define SPRITE_SHIP1_MOVE1 QString("spriteShipMove1.png")
@@ -31,3 +34,5 @@
 #define TILE_WATER1 QString("tileWater1.png")
 #define TILE_WATER2 QString("tileWater2.png")
 #define TILE_LAND1 QString("tileLand1.png")
+
+#endif 

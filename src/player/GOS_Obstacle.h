@@ -38,7 +38,7 @@ class GOS_Obstacle : public GameObjectStationary
 		static size_t obstacleCount_;
 	public:
 		// constructor for now
-		explicit GOS_Obstacle(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0);
+		explicit GOS_Obstacle(int objID = 0, ObjectType type = OBSTACLE, double degree = 0, double posX = 0, double posY = 0);
 
 		// destructor
 		virtual ~GOS_Obstacle(){}

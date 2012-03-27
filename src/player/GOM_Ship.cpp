@@ -3,7 +3,7 @@
 size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
-GOM_Ship::GOM_Ship(int objID, int type, double degree, double posX, double posY, 
+GOM_Ship::GOM_Ship(int objID, ObjectType type, double degree, double posX, double posY, 
 	int playerID, double speed, int health, int attackPower)
 :GameObjectMoveable(objID, type, degree ,posX ,posY ,playerID ,speed), 
 	health_(health), attackPower_(attackPower)

@@ -64,7 +64,9 @@ LandTile::LandTile(const Point& position)
 --  NOTES:
 -------------------------------------------------------------------------------------*/
 
+/*
 void LandTile::setGraphic()
 {
-    graphic_ = new TileGraphicsObject(LAND, getPosition());
+    graphic_ = new TileGraphicsObject(getPosition(), LAND);
 }
+*/

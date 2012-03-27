@@ -1,7 +1,9 @@
 #include "projectilegraphicsobject.h"
 
-    ProjectileGraphicsObject::ProjectileGraphicsObject(Point position)
-    {
-        position_ = position;
-        //initGraphics();
-    }
+ProjectileGraphicsObject::ProjectileGraphicsObject(const Point& initialPoint)
+    : GraphicsObject(initialPoint)
+{
+    ProjectileGraphicsObject::setPixmapItem(QPixmap(SPRITE_BULLET));
+}
+
+

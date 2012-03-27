@@ -44,7 +44,7 @@ class GameObjectMoveable : public GameObject
 		int playerID_;
 		double speed_; // speed's unit is pixel
 	public:
-		explicit GameObjectMoveable(int objID, int type, double degree, double posX, double posY, int playerID, double speed)
+		explicit GameObjectMoveable(int objID, ObjectType type, double degree, double posX, double posY, int playerID, double speed)
 		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
 		// destructor

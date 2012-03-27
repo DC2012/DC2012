@@ -59,6 +59,9 @@ class GameObject
 		int getType() const;
 		double getDegree() const;
 		Point getPosition() const;
+		
+		// returns distance between current GameObject and the GameObject passed in
+		double getObjDistance(const GameObject &gObj) const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

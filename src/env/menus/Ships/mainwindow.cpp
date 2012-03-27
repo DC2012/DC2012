@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "dlgconnection.h"
 #include "../../../graphics/gamewindow.h"
+#include "pickyourship.h"
 
 #include <QtCore>
 
@@ -26,6 +27,12 @@ void MainWindow::dialog_popup()
     mDialog.exec();
 }
 
+void MainWindow::assignShip(QString shipType)
+{
+    userName_ = "kendra";
+    shipType_ = shipType;
+}
+
 void MainWindow::connect_accept(QString port, QString ip)
 {
     std::string i;
@@ -36,12 +43,23 @@ void MainWindow::connect_accept(QString port, QString ip)
 
     //if (client_->connectClient(p, i))
     //{
-        GameWindow *gameWindow = new GameWindow();
-        gameWindow->setFocus();
-        gameWindow->start();
+    mDialog.close();
+    this->hide();
+    PickYourShip shipDialog;
+    connect(&shipDialog, SIGNAL(shipChosen(QString)), this, SLOT(assignShip(QString)));
+    shipDialog.exec();
 
-        mDialog.close();
-        this->hide();
+    Message msg;
+    msg.setType(Message::CONNECTION);
+    msg.setData((shipType_ + " " + userName_).toStdString());
+
+    //client_->write(&msg);
+
+    GameWindow *gameWindow = new GameWindow();
+    gameWindow->setFocus();
+    gameWindow->start();
+
+
     //}
 }
 

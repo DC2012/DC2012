@@ -27,6 +27,9 @@ public:
   
     void
     write(Message* m, sockaddr_in& address);
+    
+    void
+    write(Message* m, in_addr address);
   
     void
     write(Message* m, const std::map<int, in_addr>& addresses);

@@ -1,6 +1,4 @@
 #include "UDP.h"
-#include <iostream>
-using namespace std;
 UDP* UDP::instance_ = 0;
 
 UDP* UDP::getInstance(BlockingQueue* queue)
@@ -21,15 +19,12 @@ UDP::write(Message* m, const std::map<int, in_addr>& addresses)
     char* message;
     int length;
     std::map<int, in_addr>::const_iterator it;
-    cout << "write loop " << addresses.size() << endl;
     message = m->serialize();
     length  = m->getLength() + Message::MSGHEADER;
     for(it = addresses.begin(); it != addresses.end(); it++)
     {
-      cout << it->first << " " << ntohl(it->second.s_addr) << endl;
       sendAddress_.sin_addr = it->second;
       sendAddress_.sin_port = addressMap_[it->second.s_addr];
-      cout << ntohs(sendAddress_.sin_port) << endl;
       CommWrapper::Write(sockfd, message, length, &sendAddress_);
     }
     delete[] message;
@@ -45,6 +40,22 @@ UDP::write(Message* m, sockaddr_in& address)
     message = m->serialize();
     length  = m->getLength() + Message::MSGHEADER;
     CommWrapper::Write(sockfd, message, length, &address);
+    delete[] message;
+}
+
+/*
+ * Write a message to a single client.
+ */
+void
+UDP::write(Message* m, in_addr address)
+{
+    char* message;
+    int   length;
+    message = m->serialize();
+    length  = m->getLength() + Message::MSGHEADER;
+    sendAddress_.sin_addr = address;
+    sendAddress_.sin_port = addressMap_[address.s_addr];    
+    CommWrapper::Write(sockfd, message, length, &sendAddress_);
     delete[] message;
 }
 

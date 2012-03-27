@@ -38,7 +38,7 @@ class GOS_PowerUp : public GameObjectStationary
 		static size_t powerUpCount_;
 	public:
 		// constructor for now
-		explicit GOS_PowerUp(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0);
+		explicit GOS_PowerUp(int objID = 0, ObjectType type = POWERUP, double degree = 0, double posX = 0, double posY = 0);
 
 		// destructor
 		virtual ~GOS_PowerUp(){}

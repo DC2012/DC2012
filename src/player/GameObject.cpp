@@ -38,6 +38,11 @@ Point GameObject::getPosition()const
 	return pos_;
 }
 
+double GameObject::getObjDistance(const GameObject &gObj) const
+{
+	return pos_.getDistance(gObj.getPosition());
+}
+
 void GameObject::print(std::ostream& os)const
 {
 	os << "objID:\t\t" << objID_ << std::endl;

@@ -1,6 +1,8 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include "graphicscontroller.h"
+
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -26,6 +28,8 @@ private:
 
     QGraphicsScene *scene_;
     QTimer timer_;
+    GraphicsController gcontroller_;
+    qreal currentScale_;
 
     // this will be removed later, just for testing until the proper
     // graphic object interfaces are implemented

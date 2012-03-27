@@ -27,6 +27,7 @@
 #define GOPOS_H_
 #include <QPointF>
 #include <iostream>
+#include <cmath>
 
 // A class that takes two integer values to represent x & y coordinates
 class Point
@@ -46,6 +47,8 @@ class Point
 		// setters
 		void setX(const double& x);
 		void setY(const double& y);
+		
+		double getDistance(const Point &pt) const;
 
 		Point& operator+=(const Point& rhs); // adding two Points
 		void print(std::ostream& os)const;

@@ -4,6 +4,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
+#include <QLineEdit>
 #include <QCursor>
 #include "../../src/env/chat/ChatDlg.h"
 #include <QMessageBox>
@@ -19,9 +20,12 @@ GameWindow::GameWindow(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     // env chat message stuff
-    chatdlg_ = new ChatDlg;
+    chatdlg_ = new ChatDlg(this);
+
     chatdlg_->setModal(false);
+    chatdlg_->setVisible(false);
     isChatting_ = false;
+    chatdlg_->setGeometry(0, (this->geometry().height() - 150), 400, 150);
 
     scene_ = new QGraphicsScene();
     scene_->setSceneRect(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
@@ -76,6 +80,8 @@ void GameWindow::start()
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
+    QLineEdit *le = chatdlg_->findChild<QLineEdit *>("lineEdit_input");
+
     switch(event->key())
     {
     case Qt::Key_W:
@@ -100,11 +106,13 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
         break;
     case Qt::Key_Return:
+    case Qt::Key_Enter:
         // this will change when we have the chat portion as it's own
-        // frame/widget.
-        if(this->isChatting())
+        // frame/widget. We also set the lineEdit_input to have focus()
+        if(!this->isChatting() || !chatdlg_->isVisible())
         {
             chatdlg_->show();
+            le->setFocus();
             this->setChatting(true);
         }
         else

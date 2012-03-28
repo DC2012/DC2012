@@ -6,15 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>565</width>
-    <height>160</height>
+    <width>425</width>
+    <height>228</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ChatDlg</string>
   </property>
   <property name="windowOpacity">
-   <double>0.500000000000000</double>
+   <double>1.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -28,7 +31,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="lineEdit_input"/>
    </item>
   </layout>
  </widget>

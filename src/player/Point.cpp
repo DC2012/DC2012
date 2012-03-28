@@ -26,6 +26,11 @@ void Point::setY(const double& y)
 	y_ = y;
 }
 
+double Point::getDistance(const Point &pt) const
+{
+	return sqrt(pow((x_ - pt.getX()), 2) + pow((y_ - pt.getY()), 2));
+}
+
 Point& Point::operator+=(const Point& rhs)
 {
 	x_ += rhs.x_;

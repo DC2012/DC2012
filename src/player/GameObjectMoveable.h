@@ -1,13 +1,24 @@
-/*----------------------------------------------------------------------
+/*-----------------------------------------------------------------------------
 --	CLASS NAME:
 --					GameObjectMoveable
 --	PARENT CLASS:
 --					GameObject
 --	CONSTRUCTOR:
---
+--					GameObjectMoveable(int objID, ObjectType type, double degree,
+--						double posX, double posY, int playerID, double speed)
 --	DESTROCTOR:
 --
+--	DATA MEMBER:
+--					private:
+--						int playerID_
+--						double speed_;
 --	FUNCTIONS:
+--					public:
+--						int getPlayerID()
+--						double getSpeed()
+--						void rotatePointAround(Point &pt, const Point &centre_pt, 
+--							const double &degree)
+--						Point getDirectionalPoint(double distance, double degree)
 --
 --	DATE:
 --					March 9, 2012
@@ -29,7 +40,7 @@
 --					Roger Fan
 --					Zach Smoroden
 --	NOTES:
-----------------------------------------------------------------------*/
+-----------------------------------------------------------------------------*/
 #ifndef GAMEOBJECTMOVEABLE_H_
 #define GAMEOBJECTMOVEABLE_H_
 
@@ -41,25 +52,98 @@ const double PI = 4.0 * atan(1.0);
 class GameObjectMoveable : public GameObject
 {
 	protected:
-		int playerID_;
-		double speed_; // speed's unit is pixel
+		int 	playerID_;
+		double 	speed_; // speed's unit is pixel
 	public:
 		explicit GameObjectMoveable(int objID, ObjectType type, double degree, double posX, double posY, int playerID, double speed)
 		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
-		// destructor
-		virtual ~GameObjectMoveable(){}
-
-		// getters
-		int getPlayerID()const;
-		double getSpeed()const;
+/*-----------------------------------------------------------------------------
+--	FUNCTION:
+--				getPlayerID
+--	DATE:
+--				March 9, 2012
+--	REVISIONS:
+--
+--	DESIGNER:
+--				Roger Fan
+--	PROGRAMMER:
+--				Roger Fan
+--	INTERFACE:
+--				int getPlayerID() const
+--	RETURNS:
+--				Returns playerID_ variable.
+--	NOTES:
+-----------------------------------------------------------------------------*/
+		int getPlayerID() const;
 		
-		// rotates Point "pt" around Point "centre_pt" by "degree" degrees
+/*-----------------------------------------------------------------------------
+--	FUNCTION:
+--				getSpeed
+--	DATE:
+--				March 9, 2012
+--	REVISIONS:
+--
+--	DESIGNER:
+--				Roger Fan
+--	PROGRAMMER:
+--				Roger Fan
+--	INTERFACE:
+--				double getSpeed() const
+--	RETURNS:
+--				Returns speed_ variable.
+--	NOTES:
+-----------------------------------------------------------------------------*/
+		double getSpeed() const;
+		
+/*-----------------------------------------------------------------------------
+--	FUNCTION:
+--				rotatePointAround
+--	DATE:
+--				March 9, 2012
+--	REVISIONS:
+--
+--	DESIGNER:
+--				Roger Fan
+--	PROGRAMMER:
+--				Roger Fan
+--	INTERFACE:
+--				void rotatePointAround(Point &pt, const Point &centre_pt, 
+--					const double &degree)
+--	RETURNS:
+--				void
+--	NOTES:
+--				This function operates on parameter pt. It updates the (x, y)
+--				coordinates of Point pt to the position after it rotates around
+--				Point centre_pt for the number of degree specified.
+-----------------------------------------------------------------------------*/
 		void rotatePointAround(Point &pt, const Point &centre_pt, const double &degree);
 		
-		// returns a directional Point that's used to be added to another Point to
-		// move it with a specifed distance and direction (degree)
-		Point getDirectionalPoint(double move_distance, double degree);
+/*-----------------------------------------------------------------------------
+--	FUNCTION:
+--				getDirectionalPoint
+--	DATE:
+--				March 9, 2012
+--	REVISIONS:
+--
+--	DESIGNER:
+--				Roger Fan
+--	PROGRAMMER:
+--				Roger Fan
+--	INTERFACE:
+--				Point getDirectionalPoint(double distance, double degree)
+--	RETURNS:
+--				Returns a Point object.
+--	NOTES:
+--				Example of this function's usage:
+--				
+--				Point a(2, 2);
+--				Point temp = getDirectionalPoint(10, 30);
+--				a += temp;
+--
+--				Point a now has moved 10 units into 30 degree direction.
+-----------------------------------------------------------------------------*/
+		Point getDirectionalPoint(double distance, double degree);
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

@@ -28,8 +28,11 @@
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
 
+#include "ObjectType.h"
 #include "Point.h"
 #include "Degree.h"
+#include "Hitbox.h"
+#include "../../sprites/sprites.h"
 #include <iostream>
 
 // Abstract Base Class
@@ -37,15 +40,16 @@ class GameObject
 {
 	protected:
 		int objID_;
-		int type_;
+		ObjectType type_;
 		Degree degree_;
 		Point pos_;
+		Point spritePt_;
+		Hitbox hb_;
 
 	public:
 		// constructor
 		// explicit to indicate no implicit conversion
-		explicit GameObject(int objID, int type, double degree, double posX, double posY)
-		:objID_(objID), type_(type), degree_(degree), pos_(posX, posY){}
+        explicit GameObject(int objID, ObjectType type, double degree, double posX, double posY);
 
 		// default destructor
 		virtual ~GameObject(){}
@@ -53,8 +57,11 @@ class GameObject
 		// getters
 		int getObjID() const;
 		int getType() const;
-		Degree getDegree() const;
+		double getDegree() const;
 		Point getPosition() const;
+		
+		// returns distance between current GameObject and the GameObject passed in
+		double getObjDistance(const GameObject &gObj) const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

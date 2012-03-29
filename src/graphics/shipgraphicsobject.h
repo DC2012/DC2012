@@ -1,28 +1,27 @@
 #ifndef SHIPGRAPHICSOBJECT_H
 #define SHIPGRAPHICSOBJECT_H
 
-#include <QGraphicsPixmapItem>
 #include "graphicsobject.h"
 
-class ShipGraphicsObject
+class ShipGraphicsObject : public GraphicsObject
 {
 public:
-    ShipGraphicsObject();
-    void draw(GameObject* obj);
-    QGraphicsPixmapItem getPixmapItem();
+    ShipGraphicsObject(const Point& initialPosition, int type);
+    //void draw();
+    //QGraphicsPixmapItem* getPixmapItem();
 private:
-    ~ShipGraphicsObject();
-    QGraphicsPixmapItem* currentPixmapItem_;
-    QPixmap pixmapArray[];
-    int type_;
-    int pixmapIndex_;
-    int animateState_;
-    int previousState_;
-    int animateCounter_;
-    int speed_;
-    Point position_;
-    void update(GameObject* obj);
-    void animate(int flag);
+    //QGraphicsPixmapItem* currentPixmapItem_;
+    //QPixmap pixmapArray[];
+    //int type_;
+    //int pixmapIndex_;
+    //int animateState_;
+    //int previousState_;
+    //int animateCounter_;
+    //int speed_;
+    //Point position_;
+    //void update();
+    //void animate(int flag);
+    //void initGraphics();
 };
 
 #endif // SHIPGRAPHICSOBJECT_H

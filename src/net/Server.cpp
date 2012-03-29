@@ -6,11 +6,23 @@ void Server::write(Message* message)
 {
   if(message->getType() == Message::UPDATE)
   {
-    //udpServer_->write(message);
+    udpServer_->write(message, clientMap_);
   }
   else
   {
     tcpServer_->write(message);
+  }
+}
+
+void Server::write(Message* message, int clientID)
+{
+  if(message->getType() == Message::UPDATE)
+  {
+    udpServer_->write(message, clientMap_[clientID]);
+  }
+  else
+  {
+    tcpServer_->write(message, clientID);
   }
 }
 
@@ -31,5 +43,14 @@ void Server::shutdown()
 
 bool Server::listen(unsigned short port)
 {
-  return tcpServer_->startListen(port); 
+  if(!tcpServer_->startListen(port))
+  {
+    return false;
+  }
+  if(!udpServer_->startRead(port))
+  {
+    tcpServer_->shutdown();
+    return false;
+  }
+  return true;
 }

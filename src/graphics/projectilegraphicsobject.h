@@ -1,10 +1,12 @@
 #ifndef PROJECTILEGRAPHICSOBJECT_H
 #define PROJECTILEGRAPHICSOBJECT_H
 
-class ProjectileGraphicsObject
+#include "graphicsobject.h"
+
+class ProjectileGraphicsObject : public GraphicsObject
 {
 public:
-    ProjectileGraphicsObject();
+    ProjectileGraphicsObject(const Point& initialPoint);
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

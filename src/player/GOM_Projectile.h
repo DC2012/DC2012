@@ -13,7 +13,7 @@
 --					March 9, 2012
 --	REVISIONS:
 --					March 14, 2012 (Roger)
---						- switched to using double type in Point & Degree
+--						- switched to using double type in Point & Degree & speed
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -40,15 +40,11 @@ class GOM_Projectile : public GameObjectMoveable
 		static size_t projectileCount_;
 	public:
 		// contructor
-		explicit GOM_Projectile(int objID = 0, int type = 0, double degree = 0, double posX = 0, double posY = 0, 
-			int playerID = 0, int speed = 0, int ttl = 0, int damage = 0);
+		explicit GOM_Projectile(int objID = 0, ObjectType type = PROJECTILE, double degree = 0, double posX = 0, double posY = 0, 
+			int playerID = 0, double speed = 0, int ttl = 0, int damage = 0);
 
 		// destructor
 		virtual ~GOM_Projectile(){}
-
-		// inherited from GameObjectMoveable
-		virtual void accelerate(int amount);
-		virtual void decelerate(int amount);
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

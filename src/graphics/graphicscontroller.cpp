@@ -1,17 +1,47 @@
 #include "graphicscontroller.h"
 
-GraphicsController::GraphicsController(QGraphicsScene *scene, QObject *parent) :
-    QObject(parent), scene_(scene)
+#include <QMessageBox>
+
+GraphicsController::GraphicsController(QObject *parent) :
+    QObject(parent)
 {
 
 }
 
-void QGraphicsController::addGraphic(const GraphicsObject *graphic)
+void GraphicsController::addMessage(Message *message)
 {
-    scene->addItem(graphic->getPixmapItem());
+    mutex_.lock();
+    messageQueue_.push(message);
+    mutex_.unlock();
 }
 
-void QGraphicsController::removeGraphic(const GraphicsObject *graphic)
+void GraphicsController::processMessages()
 {
-    scene->removeItem(graphic->getPixmapItem());
+    mutex_.lock();
+    while (!messageQueue_.empty())
+    {
+        Message *msg = messageQueue_.front();
+        processGameMessage(msg);
+        free(msg);
+        messageQueue_.pop();
+    }
+    mutex_.unlock();
+}
+
+void GraphicsController::processGameMessage(Message *message)
+{
+    switch (message->getType())
+    {
+    case Message::CREATION:
+        break;
+
+    case Message::ACTION:
+        break;
+
+    case Message::DELETION:
+        break;
+
+    case Message::STATUS:
+        break;
+    }
 }

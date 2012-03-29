@@ -1,26 +1,14 @@
 #include "tilegraphicsobject.h"
 
-TileGraphicsObject::TileGraphicsObject(int type, Point position)
+TileGraphicsObject::TileGraphicsObject(const Point& initialPosition, int type)
+    : GraphicsObject(initialPosition)
 {
-    position_ = position;
-    type_ = type;
-    draw(type_, position_);
-}
+    QPixmap tile;
 
-void initGraphics() {
-// initialize pixmapArray[]
-}
+    if (type == SEA_TILE)
+        tile.load(TILE_WATER2);
+    else if (type == LAND_TILE)
+        tile.load(TILE_LAND1);
 
-void draw(int type, Position pos) {
-    if (type == SEA_TILE) {
-        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_WATER1));
-    } else if (type == LAND_TILE) {
-        currentPixmapItem_ = new QPixmapItem(new QPixmap(new TILE_LAND1));
-    } else {
-    // error
-    }
-}
-
-QGraphicsPixmapItem* getPixmapItem() {
-    return currentPixmapitem_;
+    GraphicsObject::setPixmapItem(tile);
 }

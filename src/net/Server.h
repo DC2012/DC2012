@@ -4,6 +4,7 @@
 #include "TCPServer.h"
 #include "Message.h"
 #include "BlockingQueue.h"
+#include "UDP.h"
 
 class Server
 {
@@ -18,6 +19,7 @@ class Server
     }
     Message* read();//this is currently a blocking call, can  be modified to return null pointer when empty if that helps
     void write(Message* message);
+    void write(Message* message, int clientID);    
     bool listen(unsigned short port);//starts the server listening on the port
     void shutdown();//stops thelisten, closes the entire class down basically
     void updateClientList();
@@ -25,14 +27,14 @@ class Server
   private:
     BlockingQueue* queue_;
     TCPServer* tcpServer_;
-    //UDPServer* udpServer_;
+    UDP* udpServer_;
     static Server* instance_;
     std::map<int, in_addr> clientMap_;
     Server()
     {
         queue_     = new BlockingQueue;
         tcpServer_ = TCPServer::getInstance(queue_);
-        //udpServer_ = UDPServer::getInstance(queue_);
+        udpServer_ = UDP::getInstance(queue_);
         instance_  = this;
     }    
 };

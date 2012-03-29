@@ -3,49 +3,38 @@
 #include <arpa/inet.h>
 #include <map>
 #include "Message.h"
+#include "BlockingQueue.h"
+#include "CommWrapper.h"
 
 #define SERV_PORT 8243
 #define MAXSIZE 1024
 
-using namespace std;
-typedef struct sockaddr_in sockaddr_in; //So we don't have to say "struct"
-
 class UDP {
 private:
     int sockfd;
-    sockaddr_in sock;
+    sockaddr_in sendAddress_;
+    BlockingQueue* queue_;
+    std::map<uint32_t, unsigned short> addressMap_;
+    static UDP* instance_;
+    pthread_t readThreadID_;
+    UDP(BlockingQueue* queue):queue_(queue)
+    {
+      sockfd = CommWrapper::Socket(SOCK_DGRAM);
+    }
+    static void* readThread(void* param);
   
 public:
-  /* Multiple ways to create UDP, all require a socket file descriptor. */
-    UDP(int desc);
-    UDP(int desc, char* address);
-    UDP(int desc, char* address, int port);
-    UDP(int desc, int address, int port);
   
     void
-    binder();
-  
-    void
-    setPort(int port);
-  
-    void
-    setSock(int sock);
-  
-    void 
-    setAddress(char* address);
-    /* To set it to a constant like INADDR_ANY */
-    void
-    setAddress(int address);
-  
-    void 
-    send(char* msg);
-  
+    write(Message* m, sockaddr_in& address);
+    
     void
     write(Message* m, in_addr address);
   
     void
-    write_all(Message* m, std::map<int, in_addr> addresses);
-  
-    int
-    receive(char* result, size_t bufsize);
+    write(Message* m, const std::map<int, in_addr>& addresses);
+
+    bool startRead(unsigned short port = 0);
+
+    static UDP* getInstance(BlockingQueue* queue = 0);
 };

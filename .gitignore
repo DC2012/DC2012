@@ -1,1 +1,16 @@
+# Compiled object files
 *.o
+*.slo
+*.lo
+
+# Vim backup
+*.swp
+
+# Qt 
+*.pro.user
+*.pro
+ui_*.h
+moc_*.*
+moc_*.*
+Makefile
+DC2012

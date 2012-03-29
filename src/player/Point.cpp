@@ -11,11 +11,6 @@ double Point::getY()const
 	return y_;
 }
 
-QPointF Point::getQPointF()const
-{
-	return QPointF(x_, y_);
-}
-
 void Point::setX(const double& x)
 {
 	x_ = x;

@@ -31,7 +31,6 @@
 -----------------------------------------------------------------------------*/
 #ifndef GOPOS_H_
 #define GOPOS_H_
-#include <QPointF>
 #include <iostream>
 #include <cmath>
 
@@ -107,26 +106,6 @@ class Point
 --                  Getter for y_
 -----------------------------------------------------------------------------*/
         double getY()const;
-
-/*-----------------------------------------------------------------------------
---  FUNCTION:
---                  getQPointF
---  DATE:
---                  March 14, 2012
---  REVISIONS:
---
---  DESIGNER:
---                  Roger Fan
---  PROGRAMMER:
---                  Roger Fan
---  INTERFACE:
---                  getQPointF() const
---  RETURNS:
---                  QPoint
---  NOTES:
---                  Get this point as a QPointF type
------------------------------------------------------------------------------*/
-        QPointF getQPointF()const;
 
 /*-----------------------------------------------------------------------------
 --  FUNCTION:

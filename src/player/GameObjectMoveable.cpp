@@ -39,7 +39,7 @@ void GameObjectMoveable::rotatePointAround(Point &pt,
 
 Point GameObjectMoveable::getDirectionalPoint(double distance, double degree)
 {
-	Point centre(0.0, 0.0), pt(move_distance, 0.0);
+	Point centre(0.0, 0.0), pt(distance, 0.0);
 	rotatePointAround(pt, centre, degree);
 	
 	return pt;

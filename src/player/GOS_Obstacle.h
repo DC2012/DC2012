@@ -42,6 +42,9 @@ class GOS_Obstacle : public GameObjectStationary
 
 		// destructor
 		virtual ~GOS_Obstacle(){}
+		
+		virtual void update(const std::string &str);
+		virtual std::string toString() const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

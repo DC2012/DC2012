@@ -46,6 +46,8 @@
 
 #include "GameObject.h"
 #include <cmath>
+#include <string>
+#include <sstream>
 
 const double PI = 4.0 * atan(1.0);
 
@@ -144,6 +146,9 @@ class GameObjectMoveable : public GameObject
 --				Point a now has moved 10 units into 30 degree direction.
 -----------------------------------------------------------------------------*/
 		Point getDirectionalPoint(double distance, double degree);
+		
+		virtual void update(const std::string &str) = 0;
+		virtual std::string toString() const = 0;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

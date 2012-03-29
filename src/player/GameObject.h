@@ -46,11 +46,13 @@
 #define GAMEOBJECT_H_
 
 #include "ObjectType.h"
+#include "ObjectStringCheck.h"
 #include "Point.h"
 #include "Degree.h"
 #include "Hitbox.h"
 #include "../../sprites/sprites.h"
 #include <iostream>
+#include <string>
 
 class GameObject
 {
@@ -66,10 +68,8 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  Constructor
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
@@ -79,18 +79,15 @@ class GameObject
 --                  Po Hsu
 --                  Roger Fan
 --                  Zach Smoroden
---
 --  PROGRAMMER:
 --                  Po Hsu
 --                  Roger Fan
---
 --  INTERFACE:
 --                  GameObject(int objID, ObjectType type, double degree,
 --                                                  double posX, double posY);
 --
 --  RETURNS:
 --                  Constructor
---
 --  NOTES:
 --                  objID   Unique object ID
 --                  type    Object type used by the graphics team
@@ -104,24 +101,18 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  Destructor
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
---
 --  INTERFACE:
 --                  ~GameObject()
---
 --  RETURNS:
 --                  Destructor
---
 --  NOTES:
 --                  Default destructor that gets inherited by all children                
 -----------------------------------------------------------------------------*/
@@ -130,24 +121,18 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  getObjID
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
---
 --  INTERFACE:
 --                  getObjectID() const
---
 --  RETURNS:
 --                  int
---
 --  NOTES:
 --                  Getter for objID_
 -----------------------------------------------------------------------------*/
@@ -156,27 +141,21 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  getType
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - created enum type ObjectType replacing the int
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
 --                  Roger Fan
---
 --  INTERFACE:
 --                  getType() const
---
 --  RETURNS:
 --                  ObjectType
---
 --  NOTES:
 --                  Getter for type_
 -----------------------------------------------------------------------------*/
@@ -185,27 +164,21 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  getDegree
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
 --                  Roger Fan
---
 --  INTERFACE:
 --                  getDegree() const
---
 --  RETURNS:
 --                  double
---
 --  NOTES:
 --                  Getter for degree_
 -----------------------------------------------------------------------------*/
@@ -214,24 +187,18 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  getPosition
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
---
 --  INTERFACE:
 --                  getPosition() const
---
 --  RETURNS:
 --                  Point
---
 --  NOTES:
 --                  Getter for pos_
 -----------------------------------------------------------------------------*/
@@ -240,24 +207,18 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  getObjDistance
---
 --  DATE:
 --                  March 15, 2012
---
 --  REVISIONS:
 --
 --  DESIGNER:
 --                  Roger Fan
---
 --  PROGRAMMER:
 --                  Roger Fan
---
 --  INTERFACE:
 --                  getObjDistance(const GameObject &gObj) const
---
 --  RETURNS:
 --                  double
---
 --  NOTES:
 --                  Get the distance between this GameObject and another
 --                      GameObject
@@ -267,28 +228,25 @@ class GameObject
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
 --                  print
---
 --  DATE:
 --                  March 9, 2012
---
 --  REVISIONS:
 --
 --  DESIGNER:
 --                  Po Hsu
---
 --  PROGRAMMER:
 --                  Po Hsu
---
 --  INTERFACE:
 --                  print(std::ostream& os) const
---
 --  RETURNS:
 --                  void.
---
 --  NOTES:
 --                  Prints out the member variable values for debugging purpose
 -----------------------------------------------------------------------------*/
         virtual void print(std::ostream& os) const;
+		
+		virtual void update(const std::string &str) = 0;
+		virtual std::string toString() const = 0;
 };
 
 #endif

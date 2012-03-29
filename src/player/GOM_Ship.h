@@ -75,6 +75,9 @@ class GOM_Ship : public GameObjectMoveable
 		
 		// set actionFlags_
 		void setActionFlag(int flag, bool val);
+		
+		virtual void update(const std::string &str);
+		virtual std::string toString() const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

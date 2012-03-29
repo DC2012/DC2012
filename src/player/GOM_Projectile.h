@@ -45,6 +45,9 @@ class GOM_Projectile : public GameObjectMoveable
 
 		// destructor
 		virtual ~GOM_Projectile(){}
+		
+		virtual void update(const std::string &str);
+		virtual std::string toString() const;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

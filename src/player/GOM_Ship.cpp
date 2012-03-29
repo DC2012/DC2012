@@ -101,6 +101,55 @@ void GOM_Ship::setActionFlag(int flag, bool val)
 	}
 }
 
+void GOM_Ship::update(const std::string &str)
+{
+	std::istringstream istr(str);
+	char endCheck;
+	int type = -1;
+	int objID, degree, posX, posY, playerID, speed, health, attackPower;
+	
+	istr >> type;
+	switch(ObjectType(type))
+	{
+	case SHIP1:
+	case SHIP2:
+		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
+			>> attackPower >> endCheck;
+		
+		if(!istr.good() || endCheck != SHIP_STR)
+			break;
+		
+		type_ = ObjectType(type);
+		objID_ = objID;
+		degree_.setDegree(double(degree));
+		pos_.setX(double(posX));
+		pos_.setY(double(posY));
+		playerID_ = playerID;
+		speed_ = double(speed);
+		health_ = health;
+		attackPower_ = attackPower;
+		break;
+	}
+}
+
+std::string GOM_Ship::toString() const
+{
+	std::ostringstream ostr;
+	
+	ostr << int(type_) << " ";
+	ostr << objID_ << " ";
+	ostr << int(degree_.getDegree()) << " ";
+	ostr << int(pos_.getX()) << " ";
+	ostr << int(pos_.getY()) << " ";
+	ostr << playerID_ << " ";
+	ostr << int(speed_) << " ";
+	ostr << health_ << " ";
+	ostr << attackPower_ << " ";
+	ostr << SHIP_STR;
+	
+	return ostr.str();
+}
+
 void GOM_Ship::print(std::ostream& os)const
 {
 	os << "Number #" << shipCount_ << " ship" << std::endl;

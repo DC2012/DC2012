@@ -23,7 +23,7 @@ int GameObject::getObjID()const
 	return objID_;
 }
 
-int GameObject::getType()const
+ObjectType GameObject::getType()const
 {
 	return type_;
 }

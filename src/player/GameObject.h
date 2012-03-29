@@ -54,12 +54,12 @@
 class GameObject
 {
     protected:
-        int         objID_;
-        ObjectType  type_;
-        Degree      degree_;
-        Point       pos_;
-        Point       spritePt_;
-        Hitbox      hb_;
+        int         objID_;     // unique object ID
+        ObjectType  type_;      // graphical types for graphics
+        Degree      degree_;    // orientation in degrees
+        Point       pos_;       // position
+        Point       spritePt_;  // top-left corner for drawing sprites
+        Hitbox      hb_;        // effective hitbox of the object
 
     public:
 /*-----------------------------------------------------------------------------

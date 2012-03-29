@@ -38,7 +38,8 @@
 class Point
 {
     private:
-        double x_, y_;
+        double x_,  // x-coordinate
+               y_;  // y-coordinate
     public:
 /*-----------------------------------------------------------------------------
 --  FUNCTION:

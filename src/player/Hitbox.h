@@ -31,7 +31,10 @@
 class Hitbox
 {
     public:
-        Point tLeft, tRight, bLeft, bRight;
+        Point tLeft,    // top-left     corner
+              tRight,   // top-right    corner
+              bLeft,    // bottom-left  corner
+              bRight;   // bottom-right corner
 
 /*-----------------------------------------------------------------------------
 --  FUNCTION:

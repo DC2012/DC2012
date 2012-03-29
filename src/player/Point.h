@@ -9,7 +9,6 @@
 --                  public:
 --                      double  getX()          const;
 --                      double  getY()          const;
---                      QPointF getQPointF()    const;
 --                      void    setX(const double& x);
 --                      void    setY(const double& y);   
 --                      double  getDistance(const Point &pt) const;

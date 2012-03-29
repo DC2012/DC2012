@@ -63,18 +63,172 @@ class Point
 -----------------------------------------------------------------------------*/
         explicit Point(double x = 0, double y = 0): x_(x), y_(y) {}
 
-        // getters
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  getX
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--                  March 14, 2012 (Roger)
+--                      - switched to using double type
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--                  Roger Fan
+--  INTERFACE:
+--                  getX() const
+--  RETURNS:
+--                  double
+--  NOTES:
+--                  Getter for x_
+-----------------------------------------------------------------------------*/
         double getX()const;
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  getY
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--                  March 14, 2012 (Roger)
+--                      - switched to using double type
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--                  Roger Fan
+--  INTERFACE:
+--                  getY() const
+--  RETURNS:
+--                  double
+--  NOTES:
+--                  Getter for y_
+-----------------------------------------------------------------------------*/
         double getY()const;
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  getQPointF
+--  DATE:
+--                  March 14, 2012
+--  REVISIONS:
+--
+--  DESIGNER:
+--                  Roger Fan
+--  PROGRAMMER:
+--                  Roger Fan
+--  INTERFACE:
+--                  getQPointF() const
+--  RETURNS:
+--                  QPoint
+--  NOTES:
+--                  Get this point as a QPointF type
+-----------------------------------------------------------------------------*/
         QPointF getQPointF()const;
 
-        // setters
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  setX
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--                  March 14, 2012 (Roger)
+--                      - switched to using double type
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--                  Roger Fan
+--  INTERFACE:
+--                  setX(const double& x)
+--  RETURNS:
+--                  void
+--  NOTES:
+--                  Setter for x_
+-----------------------------------------------------------------------------*/
         void setX(const double& x);
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  setY
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--                  March 14, 2012 (Roger)
+--                      - switched to using double type
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--                  Roger Fan
+--  INTERFACE:
+--                  setY(const double& y)
+--  RETURNS:
+--                  void
+--  NOTES:
+--                  Setter for y_
+-----------------------------------------------------------------------------*/
         void setY(const double& y);
-        
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  getDistance
+--  DATE:
+--                  March 14, 2012
+--  REVISIONS:
+--
+--  DESIGNER:
+--                  Roger Fan
+--  PROGRAMMER:
+--                  Roger Fan
+--  INTERFACE:
+--                  getDistance(const Point &pt) const
+--  RETURNS:
+--                  double
+--  NOTES:
+--                  Get the distance of this Point and another Point
+-----------------------------------------------------------------------------*/
         double getDistance(const Point &pt) const;
 
-        Point& operator+=(const Point& rhs); // adding two Points
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  operator+=
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--  INTERFACE:
+--                  operator+=(const Point& rhs)
+--  RETURNS:
+--                  Point&
+--  NOTES:
+--                  Adds two Points together and returns the new Point
+-----------------------------------------------------------------------------*/
+        Point& operator+=(const Point& rhs);
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  print
+--  DATE:
+--                  March 9, 2012
+--  REVISIONS:
+--
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--  INTERFACE:
+--                  print(std::ostream& os) const
+--  RETURNS:
+--                  void.
+--  NOTES:
+--                  Prints out the member variable values for debugging purpose
+-----------------------------------------------------------------------------*/
         void print(std::ostream& os)const;
 };
 

@@ -1,6 +1,7 @@
 #ifndef GAMEMAP_H
 #define GAMEMAP_H
 
+
 #include <qfile.h>
 #include <qmap.h>
 #include <qlist.h>

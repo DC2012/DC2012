@@ -20,7 +20,9 @@
 ----------------------------------------------------------------------------------*/
 
 
-
+#include <QtCore>
+#include <QtXml/QtXml>
+#include <QDebug>
 #include "gamemap.h"
 #include "landtile.h"
 #include "seatile.h"
@@ -99,6 +101,39 @@ GameMap :: GameMap(int xSize, int ySize)
 
 GameMap :: GameMap(QString fileName)
 {
+    // DOM method of reading XML, not SAX
+    // it reads the entire document, then parse any data needed
+    QDomDocument doc;
+
+    // Load the file
+    QFile map(fileName);
+    if(!map.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "Failed to open file";
+        return -1;
+    }
+    else
+    {
+        if(doc.setContent(&map))
+        {
+            qDebug() << "Failed to load the map";
+            return -1;
+        }
+        map.close();
+    }
+
+    // get the root element
+    QDomElement maps = doc.firstChildElement();
+
+    // List the tiles
+
 
 }
+
+
+
+
+
+
+
 

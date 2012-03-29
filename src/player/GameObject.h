@@ -14,20 +14,18 @@
 --                      Point  getPosition() const;
 --        
 --                      double getObjDistance(const GameObject &gObj) const;
---                      virtual void print(std::ostream& os) const;
+--              virtual void   print(std::ostream& os) const;
 --
 --  DATE:
 --                  March 9, 2012
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
---
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
 --                  Roger Fan
 --                  Zach Smoroden
---
 --  PROGRAMMER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -40,7 +38,6 @@
 --                  Classes inheriting from this:
 --                                                GameObjectMoveable
 --                                                GameObjectStationary
---
 -----------------------------------------------------------------------------*/
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
@@ -73,7 +70,6 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
---
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -85,7 +81,6 @@ class GameObject
 --  INTERFACE:
 --                  GameObject(int objID, ObjectType type, double degree,
 --                                                  double posX, double posY);
---
 --  RETURNS:
 --                  Constructor
 --  NOTES:
@@ -114,7 +109,7 @@ class GameObject
 --  RETURNS:
 --                  Destructor
 --  NOTES:
---                  Default destructor that gets inherited by all children                
+--                  Default destructor that gets inherited by all children
 -----------------------------------------------------------------------------*/
         virtual ~GameObject(){}
 
@@ -146,7 +141,6 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - created enum type ObjectType replacing the int
---
 --  DESIGNER:
 --                  Po Hsu
 --  PROGRAMMER:
@@ -169,7 +163,6 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type
---
 --  DESIGNER:
 --                  Po Hsu
 --  PROGRAMMER:

@@ -7,7 +7,7 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
-#include <phonon/phonon> // <<<<<<--- need fix; invalid path
+#include <phonon/phonon>
 #include <QDesktopServices>
 
 class AudioController : public QObject

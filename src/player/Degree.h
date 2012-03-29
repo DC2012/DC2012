@@ -10,8 +10,8 @@
 --						double degree_
 --	FUNCTIONS:
 --					public:
---						void rotate(int degree)
---						void setDegree(int degree)
+--						void rotate(double degree)
+--						void setDegree(double degree)
 --						double getDegree() const
 --
 --	DATE:

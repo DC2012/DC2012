@@ -1,22 +1,31 @@
 #ifndef GAMEMAP_H
 #define GAMEMAP_H
 
-
 #include <qfile.h>
 #include <qmap.h>
 #include <qlist.h>
 #include <qstring.h>
-#include "tile.h"
+#include <QtCore>
+#include <QtXml/QtXml>
+#include <QtXml/QDomNode>
+#include <QDebug>
+#include <vector>
 
 #include "../player/GameObjectStationary.h"
 #include "landtile.h"
 #include "seatile.h"
-#include <vector>
+#include "tile.h"
+
+
+#define xSize 4000
+#define ySize 3000
+#define tileSize 25
+
+
 class GameMap
 {
     public:
         GameMap();
-        GameMap(int xSize, int ySize);
         GameMap(QString fileName);
         int addTile(Tile tile);
 

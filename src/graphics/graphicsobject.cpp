@@ -1,7 +1,7 @@
 #include "graphicsobject.h"
 
-GraphicsObject::GraphicsObject(const Point &initialPos)
-    : pos_(initialPos)
+GraphicsObject::GraphicsObject(const Point &initialPos, GameObject* gameObject)
+    : pos_(initialPos), gameObject_(gameObject)
 {
 
 }

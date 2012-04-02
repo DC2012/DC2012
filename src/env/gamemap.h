@@ -21,7 +21,7 @@ class GameMap
 
     private:
         QFile                           xmlMap_;
-        QMap<int, GameObjectStationary> mapObjects_;
+        //QMap<int, GameObjectStationary> mapObjects_; <<<<<<<--- need fix, cannot have instance of abstract class
         //Tile                        gameTiles_;
         std::vector<std::vector<Tile*> > gameTiles_;
 

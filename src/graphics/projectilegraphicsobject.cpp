@@ -1,9 +1,9 @@
 #include "projectilegraphicsobject.h"
 
-ProjectileGraphicsObject::ProjectileGraphicsObject(const Point& initialPoint)
-    : GraphicsObject(initialPoint)
+ProjectileGraphicsObject::ProjectileGraphicsObject(const Point& initialPoint, GameObject* gameObject)
+    : GraphicsObject(initialPoint, gameObject)
 {
-    ProjectileGraphicsObject::setPixmapItem(QPixmap(SPRITE_BULLET));
+    GraphicsObject::setPixmapItem(QPixmap(SPRITE_BULLET));
 }
 
 

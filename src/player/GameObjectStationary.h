@@ -31,6 +31,8 @@
 #define GAMEOBJECTSTATIONARY_H_
 
 #include "GameObject.h"
+#include <string>
+#include <sstream>
 
 class GameObjectStationary : public GameObject
 {
@@ -38,6 +40,9 @@ class GameObjectStationary : public GameObject
 	public:
 		explicit GameObjectStationary(int objID, ObjectType type, double degree, double posX, double posY)
 		:GameObject(objID, type, degree, posX, posY){}
+		
+		virtual void update(const std::string &str) = 0;
+		virtual std::string toString() const = 0;
 
 		// for testing purposes
 		virtual void print(std::ostream& os) const;

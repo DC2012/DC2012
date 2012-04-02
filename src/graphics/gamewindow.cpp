@@ -11,7 +11,7 @@
 #include <QThread>
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), gcontroller_(this), currentScale_(1)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), gcontroller_(scene_, this), currentScale_(1)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));

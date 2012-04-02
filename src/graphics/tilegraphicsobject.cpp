@@ -1,7 +1,7 @@
 #include "tilegraphicsobject.h"
 
-TileGraphicsObject::TileGraphicsObject(const Point& initialPosition, int type)
-    : GraphicsObject(initialPosition)
+TileGraphicsObject::TileGraphicsObject(const Point& initialPosition, GameObject *gameObject, int type)
+    : GraphicsObject(initialPosition, gameObject)
 {
     QPixmap tile;
 

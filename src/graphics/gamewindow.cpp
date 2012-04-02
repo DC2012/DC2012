@@ -13,6 +13,7 @@
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), gcontroller_(scene_, this), currentScale_(1)
 {
+
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
     setFixedSize(CLIENT_WIDTH, CLIENT_HEIGHT);
@@ -21,9 +22,7 @@ GameWindow::GameWindow(QWidget *parent)
 
     // env chat message stuff
     chatdlg_ = new ChatDlg(this);
-
     chatdlg_->setModal(false);
-    chatdlg_->setVisible(false);
     isChatting_ = false;
     chatdlg_->setGeometry(0, (this->geometry().height() - 150), 400, 150);
 
@@ -109,16 +108,19 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Enter:
         // this will change when we have the chat portion as it's own
         // frame/widget. We also set the lineEdit_input to have focus()
-        if(!this->isChatting() || !chatdlg_->isVisible())
+        if(!this->isChatting())
         {
-            chatdlg_->show();
+            if(!chatdlg_->isVisible())
+                chatdlg_->show();
+            le->setVisible(true);
             le->setFocus();
+
             this->setChatting(true);
         }
         else
         {
             // eventually we will just hide the lineEdit control
-            chatdlg_->close();
+            le->setVisible(false);
             this->setChatting(false);
         }
         break;
@@ -133,7 +135,7 @@ void GameWindow::updateGame()
 
 void GameWindow::setChatting(bool b)
 {
-    GameWindow::isChatting_ = &b;
+    GameWindow::isChatting_ = b;
 }
 
 bool GameWindow::isChatting()

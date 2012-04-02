@@ -8,12 +8,13 @@
 #include <map>
 #include "../net/Message.h"
 #include "../player/GameObject.h"
+#include "../graphics/graphicsobject.h"
 
 class GraphicsController : public QObject
 {
     Q_OBJECT
 public:
-    explicit GraphicsController(QObject *parent = 0);
+    explicit GraphicsController(QGraphicsScene *scene, QObject *parent = 0);
     void processMessages();
     
 signals:
@@ -22,8 +23,9 @@ public slots:
     void addMessage(Message* message);
     
 private:
+    QGraphicsScene* scene_;
     std::queue<Message *> messageQueue_;
-    std::map<int, GameObject *> gameObjects_;
+    std::map<int, GraphicsObject *> graphicObjects_;
     QMutex mutex_;
 
     void processGameMessage(Message *msg);

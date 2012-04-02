@@ -27,6 +27,9 @@ void ChatDlg::doChat()
     // type CHAT
     GameWindow *p = (GameWindow *) this->parent();
     p->setChatting(false);
-    this->close();
+    ui->lineEdit_input->setVisible(false);
+    this->clearFocus();
+    p->setFocus();
+    //this->close();
 
 }

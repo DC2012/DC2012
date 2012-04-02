@@ -1,5 +1,11 @@
 #include "shipgraphicsobject.h"
 
+ShipGraphicsObject::ShipGraphicsObject(const Point& initialPoint, GameObject* gameObject, int type)
+    : GraphicsObject(initialPoint, gameObject)
+{
+    GraphicsObject::setPixmapItem(QPixmap(SPRITE_SHIP1));
+}
+
 /*
     ShipGraphicsObject::ShipGraphicsObject(int type, Point position)
     {

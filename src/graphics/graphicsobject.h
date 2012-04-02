@@ -2,6 +2,7 @@
 #define GRAPHICSOBJECT_H
 
 #include <QGraphicsPixmapItem>
+#include <string>
 #include "../player/GameObject.h"
 #include "../../sprites/sprites.h"
 
@@ -12,13 +13,14 @@
 class GraphicsObject
 {
 public:
-    GraphicsObject(const Point& initialPos);
+    GraphicsObject(const Point& initialPos, GameObject* gameObject);
     QGraphicsPixmapItem* getPixmapItem() const;
     void setPixmapItem(const QPixmap& pixmap);
 
 private:
-    QGraphicsPixmapItem* pixmapItem_;
     Point pos_;
+    GameObject* gameObject_;
+    QGraphicsPixmapItem* pixmapItem_;
 };
 
 #endif // GRAPHICSOBJECT_H

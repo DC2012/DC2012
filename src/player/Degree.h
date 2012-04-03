@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------
---  CLASS NAME:
+--	CLASS NAME:
 --					Degree
 --	CONSTRUCTOR:
 --					Degree(double degree = 0)

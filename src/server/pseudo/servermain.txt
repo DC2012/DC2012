@@ -1,0 +1,46 @@
+struct serverData
+{
+  map* clientShipsMap;
+  map* projectilesMap;
+  pthread_mutex_t mutex;
+};
+
+void update(union sigval)//prototype must match for function to be called from timer, sigval is from sev.sigev_value
+{
+  //lock mutex
+  //update stuff
+  //unlock mutex
+}
+
+int main()
+{
+  sigevent sev;         //struct used to create timer
+  timer_t timerID;      //holds timerid
+  itimerspec spec;      //struct used to set the time interval for the timer;
+  serverData data;
+  server* commserver = server::getInstance();  
+  
+  data.clientShipsMap = new map;
+  data.projectilesMap = new map;
+  pthread_mutex_init(&data.mutex, 0);
+  
+  commserver.listen(PORT);
+  
+  sev.sigev_notify = SIGEV_THREAD;//tell timer to create thread when timer goes off
+  sev.sigev_value.sival_ptr = &data;//data passed into new thread, pass in data so thread can access it
+  sev.sigev_notify_attributes = 0;//no attributes needed for thread
+  
+  timer_create(CLOCK_REALTIME, &sev, &timerID);
+  
+  spec.it_interval.tv_sec  = 0
+  spec.it_interval.tv_nsec = 1000000000 / FRAMERATE; //divide 1s by frame rate
+  spec.it_value.tv_sec = spec.it_interval.tv_sec;    //set starting value to match the interval
+  spec.it_value.tv_nsec = spec.it_interval.tv_nsec;
+  
+  timer_settime(timerID, 0, &spec, 0);//start the timer
+
+  processMessages(&data);//commserver can be passed in or you can use getInstance again
+  
+  //cleanup code
+  
+}

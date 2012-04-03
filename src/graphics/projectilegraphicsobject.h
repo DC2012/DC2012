@@ -6,7 +6,7 @@
 class ProjectileGraphicsObject : public GraphicsObject
 {
 public:
-    ProjectileGraphicsObject(const Point& initialPoint);
+    ProjectileGraphicsObject(const Point& initialPoint, GameObject* gameObject);
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

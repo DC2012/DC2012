@@ -1,9 +1,8 @@
 #include "graphicscontroller.h"
+#include "graphicsobjectfactory.h"
 
-#include <QMessageBox>
-
-GraphicsController::GraphicsController(QObject *parent) :
-    QObject(parent)
+GraphicsController::GraphicsController(QGraphicsScene *scene, QObject *parent) :
+    QObject(parent), scene_(scene)
 {
 
 }

@@ -1,3 +1,25 @@
+/*****************************************************************
+-- CLASS:       ChatDlg
+--
+-- DATE:        FEB/MAR 2012
+--
+-- DESIGNER:    Tyler Ingram
+--
+-- PROGRAMMER:  Tyler Ingram
+--              Anthony Rachiero
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+******************************************************************/
+
+
 #include "ChatDlg.h"
 #include "ui_ChatDlg.h"
 #include <QMessageBox>
@@ -30,6 +52,5 @@ void ChatDlg::doChat()
     ui->lineEdit_input->setVisible(false);
     this->clearFocus();
     p->setFocus();
-    //this->close();
 
 }

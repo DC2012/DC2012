@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(int objID, ObjectType type, double degree, double posX, double posY)
-	:objID_(objID), type_(type), degree_(degree), pos_(posX, posY)
+GameObject::GameObject(ObjectType type, int objID, double degree, double posX, double posY)
+	:type_(type), objID_(objID), degree_(degree), pos_(posX, posY)
 {
 	switch(type_)
 	{

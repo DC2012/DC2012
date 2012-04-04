@@ -21,6 +21,9 @@
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -54,8 +57,8 @@
 class GameObject
 {
     protected:
-        int         objID_;     // unique object ID
         ObjectType  type_;      // graphical types for graphics
+        int         objID_;     // unique object ID
         Degree      degree_;    // orientation in degrees
         Point       pos_;       // position
         Point       spritePt_;  // top-left corner for drawing sprites
@@ -70,6 +73,9 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -79,7 +85,7 @@ class GameObject
 --                  Po Hsu
 --                  Roger Fan
 --  INTERFACE:
---                  GameObject(int objID, ObjectType type, double degree,
+--                  GameObject(ObjectType type, int objID, double degree,
 --                                                  double posX, double posY);
 --  RETURNS:
 --                  Constructor
@@ -90,7 +96,7 @@ class GameObject
 --                  posX    X-coordinate
 --                  posY    Y-coordinate
 -----------------------------------------------------------------------------*/
-        explicit GameObject(int objID, ObjectType type, double degree,
+        explicit GameObject(ObjectType type, int objID, double degree,
                                                     double posX, double posY);
 
 /*-----------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 --	PARENT CLASS:
 --					GameObject
 --	CONSTRUCTOR:
---					GameObjectMoveable(int objID, ObjectType type, double degree,
+--					GameObjectMoveable(ObjectType type, int objID, double degree,
 --						double posX, double posY, int playerID, double speed)
 --	DESTROCTOR:
 --
@@ -28,6 +28,9 @@
 --						- implemented object movement functions
 --						- removed accelerate() & decelerate(), they'll be
 --						implemented in GOM_Ship class
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -57,8 +60,8 @@ class GameObjectMoveable : public GameObject
 		int 	playerID_;
 		double 	speed_; // speed's unit is pixel
 	public:
-		explicit GameObjectMoveable(int objID, ObjectType type, double degree, double posX, double posY, int playerID, double speed)
-		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
+		explicit GameObjectMoveable(ObjectType type, int objID, double degree, double posX, double posY, int playerID, double speed)
+		:GameObject(type, objID, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
 /*-----------------------------------------------------------------------------
 --	FUNCTION:

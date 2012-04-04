@@ -61,7 +61,7 @@ class GOM_Ship : public GameObjectMoveable
 		
 	public:
 		//constructor
-		explicit GOM_Ship(int objID = 0, ObjectType type = SHIP1, double degree = 0, double posX = 0, double posY = 0, 
+		explicit GOM_Ship(ObjectType type = SHIP1, int objID = 0, double degree = 0, double posX = 0, double posY = 0, 
 			int playerID = 0, double speed = 0, int health = 0, int attackPower = 0);
 
 		// destructor

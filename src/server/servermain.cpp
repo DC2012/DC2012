@@ -23,6 +23,7 @@
 #include "../player/ObjectType.h"
 #include "../player/GameObject.h"
 #include "../player/GameObjectFactory.h"
+#include "../player/GOM_Ship.h"
 #include <iostream>
 #include <stringstream>
 #include <string>
@@ -31,7 +32,6 @@ const char ws = ' ';
 
 int main (int argc, char **argv)
 {
-    GameObjectFactory gameObjectFactory;
     GameObject* gameObject;
     Server*  server = Server::getInstance();
     Message* recvMessage;
@@ -51,7 +51,6 @@ int main (int argc, char **argv)
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
-            data.clear();
             // send STATUS message to notify a client its cliendID
             clientID = recvMessage->getID();
             sendMessage.setID(clientID);
@@ -71,20 +70,14 @@ int main (int argc, char **argv)
             health   = 100;     /* hard-coded need to fix */
             attack   = 30;      /* hard-coded need to fix */
             end      = SHIP_STR;
-            osstream = std::ostringstream(data);
-                // contructing the message
-            osstream << type << ws << objID << ws << degree << ws;
-            osstream << posX << ws << posY << ws << playerID << ws << speed << ws;
-            osstream << health << ws << attack << end;
-
-            data = osstream.str();
 
             // create the GOM_Ship object
-            gameObject = gameObjectFactory.create(data);
+            gameObject = GOM_Ship (type, objID, degree, posX, posY,
+                                   playerID, speed, health, attack);
             /* add to map still needs to be implemented */
 
             //Send CREATION message to all clients
-            if(sendMessage.setAll(data, Message::CREATION))
+            if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
                 server.write(sendMessage);
             }
@@ -98,7 +91,6 @@ int main (int argc, char **argv)
             break;
 
         case Message::ACTION:
-            data.clear();
             // create a string for GameObjectFactory to create the projectile
                 // parsing all the parameters
             isstream = std::istringstream(recvMessage->getData());
@@ -108,21 +100,16 @@ int main (int argc, char **argv)
             if(!isstream.good() || endCheck != PROJECTILE_STR)
                 break;
 
+            // assigns the appropriate objID
             objID = 2;  /* hard-coded need to fix */
-            sstream  = std::stringstream(data);
-                // recontructing the message
-            osstream << type << ws << objID << ws << degree << ws;
-            osstream << posX << ws << posY << ws << playerID << ws << speed << ws;
-            osstream << damage << ws << ttl << end;
-
-            data = osstream.str();
 
             // create the GOM_Projectile object
-            gameObject = gameObjectFactory.create(data);
+            gameObject = GOM_Projectile (type, objID, degree, posX, posY,
+                                         playerID, speed, ttl, damage);
             /* add to map still needs to be implemented */
 
             //Send CREATION message to all clients
-            if(sendMessage.setAll(data, Message::CREATION))
+            if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
                 server.write(sendMessage);
             }

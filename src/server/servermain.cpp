@@ -21,6 +21,7 @@
 #include "../net/Server.h"
 #include "../net/Message.h"
 #include "../player/ObjectType.h"
+#include "../player/GameObject.h"
 #include "../player/GameObjectFactory.h"
 #include <iostream>
 #include <stringstream>
@@ -37,7 +38,8 @@ int main (int argc, char **argv)
     Message  sendMessage;
     int clientID;
     std::string data;
-    std::stringstream sstream;
+    std::ostringstream osstream;
+    std::istringstream isstream;
 
     // object creation parameters
     int type, objID, degree, posX, posY, playerID, speed, health, attack,
@@ -49,10 +51,11 @@ int main (int argc, char **argv)
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
+            data.clear();
             // send STATUS message to notify a client its cliendID
             clientID = recvMessage->getID();
             sendMessage.setID(clientID);
-            data.clear();
+
             if(sendMessage.setAll(data, Message::STATUS))
                 server.write(sendMessage, clientID);
 
@@ -68,13 +71,13 @@ int main (int argc, char **argv)
             health   = 100;     /* hard-coded need to fix */
             attack   = 30;      /* hard-coded need to fix */
             end      = SHIP_STR;
-            sstream = std::stringstream(data);
+            osstream = std::ostringstream(data);
                 // contructing the message
-            sstream << type << ws << objID << ws << degree << ws;
-            sstream << posX << ws << posY << ws << playerID << ws;
-            sstream << speed << ws << health << ws << attack << end;
+            osstream << type << ws << objID << ws << degree << ws;
+            osstream << posX << ws << posY << ws << playerID << ws << speed << ws;
+            osstream << health << ws << attack << end;
 
-            data = sstream.str();
+            data = osstream.str();
 
             // create the GOM_Ship object
             gameObject = gameObjectFactory.create(data);
@@ -82,28 +85,68 @@ int main (int argc, char **argv)
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(data, Message::CREATION))
+            {
                 server.write(sendMessage);
-        //iterate through all objects on the server and send CREATION messages to new client(can possibly be done in another thread)
-        //    (assuming all objects have a toString() that you can give to a factory to recreate the object)
+            }
+            else
+            {
+                std::cout << "Error: data too long" << std::endl;
+            }
 
-        //UPDATE message data should have a string representation of the object state, use this to modify the shipObjects
-        case Message::UPDATE:
-        //use clientID to find relevant ship in a map
-        //take the data and update the ship appropriately
-        //echo the update message to all clients
+            /* iterate through all objects on the server and send CREATION messages to new client */
+            /* thread this shit */
+            break;
 
-        //ACTION message data should be a string that can be used to create a projectile of whatever weapon type
         case Message::ACTION:
-        //create a string that the factory can use to make the projectile, basically add in the objectID to it
-        //create the projectil and add it to projectileMap
-        //send CREATION message to all clients
+            data.clear();
+            // create a string for GameObjectFactory to create the projectile
+                // parsing all the parameters
+            isstream = std::istringstream(recvMessage->getData());
+            isstream >> type >> objID >> degree >> posX >> posY;
+            isstream >> playerID >> speed >> ttl >> damage >> endCheck;
 
-        //CHAT message data is just text of the message currently, but could be modified later to make PM's not just global
+            if(!isstream.good() || endCheck != PROJECTILE_STR)
+                break;
+
+            objID = 2;  /* hard-coded need to fix */
+            sstream  = std::stringstream(data);
+                // recontructing the message
+            osstream << type << ws << objID << ws << degree << ws;
+            osstream << posX << ws << posY << ws << playerID << ws << speed << ws;
+            osstream << damage << ws << ttl << end;
+
+            data = osstream.str();
+
+            // create the GOM_Projectile object
+            gameObject = gameObjectFactory.create(data);
+            /* add to map still needs to be implemented */
+
+            //Send CREATION message to all clients
+            if(sendMessage.setAll(data, Message::CREATION))
+            {
+                server.write(sendMessage);
+            }
+            else
+            {
+                std::cout << "Error: data too long" << std::endl;
+            }
+            break;
+
+
+        case Message::UPDATE:
+            /* use clientID to find relevant ship in a map */
+            clientID = recvMessage->getID();
+            // update the ship with the message data
+            gameObject->update(recvMessage->getData());
+
+            // echo the UPDATE message to all clients
+            // fall-through
+
         case Message::CHAT:
-        //echo to all clients
-
-
-
-        }
-    }
-}
+            //echo to all clients
+            sendMessage = *recvMessage;
+            server.write(sendMessage);
+            break;
+        }// end of swtich()
+    }// end of while
+}// end of main

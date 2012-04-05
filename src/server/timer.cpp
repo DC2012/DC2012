@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "servermain.h"
 
 int timer_start(PTIMER ptimer, PDATA pdata)
 {

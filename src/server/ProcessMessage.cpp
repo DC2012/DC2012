@@ -1,4 +1,4 @@
-#include "ProcessMessage.h"
+#include "servermain.h"
 
 void ProcessMessage(PDATA pdata)
 {
@@ -26,7 +26,7 @@ void ProcessMessage(PDATA pdata)
             sendMessage.setID(clientID);
 
             if(sendMessage.setAll(data, Message::STATUS))
-                server.write(sendMessage, clientID);
+                server->write(sendMessage, clientID);
 
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters
@@ -49,15 +49,12 @@ void ProcessMessage(PDATA pdata)
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
-                server.write(sendMessage);
+                server->write(sendMessage);
             }
             else
             {
-                std::cout << "Error: data too long" << std::endl;
+                //std::cout << "Error: data too long" << std::endl;
             }
-
-            // iterate through all objects on the server and send CREATION messages to new client 
-            // thread this shit 
             break;
 
         case Message::ACTION:

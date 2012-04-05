@@ -28,6 +28,9 @@
 --						- implemented object movement functions
 --						- removed accelerate() & decelerate(), they'll be
 --						implemented in GOM_Ship class
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --
 --	DESIGNER:
 --					Aiko Rose
@@ -146,6 +149,11 @@ class GameObjectMoveable : public GameObject
 --				Point a now has moved 10 units into 30 degree direction.
 -----------------------------------------------------------------------------*/
 		Point getDirectionalPoint(double distance, double degree);
+        
+        // rotate hitbox
+		void rotateHitbox(double degree);
+		// move hitbox
+		void moveHitbox(double x, double y);
 		
 		virtual void update(const std::string &str) = 0;
 		virtual std::string toString() const = 0;

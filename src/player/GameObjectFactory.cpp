@@ -52,3 +52,54 @@ GameObject* GameObjectFactory::create(const std::string &in)
 	}
 	return NULL;
 }
+
+int GameObjectFactory::getObjectID(const std::string &str)
+{
+	std::istringstream istr(str);
+	char endCheck;
+	int type = -1;
+	int objID, degree, posX, posY, playerID, speed, health, attackPower, 
+		damage, ttl;
+	
+	istr >> type;
+	switch(ObjectType(type))
+	{
+	case SHIP1:
+	case SHIP2:
+		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
+			>> attackPower >> endCheck;
+		
+		if(!istr.good() || endCheck != SHIP_STR)
+			break;
+		
+		return objID;
+		
+	case PROJECTILE:
+		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
+			damage >> endCheck;
+			
+		if(!istr.good() || endCheck != PROJECTILE_STR)
+			break;
+		
+		return objID;
+		
+	case OBSTACLE:
+		istr >> objID >> degree >> posX >> posY >> endCheck;
+		
+		if(!istr.good() || endCheck != OBSTACLE_STR)
+			break;
+			
+		return objID;
+		
+	case POWERUP:
+		istr >> objID >> degree >> posX >> posY >> endCheck;
+		
+		if(!istr.good() || endCheck != POWERUP_STR)
+			break;
+			
+		return objID;
+	}
+	
+	// returns -1 if invalid object string is passed in
+	return -1;
+}

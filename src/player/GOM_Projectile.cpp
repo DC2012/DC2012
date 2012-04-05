@@ -11,6 +11,54 @@ GOM_Projectile::GOM_Projectile(int objID, ObjectType type, double degree, double
 	projectileCount_++;
 }
 
+void GOM_Projectile::update(const std::string &str)
+{
+	std::istringstream istr(str);
+	char endCheck;
+	int type = -1;
+	int objID, degree, posX, posY, playerID, speed, damage, ttl;
+	
+	istr >> type;
+	switch(ObjectType(type))
+	{
+	case PROJECTILE:
+		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
+			damage >> endCheck;
+			
+		if(!istr.good() || endCheck != PROJECTILE_STR)
+			break;
+		
+		type_ = ObjectType(type);
+		objID_ = objID;
+		degree_.setDegree(double(degree));
+		pos_.setX(double(posX));
+		pos_.setY(double(posY));
+		playerID_ = playerID;
+		speed_ = double(speed);
+		ttl_ = ttl;
+		damage_ = damage;
+		break;
+	}
+}
+
+std::string GOM_Projectile::toString() const
+{
+	std::ostringstream ostr;
+	
+	ostr << int(type_) << " ";
+	ostr << objID_ << " ";
+	ostr << int(degree_.getDegree()) << " ";
+	ostr << int(pos_.getX()) << " ";
+	ostr << int(pos_.getY()) << " ";
+	ostr << playerID_ << " ";
+	ostr << int(speed_) << " ";
+	ostr << ttl_ << " ";
+	ostr << damage_ << " ";
+	ostr << PROJECTILE_STR;
+	
+	return ostr.str();
+}
+
 void GOM_Projectile::print(std::ostream& os)const
 {
 	os << "Number #" << projectileCount_ << " projectile" << std::endl;

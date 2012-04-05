@@ -6,7 +6,7 @@
 class ShipGraphicsObject : public GraphicsObject
 {
 public:
-    ShipGraphicsObject(const Point& initialPosition, int type);
+    ShipGraphicsObject(const Point& initialPosition, GameObject* gameObject, int type);
     //void draw();
     //QGraphicsPixmapItem* getPixmapItem();
 private:

@@ -9,7 +9,7 @@
 class TileGraphicsObject : public GraphicsObject
 {
 public:
-    TileGraphicsObject(const Point& initialPoint, int type);
+    TileGraphicsObject(const Point& initialPoint, GameObject* gameObject, int type);
 };
 
 #endif // TILEGRAPHICSOBJECT_H

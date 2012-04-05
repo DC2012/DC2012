@@ -14,6 +14,9 @@
 --	REVISIONS:
 --					March 14, 2012 (Roger)
 --						- switched to using double type in Point & Degree
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --
 --	DESIGNER:
 --					Aiko Rose

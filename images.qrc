@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/mages">
+        <file>photo1.jpg</file>
+    </qresource>
+</RCC>

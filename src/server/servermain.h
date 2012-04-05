@@ -40,6 +40,7 @@ extern "C"
     {
         int isRunning;
         int objCount;
+        Server *server;
         pthread_mutex_t *lock;
         std::map<int, GameObject *>objects;
         std::map<int, GameObject *>projectiles;

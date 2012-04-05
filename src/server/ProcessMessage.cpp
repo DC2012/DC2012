@@ -3,7 +3,7 @@
 void ProcessMessage(PDATA pdata)
 {
     GameObject* gameObject;
-    Server*  server = Server::getInstance();
+    Server*  server = pdata->server;
     Message* recvMessage;
     Message  sendMessage;
     int clientID;

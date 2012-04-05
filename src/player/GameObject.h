@@ -243,6 +243,8 @@ class GameObject
 --                  Prints out the member variable values for debugging purpose
 -----------------------------------------------------------------------------*/
         virtual void print(std::ostream& os) const;
+        
+        void setObjID(int id);
 
         virtual void update(const std::string &str) = 0;
         virtual std::string toString() const = 0;

@@ -50,3 +50,8 @@ void GameObject::print(std::ostream& os)const
 	os << "degree:\t\t" << degree_.getDegree() << std::endl;
 	pos_.print(os);
 }
+
+void GameObject::setObjID(int id)
+{
+    objID_ = id;
+}

@@ -39,12 +39,19 @@ void AudioController::createFilePaths()
 }
 
 
-void AudioController::playSound(AudioController::Sounds sound)
+void AudioController::playSound(AudioController::Sounds sound, double dist)
 {
-    if((media = getNextAvailable()) != NULL)
+    int next;
+    if(dist > 800)
     {
-        media->setCurrentSource(Phonon::MediaSource(soundFiles[sound]));
-        media->play();
+        return;
+    }
+
+    if((next = getNextAvailable()) != -1)
+    {
+        mediaObjects[next]->setCurrentSource(Phonon::MediaSource(soundFiles[sound]));
+        audioOutputs[next]->setVolume(1 - dist/800);
+        mediaObjects[next]->play();
     }
 }
 
@@ -54,7 +61,7 @@ void AudioController::printState(Phonon::State newState,Phonon::State oldState)
 }
 
 
-Phonon::MediaObject* AudioController::getNextAvailable()
+int AudioController::getNextAvailable()
 {
     for(int i = 0; i < mediaObjects.size(); i++)
     {
@@ -63,24 +70,10 @@ Phonon::MediaObject* AudioController::getNextAvailable()
             Phonon::MediaObject * result = mediaObjects[(i + current) % mediaObjects.size()];
             current = (current + i + 1) % mediaObjects.size();
             std::cout << current << std::endl;
-            return result;
+            return i;
         }
     }
-    audioOutCount ++;
-    writeFile("No Available Audio Outputs: " + audioOutCount);
-    return NULL;
+    return -1;
 }
 
-
-void AudioController::writeFile(QString message)
-{
-    QFile logFile("soundErrorLog.txt");
-
-    QTextStream out(&logFile);
-
-    out << message;
-    out << endl;
-
-    logFile.close();
-}
 

@@ -30,7 +30,7 @@ void ProcessMessage(PDATA pdata)
                 server->write(&sendMessage, clientID);
                 
             // ***** lock mutex
-            pthread_mutex_lock(pdata_->lock);
+            pthread_mutex_lock(pdata->lock);
 
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters
@@ -54,7 +54,7 @@ void ProcessMessage(PDATA pdata)
             pdata->objects[objID] = gameObject;
             
             // unlock mutex *****
-            pthread_mutex_unlock(pdata_->lock);
+            pthread_mutex_unlock(pdata->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
@@ -75,7 +75,7 @@ void ProcessMessage(PDATA pdata)
                 break;
             
             // ***** lock mutex
-            pthread_mutex_lock(pdata_->lock);
+            pthread_mutex_lock(pdata->lock);
             
             objID = pdata->objCount++;
             
@@ -89,7 +89,7 @@ void ProcessMessage(PDATA pdata)
             pdata->projectiles[objID] = gameObject;
             
             // unlock mutex *****
-            pthread_mutex_unlock(pdata_->lock);
+            pthread_mutex_unlock(pdata->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
@@ -109,14 +109,14 @@ void ProcessMessage(PDATA pdata)
                 break;
             
             // ***** lock mutex
-            pthread_mutex_lock(pdata_->lock);
+            pthread_mutex_lock(pdata->lock);
             
             // update only if the object exist
             if(pdata->objects[objID] != NULL)
                 pdata->objects[objID]->update(data);
             
             // unlock mutex *****
-            pthread_mutex_unlock(pdata_->lock);
+            pthread_mutex_unlock(pdata->lock);
             break;
 
         case Message::CHAT:

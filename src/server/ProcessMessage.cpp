@@ -8,8 +8,6 @@ void ProcessMessage(PDATA pdata)
     Message  sendMessage;
     int clientID;
     std::string data;
-    std::ostringstream osstream;
-    std::istringstream isstream;
 
     // object creation parameters
     int type, objID, degree, posX, posY, playerID, speed, health, attack,
@@ -24,14 +22,20 @@ void ProcessMessage(PDATA pdata)
             // send STATUS message to notify a client its cliendID
             clientID = recvMessage->getID();
             sendMessage.setID(clientID);
+            
+            std::ostringstream ostr;
+            ostr << clientID;
 
-            if(sendMessage.setAll(data, Message::STATUS))
+            if(sendMessage.setAll(ostr.str(), Message::STATUS))
                 server->write(sendMessage, clientID);
+                
+            // ***** lock mutex
+            pthread_mutex_lock(pdata_->lock);
 
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters
             type     = SHIP1;
-            objID    = 1;       // hard-coded need to fix 
+            objID    = pdata->objCount++;
             degree   = 0;       // hard-coded need to fix 
             posX     = 500;     // hard-coded need to fix 
             posY     = 600;     // hard-coded need to fix 
@@ -39,12 +43,18 @@ void ProcessMessage(PDATA pdata)
             speed    = 0;
             health   = 100;     // hard-coded need to fix 
             attack   = 30;      // hard-coded need to fix 
-            end      = SHIP_STR;
 
             // create the GOM_Ship object
-            gameObject = GOM_Ship (type, objID, degree, posX, posY,
+            gameObject = new GOM_Ship(objID, type, degree, posX, posY,
                                    playerID, speed, health, attack);
-            // add to map still needs to be implemented 
+            
+            // add the game object to the map
+            if(pdata->objects[objID] != NULL)
+                delete pdata->objects[objID];
+            pdata->objects[objID] = gameObject;
+            
+            // unlock mutex *****
+            pthread_mutex_unlock(pdata_->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
@@ -58,48 +68,61 @@ void ProcessMessage(PDATA pdata)
             break;
 
         case Message::ACTION:
-            // create a string for GameObjectFactory to create the projectile
-                // parsing all the parameters
-            isstream = std::istringstream(recvMessage->getData());
-            isstream >> type >> objID >> degree >> posX >> posY;
-            isstream >> playerID >> speed >> ttl >> damage >> endCheck;
-
-            if(!isstream.good() || endCheck != PROJECTILE_STR)
+            // create a projectile object
+            gameObject = GameObjectFactory::create(recvMessage->getData());
+            
+            if(gameObject->getType() != PROJECTILE)
                 break;
-
-            // assigns the appropriate objID
-            objID = 2;  // hard-coded need to fix 
-
-            // create the GOM_Projectile object
-            gameObject = GOM_Projectile (type, objID, degree, posX, posY,
-                                         playerID, speed, ttl, damage);
-            // add to map still needs to be implemented 
+            
+            // ***** lock mutex
+            pthread_mutex_lock(pdata_->lock);
+            
+            objID = pdata->objCount++;
+            
+            // assign object id to the projectile object
+            gameObject->setObjID(objID);
+            
+            // add projectile object to the projectil map
+            if(pdata->projectiles[objID] != NULL)
+                delete pdata->projectiles[objID];
+            
+            pdata->projectiles[objID] = gameObject;
+            
+            // unlock mutex *****
+            pthread_mutex_unlock(pdata_->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
-                server.write(sendMessage);
+                server->write(sendMessage);
             }
             else
             {
-                std::cout << "Error: data too long" << std::endl;
+                //std::cout << "Error: data too long" << std::endl;
             }
             break;
 
 
         case Message::UPDATE:
-            // use clientID to find relevant ship in a map 
-            clientID = recvMessage->getID();
-            // update the ship with the message data
-            gameObject->update(recvMessage->getData());
-
-            // echo the UPDATE message to all clients
-            // fall-through
+            data = recvMessage->getData();
+            if((objID = GameObjectFactory::getObjectID(data)) == -1)
+                break;
+            
+            // ***** lock mutex
+            pthread_mutex_lock(pdata_->lock);
+            
+            // update only if the object exist
+            if(pdata->objects[objID] != NULL)
+                pdata->objects[objID]->update(data);
+            
+            // unlock mutex *****
+            pthread_mutex_unlock(pdata_->lock);
+            break;
 
         case Message::CHAT:
             //echo to all clients
             sendMessage = *recvMessage;
-            server.write(sendMessage);
+            server->write(sendMessage);
             break;
         }// end of swtich()
     }// end of while()

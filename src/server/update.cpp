@@ -3,5 +3,12 @@
 void update(sigval arg)
 {
     PDATA pdata = (PDATA)arg.sival_ptr;
-    printf("%d\n", pdata->isRunning);
+    
+    // ***** lock mutex
+    pthread_mutex_lock(pdata_->lock);
+    
+    
+    
+    // unlock mutex *****
+    pthread_mutex_unlock(pdata_->lock);
 }

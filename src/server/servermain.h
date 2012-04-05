@@ -7,8 +7,8 @@ extern "C"
     extern "C++"
     {
         // networking includes
-        //#include "../net/Server.h"
-        //#include "../net/Message.h"
+        #include "../net/Server.h"
+        #include "../net/Message.h"
 
         // game object includes
         #include "../player/ObjectType.h"

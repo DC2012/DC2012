@@ -17,7 +17,7 @@ int timer_start(PTIMER ptimer, PDATA pdata)
     if(timer_create(CLOCK_REALTIME, &(ptimer->sev), &(ptimer->timerID)) == -1)
         return 0;
     
-    ptimer->spec.it_interval.tv_sec = 1;
+    ptimer->spec.it_interval.tv_sec = 0;
     ptimer->spec.it_interval.tv_nsec = 1000000000 / FRAME_RATE; // FRAME_RATE is defined in servermain.h
     ptimer->spec.it_value.tv_sec = ptimer->spec.it_interval.tv_sec;
     ptimer->spec.it_value.tv_nsec = ptimer->spec.it_interval.tv_nsec;

@@ -85,7 +85,7 @@ class GameObject
 --                  Po Hsu
 --                  Roger Fan
 --  INTERFACE:
---                  GameObject(ObjectType type, int objID, double degree,
+--                  GameObject(int objID, ObjectType type, double degree,
 --                                                  double posX, double posY);
 --  RETURNS:
 --                  Constructor
@@ -96,7 +96,7 @@ class GameObject
 --                  posX    X-coordinate
 --                  posY    Y-coordinate
 -----------------------------------------------------------------------------*/
-        explicit GameObject(ObjectType type, int objID, double degree,
+        explicit GameObject(int objID, ObjectType type, double degree,
                                                     double posX, double posY);
 
 /*-----------------------------------------------------------------------------

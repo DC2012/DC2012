@@ -4,7 +4,7 @@
 --	PARENT CLASS:
 --					GameObject
 --	CONSTRUCTOR:
---					GameObjectMoveable(ObjectType type, int objID, double degree,
+--					GameObjectMoveable(int objID, ObjectType type, double degree,
 --						double posX, double posY, int playerID, double speed)
 --	DESTROCTOR:
 --
@@ -60,8 +60,8 @@ class GameObjectMoveable : public GameObject
 		int 	playerID_;
 		double 	speed_; // speed's unit is pixel
 	public:
-		explicit GameObjectMoveable(ObjectType type, int objID, double degree, double posX, double posY, int playerID, double speed)
-		:GameObject(type, objID, degree, posX, posY), playerID_(playerID), speed_(speed){}
+		explicit GameObjectMoveable(int objID, ObjectType type, double degree, double posX, double posY, int playerID, double speed)
+		:GameObject(objID, type, degree, posX, posY), playerID_(playerID), speed_(speed){}
 
 /*-----------------------------------------------------------------------------
 --	FUNCTION:

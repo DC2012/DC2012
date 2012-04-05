@@ -40,7 +40,7 @@ class GOM_Projectile : public GameObjectMoveable
 		static size_t projectileCount_;
 	public:
 		// contructor
-		explicit GOM_Projectile(ObjectType type = PROJECTILE, int objID = 0, double degree = 0, double posX = 0, double posY = 0, 
+		explicit GOM_Projectile(int objID = 0, ObjectType type = PROJECTILE, double degree = 0, double posX = 0, double posY = 0, 
 			int playerID = 0, double speed = 0, int ttl = 0, int damage = 0);
 
 		// destructor

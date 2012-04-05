@@ -4,6 +4,7 @@ int timer_start(PTIMER ptimer, PDATA pdata)
 {
     // initializing data structure
     pdata->isRunning = 1;
+    pdata->objCount = 0;
     pdata->lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(pdata->lock, NULL);
     

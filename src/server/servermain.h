@@ -23,13 +23,14 @@ extern "C"
         #include <iostream>
         #include <string>
         #include <map>
-        
-        #include <stdlib.h>
-        #include <signal.h>
-        #include <stdio.h>
-        #include <pthread.h>
-        #include <time.h>
+        #include <sstream>
     }
+    
+    #include <stdlib.h>
+    #include <signal.h>
+    #include <stdio.h>
+    #include <pthread.h>
+    #include <time.h>
 
     // frame rate (update frequency)
     #define FRAME_RATE 30
@@ -38,9 +39,10 @@ extern "C"
     typedef struct
     {
         int isRunning;
+        int objCount;
         pthread_mutex_t *lock;
         std::map<int, GameObject *>objects;
-        std::map<int, GameObject *>projectile;
+        std::map<int, GameObject *>projectiles;
     } DATA, *PDATA;
     
     // timer data

@@ -5,10 +5,10 @@ void update(sigval arg)
     PDATA pdata = (PDATA)arg.sival_ptr;
     
     // ***** lock mutex
-    pthread_mutex_lock(pdata_->lock);
+    pthread_mutex_lock(pdata->lock);
     
     
     
     // unlock mutex *****
-    pthread_mutex_unlock(pdata_->lock);
+    pthread_mutex_unlock(pdata->lock);
 }

@@ -8,9 +8,11 @@ void ProcessMessage(PDATA pdata)
     Message  sendMessage;
     int clientID;
     std::string data;
+    std::ostringstream ostr;
 
     // object creation parameters
-    int type, objID, degree, posX, posY, playerID, speed, health, attack,
+    ObjectType type;
+    int objID, degree, posX, posY, playerID, speed, health, attack,
         damage, ttl;
     char end;
     
@@ -23,7 +25,8 @@ void ProcessMessage(PDATA pdata)
             clientID = recvMessage->getID();
             sendMessage.setID(clientID);
             
-            std::ostringstream ostr;
+            ostr.clear();
+            ostr.str("");
             ostr << clientID;
 
             if(sendMessage.setAll(ostr.str(), Message::STATUS))

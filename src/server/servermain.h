@@ -29,9 +29,6 @@ extern "C"
     #include <stdio.h>
     #include <pthread.h>
     #include <time.h>
-    
-    #include "timer.h"
-    //#include "ProcessMessage.h"
 
     // frame rate (update frequency)
     #define FRAME_RATE 30
@@ -52,6 +49,9 @@ extern "C"
         itimerspec spec;
         timer_t timerID;
     } TIMER, *PTIMER;
+    
+    #include "timer.h"
+    //#include "ProcessMessage.h"
 }
 
 #endif

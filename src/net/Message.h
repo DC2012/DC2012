@@ -1,10 +1,9 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include <QObject>
 #include <string>
 #include <string.h>
-class Message : public QObject
+class Message
 {
 public:
   enum MessageType { 

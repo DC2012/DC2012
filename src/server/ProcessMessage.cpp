@@ -27,7 +27,7 @@ void ProcessMessage(PDATA pdata)
             ostr << clientID;
 
             if(sendMessage.setAll(ostr.str(), Message::STATUS))
-                server->write(sendMessage, clientID);
+                server->write(&sendMessage, clientID);
                 
             // ***** lock mutex
             pthread_mutex_lock(pdata_->lock);
@@ -59,7 +59,7 @@ void ProcessMessage(PDATA pdata)
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
-                server->write(sendMessage);
+                server->write(&sendMessage);
             }
             else
             {
@@ -94,7 +94,7 @@ void ProcessMessage(PDATA pdata)
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
-                server->write(sendMessage);
+                server->write(&sendMessage);
             }
             else
             {
@@ -122,7 +122,7 @@ void ProcessMessage(PDATA pdata)
         case Message::CHAT:
             //echo to all clients
             sendMessage = *recvMessage;
-            server->write(sendMessage);
+            server->write(&sendMessage);
             break;
         }// end of swtich()
     }// end of while()

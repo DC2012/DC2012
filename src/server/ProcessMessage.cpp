@@ -22,8 +22,6 @@ void ProcessMessage(PDATA pdata)
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
-            // send STATUS message to notify a client its cliendID
-            sendMessage.setID(clientID);
             
             //!!! needs to implement max player checking here!!!
             data = std::string("Accepted");

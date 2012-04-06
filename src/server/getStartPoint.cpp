@@ -1,5 +1,6 @@
 #include "servermain.h"
 
+// this function should only be called after DATA struct's mutex is locked
 Point getStartPoint(const std::map<int, GameObject *> &ships)
 {
     static const Point points[] =
@@ -17,9 +18,9 @@ Point getStartPoint(const std::map<int, GameObject *> &ships)
     int furthestIndex = 0;
     double distance;
     
-    minDistances.assign(8, std::numeric_limits<double>::max());
+    minDistances.assign(MAX_PLAYERS, std::numeric_limits<double>::max());
     
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < MAX_PLAYERS; i++)
     {
         for(it = ships.begin(); it != ships.end(); it++)
         {

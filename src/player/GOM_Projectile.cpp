@@ -3,9 +3,9 @@
 size_t GOM_Projectile::projectileCount_ = 0;
 
 // constructor
-GOM_Projectile::GOM_Projectile(int objID, ObjectType type, double degree, double posX, double posY, 
+GOM_Projectile::GOM_Projectile(ObjectType type, int objID, double degree, double posX, double posY, 
 	int playerID, double speed, int ttl, int damage)
-:GameObjectMoveable(objID, type, degree, posX, posY, playerID, speed), 
+:GameObjectMoveable(type, objID, degree, posX, posY, playerID, speed), 
 	ttl_(ttl), damage_(damage)
 {
 	projectileCount_++;

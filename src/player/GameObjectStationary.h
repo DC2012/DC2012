@@ -41,8 +41,8 @@ class GameObjectStationary : public GameObject
 {
 	protected:
 	public:
-		explicit GameObjectStationary(int objID, ObjectType type, double degree, double posX, double posY)
-		:GameObject(objID, type, degree, posX, posY){}
+		explicit GameObjectStationary(ObjectType type, int objID, double degree, double posX, double posY)
+		:GameObject(type, objID, degree, posX, posY){}
 		
 		virtual void update(const std::string &str) = 0;
 		virtual std::string toString() const = 0;

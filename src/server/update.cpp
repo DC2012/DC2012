@@ -5,6 +5,7 @@ void update(sigval arg)
     PDATA pdata = (PDATA)arg.sival_ptr;
     Server *server;
     Message sendMsg;
+    std::map<int, GameObject*>::iterator ii;
     
     // ***** lock mutex
     pthread_mutex_lock(pdata->lock);
@@ -12,8 +13,7 @@ void update(sigval arg)
     server = pdata->server;
     
     // move the projectiles and send UPDATE messages to all clients
-    for(std::map<int, GameObject*>::iterator ii = pdata->projectiles.begin();
-        ii != pdata->projectiles.end(); ++ii)
+    for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
     {
         ((GOM_Projectile *)((*ii).second))->move();
         sendMsg.setAll((*ii).second->toString(), Message::UPDATE);
@@ -21,8 +21,7 @@ void update(sigval arg)
     }
     
     // send UPDATE messages of objects to all clients
-    for(std::map<int, GameObject*>::iterator ii = pdata->objects.begin();
-        ii != pdata->objects.end(); ++ii)
+    for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
     {
         sendMsg.setAll((*ii).second->toString(), Message::UPDATE);
         server->write(&sendMsg);

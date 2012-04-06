@@ -19,10 +19,13 @@ extern "C"
         #include "../player/GOM_Projectile.h"
         #include "../player/GOS_Obstacle.h"
         #include "../player/GOS_PowerUp.h"
+        #include "../player/Point.h"
         
         #include <iostream>
         #include <string>
         #include <map>
+        #include <vector>
+        #include <limits>
         #include <sstream>
     }
     
@@ -62,6 +65,7 @@ extern "C"
     void timer_cleanup(PTIMER ptimer, PDATA pdata);
     void update(sigval arg);
     void ProcessMessage(PDATA pdata);
+    Point getStartPoint(const std::map<int, GameObject *> &ships);
 }
 
 #endif

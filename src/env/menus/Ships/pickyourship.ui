@@ -109,7 +109,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship1</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
+     <iconset resource="pictures.qrc">
       <normaloff>images/old.png</normaloff>images/old.png</iconset>
     </property>
     <property name="iconSize">
@@ -140,7 +140,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship2</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
+     <iconset resource="pictures.qrc">
       <normaloff>images/sub2.gif</normaloff>images/sub2.gif</iconset>
     </property>
     <property name="iconSize">
@@ -171,7 +171,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship3</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
+     <iconset resource="pictures.qrc">
       <normaloff>images/canoe.gif</normaloff>images/canoe.gif</iconset>
     </property>
     <property name="iconSize">
@@ -184,7 +184,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
   </widget>
  </widget>
  <resources>
-  <include location="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc"/>
+  <include location="pictures.qrc"/>
  </resources>
  <connections/>
 </ui>

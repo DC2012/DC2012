@@ -86,11 +86,15 @@ class Hitbox
 --  DATE:
 --                  March 18, 2012
 --  REVISIONS:
+--                  April 6, 2012 (Po)
+--                      - modified the comparison of coordinates to reflect
+--                          screen coordinates instead of standard coordinates
 --
 --  DESIGNER:
 --                  Tyler Allison
 --  PROGRAMMER:
 --                  Tyler Allison
+--                  Po Hsu
 --  INTERFACE:
 --                  isCollision(const Hitbox& other)
 --  RETURNS:

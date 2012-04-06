@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
         
 public slots:
-    void connect_accept(QString port, QString ip);
+    void connect_accept(QString port, QString ip, QString username);
     void assignShip(QString shipType);
 
 public:
@@ -30,7 +30,6 @@ private:
     DlgConnection mDialog;
     Client* client_;
     QString shipType_;
-    QString userName_;
 };
 
 #endif // MAINWINDOW_H

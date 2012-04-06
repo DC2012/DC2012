@@ -33,7 +33,7 @@
   <property name="styleSheet">
    <string notr="true">QDialog{
   color:white;
-  background-image:url(:/image/underwater.jpg)
+  background-image:url(images/underwater.jpg)
 }
 
 QLineEdit{
@@ -44,7 +44,7 @@ QLineEdit{
 
 QFrame{
   border: 2px solid#000;
-    background-image:url(:/image/steel.jpg)
+    background-image:url(images/steel.jpg)
 }
 
 QPushButton{
@@ -52,7 +52,7 @@ QPushButton{
   border: 1px solid#000;
   border-radius:5px;
   padding: 5px;
-  background-image:url(:/image/metal_4.jpg)
+  background-image:url(images/metal_4.jpg)
 }
 
 QPushButton:hover {
@@ -110,7 +110,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
     </property>
     <property name="icon">
      <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
-      <normaloff>:/image/old.png</normaloff>:/image/old.png</iconset>
+      <normaloff>images/old.png</normaloff>images/old.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -141,7 +141,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
     </property>
     <property name="icon">
      <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
-      <normaloff>:/image/sub2.gif</normaloff>:/image/sub2.gif</iconset>
+      <normaloff>images/sub2.gif</normaloff>images/sub2.gif</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -172,7 +172,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
     </property>
     <property name="icon">
      <iconset resource="../../../../../../../opt/QtSDK/LinuxGame/pictures.qrc">
-      <normaloff>:/image/canoe.gif</normaloff>:/image/canoe.gif</iconset>
+      <normaloff>images/canoe.gif</normaloff>images/canoe.gif</iconset>
     </property>
     <property name="iconSize">
      <size>

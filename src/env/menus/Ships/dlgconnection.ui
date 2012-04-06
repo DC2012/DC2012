@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget{
   color:white;
-  background-image:url(':/image/wood.jpg');
+  background-image:url(images/wood.jpg);
 }
 QLabel{
 border-right: 1px;
@@ -29,7 +29,7 @@ QPushButton{
   border: 1px solid#000;
   border-radius:5px;
   padding: 5px;
-  background-image:url(':/image/gold3.jpeg');
+  background-image:url(images/gold3.jpeg);
 }
 
 QPushButton:hover {

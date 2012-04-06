@@ -21,7 +21,9 @@ GameWindow::GameWindow(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     // env chat message stuff
-    chatdlg_ = new ChatDlg(this);
+    //change 1 to actual client ID
+    chatdlg_ = new ChatDlg(this, 1);
+    //
     chatdlg_->setModal(false);
     isChatting_ = false;
     chatdlg_->setGeometry(0, (this->geometry().height() - 150), 400, 150);

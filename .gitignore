@@ -2,6 +2,7 @@
 *.o
 *.slo
 *.lo
+*.out
 
 # Vim backup
 *.swp
@@ -14,3 +15,4 @@ moc_*.*
 moc_*.*
 Makefile
 DC2012
+server

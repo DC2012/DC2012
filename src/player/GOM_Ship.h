@@ -54,11 +54,6 @@ class GOM_Ship : public GameObjectMoveable
 		void accelerate();
 		void decelerate();
 		
-		// rotate hitbox
-		void rotateHitbox(double degree);
-		// move hitbox
-		void moveHitbox(double x, double y);
-		
 	public:
 		//constructor
 		explicit GOM_Ship(int objID = 0, ObjectType type = SHIP1, double degree = 0, double posX = 0, double posY = 0, 

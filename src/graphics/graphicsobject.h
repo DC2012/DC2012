@@ -16,6 +16,8 @@ public:
     GraphicsObject(const Point& initialPos, GameObject* gameObject);
     QGraphicsPixmapItem* getPixmapItem() const;
     void setPixmapItem(const QPixmap& pixmap);
+    GameObject* getGameObject();
+    void update(const std::string& data);
 
 private:
     Point pos_;

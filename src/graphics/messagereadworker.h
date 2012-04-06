@@ -11,7 +11,7 @@ public:
     explicit MessageReadWorker(QObject *parent = 0);
     
 signals:
-    void messageReceived(Message* message);
+    void messageReceived(int clientId, QString message, Message::MessageType type);
     
 public slots:
     void readMessages();

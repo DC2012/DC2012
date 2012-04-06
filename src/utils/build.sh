@@ -12,9 +12,19 @@ command -v $QM >/dev/null 2>&1 || { echo >&2 "You need to install qt-devel packa
 cd ../../
 rm *.o ui_*.h *.pro DC2012
 $QM -project
-sed -i '4iQT += phonon' *.pro
+mv $(find . -name "*.pro") DC2012.pro
+grep -v 'src/server' DC2012.pro > tmp.pro
+mv tmp.pro DC2012.pro
+sed -i '4iQT += phonon' DC2012.pro
 $QM
 make
+
+if [[ $? -ne 0 ]]
+then
+    exit
+fi
+
+g++ -lpthread -lrt src/net/*.cpp src/player/*.cpp src/server/*.cpp -o server
 
 if [[ $? -eq 0 ]]
 then

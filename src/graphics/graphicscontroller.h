@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMutex>
+#include <QGraphicsScene>
 
 #include <queue>
 #include <map>
@@ -20,15 +21,17 @@ public:
 signals:
     
 public slots:
-    void addMessage(Message* message);
+    void addMessage(int clientId, QString message, Message::MessageType type);
     
 private:
     QGraphicsScene* scene_;
-    std::queue<Message *> messageQueue_;
-    std::map<int, GraphicsObject *> graphicObjects_;
+    std::queue<Message> messageQueue_;
+    std::map<int, GraphicsObject *> ships_;
+    std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
+    int clientId_;
 
-    void processGameMessage(Message *msg);
+    void processGameMessage(Message message);
 
 };
 

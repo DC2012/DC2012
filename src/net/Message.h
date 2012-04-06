@@ -1,10 +1,9 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include <QObject>
 #include <string>
 #include <string.h>
-class Message : public QObject
+class Message
 {
 public:
   enum MessageType { 
@@ -14,7 +13,8 @@ public:
 	DELETION, 
 	UPDATE, 
 	ACTION, 
-	STATUS
+    STATUS,
+    HIT
   };
   static const size_t MAXMSGDATA = 254;
   static const size_t MSGHEADER;

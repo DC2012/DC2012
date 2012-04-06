@@ -13,5 +13,8 @@ void MessageReadWorker::readMessages()
     Message *msg;
 
     while((msg = client->read()))
-        emit messageReceived(msg);
+    {
+        emit messageReceived(msg->getID(), QString::fromStdString(msg->getData()), msg->getType());
+        delete msg;
+    }
 }

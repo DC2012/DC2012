@@ -27,9 +27,7 @@ int main()
     TIMER timer;
     
     timer_start(&timer, &data);
-    
-    while(1)
-        ;
+    ProcessMessage(&data);
     
     return 0;
 }

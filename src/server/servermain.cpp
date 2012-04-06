@@ -41,6 +41,7 @@ int main(int argc, char **argv)
     
     // this starts the server as well
     timer_start(&timer, &data);
+    printf("server started: listening on port %d\n\n", data.portnum);
     
     // start processing messages
     ProcessMessage(&data);

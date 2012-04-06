@@ -18,16 +18,19 @@ void ProcessMessage(PDATA pdata)
     
     while(pdata->isRunning && (recvMessage = server->read()))
     {
+        clientID = recvMessage->getID();
+        
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
             // send STATUS message to notify a client its cliendID
-            clientID = recvMessage->getID();
             sendMessage.setID(clientID);
             
             ostr.clear();
             ostr.str("");
             ostr << clientID;
+            
+            printf("client (ID: %d) connected\n", clientID);
 
             if(sendMessage.setAll(ostr.str(), Message::STATUS))
                 server->write(&sendMessage, clientID);
@@ -66,7 +69,7 @@ void ProcessMessage(PDATA pdata)
             }
             else
             {
-                //std::cout << "Error: data too long" << std::endl;
+                printf("ERROR(client ID: %d): unable to echo CREATION message\n");
             }
             break;
 
@@ -101,7 +104,7 @@ void ProcessMessage(PDATA pdata)
             }
             else
             {
-                //std::cout << "Error: data too long" << std::endl;
+                printf("ERROR(client ID: %d): unable to echo ACTION message\n");
             }
             break;
 

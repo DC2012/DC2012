@@ -17,7 +17,7 @@ Point getStartPoint(const std::map<int, GameObject *> &ships)
     int furthestIndex = 0;
     double distance;
     
-    minDistances.assign(8, numeric_limits<double>::max());
+    minDistances.assign(8, std::numeric_limits<double>::max());
     
     for(int i = 0; i < 8; i++)
     {

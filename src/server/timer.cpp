@@ -3,7 +3,9 @@
 int timer_start(PTIMER ptimer, PDATA pdata)
 {
     // initializing data structure
+    // and starting the server
     pdata->server = Server::getInstance();
+    pdata->server->listen(pdata->portnum);
     pdata->isRunning = 1;
     pdata->objCount = 0;
     pdata->lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));

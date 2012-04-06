@@ -1,6 +1,5 @@
 #include "servermain.h"
 
-// this function should only be called after DATA struct's mutex is locked
 Point getStartPoint(const std::map<int, GameObject *> &ships)
 {
     static const Point points[] =

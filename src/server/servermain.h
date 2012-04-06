@@ -46,7 +46,7 @@ extern "C"
         unsigned short portnum;
         Server *server;
         pthread_mutex_t *lock;
-        std::map<int, GameObject *>objects;
+        std::map<int, GameObject *>ships;
         std::map<int, GameObject *>projectiles;
     } DATA, *PDATA;
     

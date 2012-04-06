@@ -55,9 +55,9 @@ void ProcessMessage(PDATA pdata)
                                    playerID, speed, health, attack);
             
             // add the game object to the map
-            if(pdata->objects[objID] != NULL)
-                delete pdata->objects[objID];
-            pdata->objects[objID] = gameObject;
+            if(pdata->ships[objID] != NULL)
+                delete pdata->ships[objID];
+            pdata->ships[objID] = gameObject;
             
             // unlock mutex *****
             pthread_mutex_unlock(pdata->lock);
@@ -118,8 +118,8 @@ void ProcessMessage(PDATA pdata)
             pthread_mutex_lock(pdata->lock);
             
             // update only if the object exist
-            if(pdata->objects[objID] != NULL)
-                pdata->objects[objID]->update(data);
+            if(pdata->ships[objID] != NULL)
+                pdata->ships[objID]->update(data);
             
             // unlock mutex *****
             pthread_mutex_unlock(pdata->lock);

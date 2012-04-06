@@ -39,25 +39,23 @@ void MainWindow::connect_accept(QString port, QString ip)
     i = ip.toUtf8().constData();
     p = port.toInt();
 
-    //if (client_->connectClient(p, i))
-    //{
-    mDialog.close();
-    this->hide();
-    PickYourShip shipDialog;
-    connect(&shipDialog, SIGNAL(shipChosen(QString)), this, SLOT(assignShip(QString)));
-    shipDialog.exec();
+    if (client_->connectClient(p, i))
+    {
+        mDialog.close();
+        this->hide();
+        PickYourShip shipDialog;
+        connect(&shipDialog, SIGNAL(shipChosen(QString)), this, SLOT(assignShip(QString)));
+        shipDialog.exec();
 
-    Message msg;
-    msg.setType(Message::CONNECTION);
-    msg.setData((shipType_ + " " + userName_).toStdString());
+        Message msg;
+        msg.setType(Message::CONNECTION);
+        msg.setData((shipType_ + " " + userName_).toStdString());
 
-    //client_->write(&msg);
+        client_->write(&msg);
 
-    GameWindow *gameWindow = new GameWindow();
-    gameWindow->setFocus();
-    gameWindow->start();
-
-
-    //}
+        GameWindow *gameWindow = new GameWindow();
+        gameWindow->setFocus();
+        gameWindow->start();
+    }
 }
 

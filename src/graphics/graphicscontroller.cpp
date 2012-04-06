@@ -1,5 +1,7 @@
 #include "graphicscontroller.h"
 #include "graphicsobjectfactory.h"
+#include "../player/GameObjectFactory.h"
+#include <QMessageBox>
 
 GraphicsController::GraphicsController(QGraphicsScene *scene, QObject *parent) :
     QObject(parent), scene_(scene)
@@ -7,10 +9,13 @@ GraphicsController::GraphicsController(QGraphicsScene *scene, QObject *parent) :
 
 }
 
-void GraphicsController::addMessage(Message *message)
+void GraphicsController::addMessage(int clientId, QString message, Message::MessageType type)
 {
     mutex_.lock();
-    messageQueue_.push(message);
+    Message msg;
+    msg.setID(clientId);
+    msg.setAll(message.toStdString(), type);
+    messageQueue_.push(msg);
     mutex_.unlock();
 }
 
@@ -19,28 +24,70 @@ void GraphicsController::processMessages()
     mutex_.lock();
     while (!messageQueue_.empty())
     {
-        Message *msg = messageQueue_.front();
+        Message msg = messageQueue_.front();
         processGameMessage(msg);
-        free(msg);
         messageQueue_.pop();
     }
     mutex_.unlock();
 }
 
-void GraphicsController::processGameMessage(Message *message)
+void GraphicsController::processGameMessage(Message message)
 {
-    switch (message->getType())
+    GameObject* obj;
+    GraphicsObject* graphic;
+    QStringList tokens;
+
+    switch (message.getType())
     {
-    case Message::CREATION:
+    case Message::CONNECTION:
+        clientId_ = message.getID();
+        if (message.getData() == "Refused")
+        {
+            QMessageBox::information(NULL, QString("Connection Problem"), QString("Connection Refused"));
+            // handle the problem here somehow
+        }
         break;
 
-    case Message::ACTION:
+    case Message::CREATION:
+        obj = GameObjectFactory::create(message.getData());
+        graphic = GraphicsObjectFactory::create(obj);
+
+        if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
+            ships_[message.getID()] = graphic;
+        else
+            otherGraphics_[message.getID()] = graphic;
+
+        scene_->addItem(graphic->getPixmapItem());
         break;
+
+    case Message::UPDATE:
+        ships_[message.getID()]->update(message.getData());
+        // other objects are not handled yet
+        break;
+
 
     case Message::DELETION:
+        tokens = QString::fromStdString(message.getData()).split(" ");
+
+        // 0 - object type where 'S' is ship and 'P' is projectile
+        // 1 - object ID
+        // 2 - explode flag (1 means object should explode, 0 don't explode)
+
+        if (tokens[0] == "S")
+            scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
+        else
+            scene_->removeItem(otherGraphics_[tokens[1].toInt()]->getPixmapItem());
+
+        // explosions not handled yet
+        break;
+
+    case Message::HIT:
+        // unimplemented for now
         break;
 
     case Message::STATUS:
+        // unimplemented
         break;
+
     }
 }

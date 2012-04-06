@@ -13,7 +13,8 @@ public:
 	DELETION, 
 	UPDATE, 
 	ACTION, 
-	STATUS
+    STATUS,
+    HIT
   };
   static const size_t MAXMSGDATA = 254;
   static const size_t MSGHEADER;

@@ -8,7 +8,6 @@ void ProcessMessage(PDATA pdata)
     Message  sendMessage;
     int clientID;
     std::string data;
-    std::ostringstream ostr;
 
     // object creation parameters
     ObjectType type;
@@ -26,13 +25,12 @@ void ProcessMessage(PDATA pdata)
             // send STATUS message to notify a client its cliendID
             sendMessage.setID(clientID);
             
-            ostr.clear();
-            ostr.str("");
-            ostr << clientID;
+            //!!! needs to implement max player checking here!!!
+            data = std::string("Accepted");
             
             printf("client (ID: %d) connected\n", clientID);
 
-            if(sendMessage.setAll(ostr.str(), Message::STATUS))
+            if(sendMessage.setAll(data, Message::CONNECTION))
                 server->write(&sendMessage, clientID);
                 
             // ***** lock mutex
@@ -111,19 +109,23 @@ void ProcessMessage(PDATA pdata)
 
         case Message::UPDATE:
             data = recvMessage->getData();
+            
+            // retrieve object's ID from the data string
             if((objID = GameObjectFactory::getObjectID(data)) == -1)
                 break;
             
             // ***** lock mutex
             pthread_mutex_lock(pdata->lock);
             
-            // update only if the object exist
+            // update only if the object exists
             if(pdata->ships[objID] != NULL)
                 pdata->ships[objID]->update(data);
             
             // unlock mutex *****
             pthread_mutex_unlock(pdata->lock);
-            break;
+            
+            // echo the UPDATE message to all clients
+            // fall through
 
         case Message::CHAT:
             //echo to all clients

@@ -1,25 +1,33 @@
 #ifndef SPRITES_H
 #define SPRITES_H
 
+// sprite sizes
+#define SHIP1_SPRITE_WIDTH 41
+#define SHIP1_SPRITE_HEIGHT 110
+#define SHIP2_SPRITE_WIDTH 50
+#define SHIP2_SPRITE_HEIGHT 160
+#define CANNON_SPRITE_WIDTH 12
+#define CANNON_SPRITE_HEIGHT 12
+
+// hitbox sizes
+#define SHIP1_WIDTH 20
+#define SHIP1_HEIGHT 90
+#define SHIP2_WIDTH 30
+#define SHIP2_HEIGHT 125
+#define CANNON_WIDTH 10
+#define CANNON_HEIGHT 10
+
 #define SPRITE_SHIP1 QString("../../sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString("../../sprites/spriteShip1Hit.png")
 #define SPRITE_SHIP1_MOVE1 QString("spriteShipMove1.png")
 #define SPRITE_SHIP1_MOVE2 QString("spriteShipMove2.png")
 #define SPRITE_SHIP1_MOVE3 QString("spriteShipMove3.png")
-#define SHIP1_WIDTH 20
-#define SHIP1_HEIGHT 90
-#define SHIP1_SPRITE_WIDTH 41
-#define SHIP1_SPRITE_HEIGHT 110
 
 #define SPRITE_SHIP2 QString("spriteShip2.png")
 #define SPRITE_SHIP2_HIT QString("spriteShip2Hit.png")
 #define SPRITE_SHIP2_MOVE1 QString("spriteShip2Move1.png")
 #define SPRITE_SHIP2_MOVE2 QString("spriteShip2Move2.png")
 #define SPRITE_SHIP2_MOVE3 QString("spriteShip2Move3.png")
-#define SHIP2_WIDTH 30
-#define SHIP2_HEIGHT 125
-#define SHIP2_SPRITE_WIDTH 50
-#define SHIP2_SPRITE_HEIGHT 160
 
 #define SPRITE_EXPLOSION1 QString("spriteExplosion1.png")
 #define SPRITE_EXPLOSION2 QString("spriteExplosion2.png")

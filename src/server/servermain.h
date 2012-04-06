@@ -31,15 +31,19 @@ extern "C"
     #include <stdio.h>
     #include <pthread.h>
     #include <time.h>
+    #include <errno.h>
 
     // frame rate (update frequency)
     #define FRAME_RATE 30
+    // default server listen port
+    #define DEFAULT_SV_PORT 9900
     
     // server data structure
     typedef struct
     {
         int isRunning;
         int objCount;
+        unsigned short portnum;
         Server *server;
         pthread_mutex_t *lock;
         std::map<int, GameObject *>objects;

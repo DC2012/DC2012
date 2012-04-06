@@ -21,12 +21,28 @@
 -----------------------------------------------------------------------------*/
 #include "servermain.h"
 
-int main()
+int main(int argc, char **argv)
 {
     DATA data;
     TIMER timer;
     
+    switch(argc)
+    {
+    case 1:
+        data.portnum = DEFAULT_SV_PORT;
+        break;
+    case 2:
+        data.portnum = atoi(argv[1]);
+        break;
+    default:
+        fprintf(stderr, "Usage: %s [port]\n", argv[0]);
+        exit(0);
+    }
+    
+    // this starts the server as well
     timer_start(&timer, &data);
+    
+    // start processing messages
     ProcessMessage(&data);
     
     return 0;

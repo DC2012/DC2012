@@ -6,6 +6,22 @@ GraphicsObject::GraphicsObject(const Point &initialPos, GameObject* gameObject)
 
 }
 
+GameObject* GraphicsObject::getGameObject()
+{
+    return gameObject_;
+}
+
+void GraphicsObject::update(const std::string& data)
+{
+    gameObject_->update(data);
+
+    Point pos = gameObject_->getPosition();
+    pixmapItem_->setOffset(pixmapItem_->offset().x() + pos.getX(),
+                           pixmapItem_->offset().y() + pos.getY());
+
+    // other stuff to update the object position
+}
+
 void GraphicsObject::setPixmapItem(const QPixmap &pixmap)
 {
     pixmapItem_ = new QGraphicsPixmapItem(pixmap);

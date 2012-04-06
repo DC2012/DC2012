@@ -24,7 +24,7 @@ then
     exit
 fi
 
-g++ -lpthread -lrt src/net/*.cpp src/player/*.cpp src/server/*.cpp -o server
+g++ -lpthread -lrt src/net/*.cpp src/player/*.cpp src/server/*.cpp -o servermain
 
 if [[ $? -eq 0 ]]
 then

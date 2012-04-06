@@ -7,7 +7,8 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
-#include <phonon/phonon>
+#include <Phonon/MediaObject>
+#include <Phonon/AudioOutput>
 #include <QDesktopServices>
 
 class AudioController : public QObject
@@ -31,7 +32,7 @@ signals:
 
 public slots:
 
-    void playSound(AudioController::Sounds);
+    void playSound(AudioController::Sounds, double dist);
     void printState(Phonon::State, Phonon::State);
 
 
@@ -43,7 +44,7 @@ private:
     int                             current, audioOutCount;
     Phonon::MediaObject             *media;
 
-    Phonon::MediaObject* getNextAvailable();
+    int getNextAvailable();
     void createFilePaths();
     void writeFile(QString message);
 

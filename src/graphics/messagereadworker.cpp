@@ -1,4 +1,5 @@
 #include "messagereadworker.h"
+#include "MessageWrapper.h"
 #include "../net/client.h"
 
 MessageReadWorker::MessageReadWorker(QObject *parent) :
@@ -14,7 +15,6 @@ void MessageReadWorker::readMessages()
 
     while((msg = client->read()))
     {
-        emit messageReceived(msg->getID(), QString::fromStdString(msg->getData()), msg->getType());
-        delete msg;
+        emit messageReceived(new MessageWrapper(msg));
     }
 }

@@ -50,6 +50,7 @@ extern "C"
         pthread_mutex_t *lock;
         std::map<int, GameObject *>ships;
         std::map<int, GameObject *>projectiles;
+        std::map<int, std::string>clients;
     } DATA, *PDATA;
     
     // timer data

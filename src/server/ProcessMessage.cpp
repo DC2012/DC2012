@@ -8,10 +8,11 @@ void ProcessMessage(PDATA pdata)
     Message  sendMessage;
     int clientID;
     std::string data;
+    std::string playerName;
+    std::istringstream istr;
 
     // object creation parameters
-    ObjectType type;
-    int objID, degree, posX, posY, playerID, speed, health, attack,
+    int type, objID, degree, posX, posY, playerID, speed, health, attack,
         damage, ttl;
     char end;
     
@@ -22,37 +23,45 @@ void ProcessMessage(PDATA pdata)
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
+            // extract ship type and player name from message data
+            istr.clear();
+            istr.str(recvMessage->getData());
+            istr >> type >> playerName;
+            
+            // ***** lock mutex
+            pthread_mutex_lock(pdata->lock);
+            
             
             //!!! needs to implement max player checking here!!!
             data = std::string("Accepted");
+            // add new client to the clients map
+            pdata->clients.erase(clientID);
+            pdata->clients[clientID] = playerName;
             
             printf("client (ID: %d) connected\n", clientID);
 
             if(sendMessage.setAll(data, Message::CONNECTION))
                 server->write(&sendMessage, clientID);
-                
-            // ***** lock mutex
-            pthread_mutex_lock(pdata->lock);
-
+            //!!! needs to implement max player checking here!!!
+            
+            
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters
-            type     = SHIP1;
             objID    = pdata->objCount++;
             degree   = 0;       // hard-coded need to fix 
-            posX     = 500;     // hard-coded need to fix 
-            posY     = 600;     // hard-coded need to fix 
+            posX     = 150 * pdata->clients.size();     // hard-coded need to fix 
+            posY     = 300;     // hard-coded need to fix 
             playerID = clientID;
             speed    = 0;
             health   = 100;     // hard-coded need to fix 
             attack   = 30;      // hard-coded need to fix 
 
             // create the GOM_Ship object
-            gameObject = new GOM_Ship(type, objID, degree, posX, posY,
+            gameObject = new GOM_Ship(ObjectType(type), objID, degree, posX, posY,
                                    playerID, speed, health, attack);
             
             // add the game object to the map
-            if(pdata->ships[objID] != NULL)
-                delete pdata->ships[objID];
+            pdata->ships.erase(objID);
             pdata->ships[objID] = gameObject;
             
             // unlock mutex *****
@@ -85,9 +94,7 @@ void ProcessMessage(PDATA pdata)
             gameObject->setObjID(objID);
             
             // add projectile object to the projectil map
-            if(pdata->projectiles[objID] != NULL)
-                delete pdata->projectiles[objID];
-            
+            pdata->projectiles.erase(objID);
             pdata->projectiles[objID] = gameObject;
             
             // unlock mutex *****

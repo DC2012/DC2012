@@ -17,6 +17,7 @@ grep -v 'src/server' DC2012.pro > tmp.pro
 mv tmp.pro DC2012.pro
 sed -i '4iQT += phonon' DC2012.pro
 $QM
+set MAKEFLAGS=-j4
 make
 
 if [[ $? -ne 0 ]]

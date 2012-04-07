@@ -1,14 +1,16 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include "graphicscontroller.h"
 #include "../player/GOM_Ship.h"
 #include "../net/client.h"
+#include "MessageWrapper.h"
+#include "graphicsobject.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QMutex>
 
 class GameWindow : public QGraphicsView
 {
@@ -22,6 +24,7 @@ signals:
     
 public slots:
     void updateGame();
+    void addMessage(MessageWrapper* msgwrap);
 
 private:
     static const int FRAME_RATE = 40;
@@ -30,9 +33,13 @@ private:
 
     QGraphicsScene *scene_;
     QTimer timer_;
-    GraphicsController gcontroller_;
     GOM_Ship* myShip_;
     Client* client_;
+    std::queue<Message *> messageQueue_;
+    std::map<int, GraphicsObject *> ships_;
+    std::map<int, GraphicsObject *> otherGraphics_;
+    QMutex mutex_;
+    int clientId_;
 
     // this will be removed later, just for testing until the proper
     // graphic object interfaces are implemented
@@ -40,6 +47,8 @@ private:
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
+    void processGameMessage(Message* message);
+    void processMessages();
 };
 
 #endif // GAMEWINDOW_H

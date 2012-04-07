@@ -2,6 +2,8 @@
 #include "../../sprites/sprites.h"
 #include "MessageWrapper.h"
 #include "messagereadworker.h"
+#include "../player/GameObjectFactory.h"
+#include "graphicsobjectfactory.h"
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
@@ -10,7 +12,7 @@
 #include <QThread>
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), gcontroller_(scene_, this)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene())
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
@@ -62,7 +64,7 @@ void GameWindow::start()
     worker->moveToThread(readThread);
 
     if(!connect(worker, SIGNAL(messageReceived(MessageWrapper *)),
-            &gcontroller_, SLOT(addMessage(MessageWrapper *))))
+            this, SLOT(addMessage(MessageWrapper *))))
     {
         QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
     }
@@ -136,6 +138,95 @@ void GameWindow::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void GameWindow::addMessage(MessageWrapper* msgwrap)
+{
+    mutex_.lock();
+    messageQueue_.push(msgwrap->message);
+    delete msgwrap;
+    mutex_.unlock();
+}
+
+void GameWindow::processMessages()
+{
+    mutex_.lock();
+    while (!messageQueue_.empty())
+    {
+        Message* msg = messageQueue_.front();
+        processGameMessage(msg);
+        messageQueue_.pop();
+        delete msg;
+    }
+    mutex_.unlock();
+}
+
+void GameWindow::processGameMessage(Message* message)
+{
+    GameObject* obj;
+    GraphicsObject* graphic;
+    QStringList tokens;
+
+    switch (message->getType())
+    {
+    case Message::CONNECTION:
+        QMessageBox::information(NULL, QString("Connection Message Received!"), QString::fromStdString(message->getData()));
+        clientId_ = message->getID();
+        if (message->getData() == "Refused")
+        {
+            QMessageBox::information(NULL, QString("Connection Problem"), QString("Connection Refused"));
+            // handle the problem here somehow
+        }
+        break;
+
+    case Message::CREATION:
+        QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
+        obj = GameObjectFactory::create(message->getData());
+        graphic = GraphicsObjectFactory::create(obj);
+
+        if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
+            ships_[message->getID()] = graphic;
+        else
+            otherGraphics_[message->getID()] = graphic;
+
+        scene_->addItem(graphic->getPixmapItem());
+        break;
+
+    case Message::UPDATE:
+        // only update other client ships
+        if (message->getID() != clientId_)
+        {
+            ships_[message->getID()]->update(message->getData());
+        }
+
+        // other objects are not handled yet
+        break;
+
+
+    case Message::DELETION:
+        tokens = QString::fromStdString(message->getData()).split(" ");
+
+        // 0 - object type where 'S' is ship and 'P' is projectile
+        // 1 - object ID
+        // 2 - explode flag (1 means object should explode, 0 don't explode)
+
+        if (tokens[0] == "S")
+            scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
+        else
+            scene_->removeItem(otherGraphics_[tokens[1].toInt()]->getPixmapItem());
+
+        // explosions not handled yet
+        break;
+
+    case Message::HIT:
+        // unimplemented for now
+        break;
+
+    case Message::STATUS:
+        // unimplemented
+        break;
+
+    }
+}
+
 void GameWindow::updateGame()
 {
     // myShip_->move();
@@ -153,5 +244,5 @@ void GameWindow::updateGame()
     client_->write(&msg);
     */
 
-    gcontroller_.processMessages();
+    processMessages();
 }

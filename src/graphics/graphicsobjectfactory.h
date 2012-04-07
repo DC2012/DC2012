@@ -14,15 +14,15 @@ public:
     {
         if (gameObject->getType() == PROJECTILE)
         {
-            return new ProjectileGraphicsObject(gameObject->getPosition(), gameObject);
+            return new ProjectileGraphicsObject(gameObject);
         }
         else if (gameObject->getType() == SHIP1 || gameObject->getType() == SHIP2)
         {
-            return new ShipGraphicsObject(gameObject->getPosition(), gameObject, gameObject->getType());
+            return new ShipGraphicsObject(gameObject);
         }
         else if (gameObject->getType() == OBSTACLE)
         {
-            return new TileGraphicsObject(gameObject->getPosition(), gameObject, gameObject->getType());
+            return new TileGraphicsObject(gameObject);
         }
         else
         {

@@ -19,6 +19,7 @@ void ProcessMessage(PDATA pdata)
     while(pdata->isRunning && (recvMessage = server->read()))
     {
         clientID = recvMessage->getID();
+        sendMessage.setID(clientID);
         
         switch(recvMessage->getType())
         {

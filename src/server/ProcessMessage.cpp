@@ -10,6 +10,7 @@ void ProcessMessage(PDATA pdata)
     std::string data;
     std::string playerName;
     std::istringstream istr;
+    std::map<int, GameObject*>::iterator ii;
 
     // object creation parameters
     int type, objID, degree, posX, posY, playerID, speed, health, attack,
@@ -45,6 +46,18 @@ void ProcessMessage(PDATA pdata)
                 server->write(&sendMessage, clientID);
             //!!! needs to implement max player checking here!!!
             
+            // send CREATION message for every object in the maps to the client
+            for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
+            {
+                sendMessage.setAll(ii->second->toString(), Message::CREATION);
+                server->write(&sendMessage, clientID);
+            }
+            
+            for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
+            {
+                sendMessage.setAll(ii->second->toString(), Message::CREATION);
+                server->write(&sendMessage, clientID);
+            }
             
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters

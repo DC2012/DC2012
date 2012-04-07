@@ -22,6 +22,6 @@ DlgConnection::~DlgConnection()
 */
 void DlgConnection::connectTo()
 {
-    emit connect_init(ui->lineServerPort->text(), ui->lineServerIP->text());
+    emit connect_init(ui->lineServerPort->text(), ui->lineServerIP->text(), ui->lineUsername->text());
 }
 

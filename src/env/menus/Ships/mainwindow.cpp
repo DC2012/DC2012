@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(&mDialog, SIGNAL(connect_init(QString, QString)), this, SLOT(connect_accept(QString, QString)));
+    connect(&mDialog, SIGNAL(connect_init(QString, QString, QString)), this, SLOT(connect_accept(QString, QString, QString)));
+    client_ = Client::getInstance();
 }
 
 MainWindow::~MainWindow()
@@ -27,17 +28,22 @@ void MainWindow::dialog_popup()
 
 void MainWindow::assignShip(QString shipType)
 {
-    userName_ = "kendra";
     shipType_ = shipType;
 }
 
-void MainWindow::connect_accept(QString port, QString ip)
+void MainWindow::connect_accept(QString port, QString ip, QString username)
 {
     std::string i;
     int         p;
 
     i = ip.toUtf8().constData();
     p = port.toInt();
+
+    if (username.contains(" "))
+    {
+        QMessageBox::information(this, QString("Invalid Username"), QString("Spaces are not allowed in username"));
+        return;
+    }
 
     if (client_->connectClient(p, i))
     {
@@ -49,13 +55,17 @@ void MainWindow::connect_accept(QString port, QString ip)
 
         Message msg;
         msg.setType(Message::CONNECTION);
-        msg.setData((shipType_ + " " + userName_).toStdString());
+        msg.setData((shipType_ + " " + username).toStdString());
 
         client_->write(&msg);
 
         GameWindow *gameWindow = new GameWindow();
         gameWindow->setFocus();
         gameWindow->start();
+    }
+    else
+    {
+        QMessageBox::information(this, QString("Connection Error"), QString("Unable to connect to server. Please check your connection settings."));
     }
 }
 

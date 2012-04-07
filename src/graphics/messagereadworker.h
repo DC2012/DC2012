@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "../net/Message.h"
+#include "MessageWrapper.h"
 
 class MessageReadWorker : public QObject
 {
@@ -11,7 +12,7 @@ public:
     explicit MessageReadWorker(QObject *parent = 0);
     
 signals:
-    void messageReceived(int clientId, QString message, Message::MessageType type);
+    void messageReceived(MessageWrapper* msg);
     
 public slots:
     void readMessages();

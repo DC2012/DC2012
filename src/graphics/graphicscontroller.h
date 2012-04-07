@@ -10,6 +10,7 @@
 #include "../net/Message.h"
 #include "../player/GameObject.h"
 #include "../graphics/graphicsobject.h"
+#include "MessageWrapper.h"
 
 class GraphicsController : public QObject
 {
@@ -21,17 +22,17 @@ public:
 signals:
     
 public slots:
-    void addMessage(int clientId, QString message, Message::MessageType type);
+    void addMessage(MessageWrapper* msg);
     
 private:
     QGraphicsScene* scene_;
-    std::queue<Message> messageQueue_;
+    std::queue<Message *> messageQueue_;
     std::map<int, GraphicsObject *> ships_;
     std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
 
-    void processGameMessage(Message message);
+    void processGameMessage(Message* message);
 
 };
 

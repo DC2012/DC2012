@@ -1,5 +1,6 @@
 #include "gamewindow.h"
 #include "../../sprites/sprites.h"
+#include "MessageWrapper.h"
 #include "messagereadworker.h"
 
 #include <QGraphicsPixmapItem>
@@ -58,9 +59,17 @@ void GameWindow::start()
     MessageReadWorker* worker = new MessageReadWorker();
 
     worker->moveToThread(readThread);
-    qRegisterMetaType<Message *>("Message *");
-    connect(worker, SIGNAL(messageReceived(Message*)), &gcontroller_, SLOT(addMessage(Message*)));
-    connect(readThread, SIGNAL(started()), worker, SLOT(readMessages()));
+
+    if(!connect(worker, SIGNAL(messageReceived(MessageWrapper *)),
+            &gcontroller_, SLOT(addMessage(MessageWrapper *))))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
+
+    if (!connect(readThread, SIGNAL(started()), worker, SLOT(readMessages())))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
 
     readThread->start();
     timer_.start(1000 / FRAME_RATE);

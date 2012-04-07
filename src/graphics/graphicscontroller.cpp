@@ -30,6 +30,11 @@ void GraphicsController::processMessages()
     mutex_.unlock();
 }
 
+int GraphicsController::getClientId()
+{
+    return clientId_;
+}
+
 void GraphicsController::processGameMessage(Message* message)
 {
     GameObject* obj;
@@ -62,7 +67,12 @@ void GraphicsController::processGameMessage(Message* message)
         break;
 
     case Message::UPDATE:
-        ships_[message->getID()]->update(message->getData());
+        // only update other client ships
+        if (message->getID() != clientId_)
+        {
+            ships_[message->getID()]->update(message->getData());
+        }
+
         // other objects are not handled yet
         break;
 

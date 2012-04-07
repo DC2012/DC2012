@@ -18,6 +18,7 @@ class GraphicsController : public QObject
 public:
     explicit GraphicsController(QGraphicsScene *scene, QObject *parent = 0);
     void processMessages();
+    int getClientId();
     
 signals:
     

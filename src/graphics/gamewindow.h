@@ -2,6 +2,8 @@
 #define GAMEWINDOW_H
 
 #include "graphicscontroller.h"
+#include "../player/GOM_Ship.h"
+#include "../net/client.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -15,7 +17,7 @@ class GameWindow : public QGraphicsView
 public:
     explicit GameWindow(QWidget *parent = 0);
     void start();
-    
+
 signals:
     
 public slots:
@@ -29,13 +31,15 @@ private:
     QGraphicsScene *scene_;
     QTimer timer_;
     GraphicsController gcontroller_;
-    qreal currentScale_;
+    GOM_Ship* myShip_;
+    Client* client_;
 
     // this will be removed later, just for testing until the proper
     // graphic object interfaces are implemented
     QGraphicsPixmapItem *ship_;
 
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
 };
 
 #endif // GAMEWINDOW_H

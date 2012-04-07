@@ -10,7 +10,7 @@
 #include <QThread>
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), gcontroller_(scene_, this), currentScale_(1)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), gcontroller_(scene_, this)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
@@ -41,6 +41,8 @@ GameWindow::GameWindow(QWidget *parent)
         }
     }
 
+    client_ = Client::getInstance();
+
     // these pixmap objects will be replaced by proper
     // game objects once the implementation is complete
     QPixmap ship("sprites/spriteShip1.png");
@@ -49,7 +51,6 @@ GameWindow::GameWindow(QWidget *parent)
     scene_->addItem(ship_);
 
     connect(&timer_, SIGNAL(timeout()), this, SLOT(updateGame()));
-
     this->show();
 }
 
@@ -81,21 +82,53 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     {
     case Qt::Key_W:
     case Qt::Key_Up:
-        scale(currentScale_ + .10, currentScale_ + .10);
-        ship_->setOffset(ship_->offset().x(), ship_->offset().y() - 1);
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ACCEL, true);
         break;
     case Qt::Key_A:
     case Qt::Key_Left:
-        ship_->setOffset(ship_->offset().x() - 1, ship_->offset().y());
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ROTATE_L, true);
         break;
     case Qt::Key_S:
     case Qt::Key_Down:
-        scale(currentScale_ - .10, currentScale_ - .10);
-        ship_->setOffset(ship_->offset().x(), ship_->offset().y() + 1);
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(DECEL, true);
         break;
     case Qt::Key_D:
     case Qt::Key_Right:
-        ship_->setOffset(ship_->offset().x() + 1, ship_->offset().y());
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ROTATE_R, true);
+        break;
+    case Qt::Key_Space:
+        QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
+        break;
+    }
+}
+
+void GameWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    switch(event->key())
+    {
+    case Qt::Key_W:
+    case Qt::Key_Up:
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ACCEL, false);
+        break;
+    case Qt::Key_A:
+    case Qt::Key_Left:
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ROTATE_L, false);
+        break;
+    case Qt::Key_S:
+    case Qt::Key_Down:
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(DECEL, false);
+        break;
+    case Qt::Key_D:
+    case Qt::Key_Right:
+        if(!event->isAutoRepeat())
+            myShip_->setActionFlag(ROTATE_R, false);
         break;
     case Qt::Key_Space:
         QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
@@ -105,5 +138,20 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 
 void GameWindow::updateGame()
 {
+    // myShip_->move();
+    /*
+    ship_->setOffset(myShip_->getPosition().getX(), myShip_->getPosition().getY());
+    ship_->setTransformOriginPoint(myShip_->getPosition());
+    ship_->setRotation(myShip_->getDegree()-270);
+    */
+
+    /*
+    Message msg;
+    msg.setID(gcontroller_.getClientId());
+    msg.setData(myShip_->toString());
+    msg.setType(Message::UPDATE);
+    client_->write(&msg);
+    */
+
     gcontroller_.processMessages();
 }

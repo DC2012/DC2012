@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(int objID, ObjectType type, double degree, double posX, double posY)
-	:objID_(objID), type_(type), degree_(degree), pos_(posX, posY)
+GameObject::GameObject(ObjectType type, int objID, double degree, double posX, double posY)
+	:type_(type), objID_(objID), degree_(degree), pos_(posX, posY)
 {
     double sprite_w, sprite_h, hb_w, hb_h;
     
@@ -61,6 +61,11 @@ Point GameObject::getPosition()const
 	return pos_;
 }
 
+Hitbox GameObject::getHitbox()const
+{
+	return hb_;
+}
+
 double GameObject::getObjDistance(const GameObject &gObj) const
 {
 	return pos_.getDistance(gObj.getPosition());
@@ -72,6 +77,7 @@ void GameObject::print(std::ostream& os)const
 	os << "type:\t\t" << type_ << std::endl;
 	os << "degree:\t\t" << degree_.getDegree() << std::endl;
 	pos_.print(os);
+	hb_.print(os);
 }
 
 void GameObject::setObjID(int id)

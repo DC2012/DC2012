@@ -15,15 +15,15 @@ void update(sigval arg)
     // move the projectiles and send UPDATE messages to all clients
     for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
     {
-        ((GOM_Projectile *)((*ii).second))->move();
-        sendMsg.setAll((*ii).second->toString(), Message::UPDATE);
+        ((GOM_Projectile *)(ii->second))->move();
+        sendMsg.setAll(ii->second->toString(), Message::UPDATE);
         server->write(&sendMsg);
     }
     
     // send UPDATE messages of objects to all clients
     for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
     {
-        sendMsg.setAll((*ii).second->toString(), Message::UPDATE);
+        sendMsg.setAll(ii->second->toString(), Message::UPDATE);
         server->write(&sendMsg);
     }
     

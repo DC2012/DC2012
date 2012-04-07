@@ -66,6 +66,8 @@ void GOM_Ship::move()
 	pt = getDirectionalPoint(speed_, degree_.getDegree());
 	pos_.setX(pos_.getX() + pt.getX());
 	pos_.setY(pos_.getY() + pt.getY());
+    spritePt_.setX(pos_.getX() + pt.getX());
+	spritePt_.setY(pos_.getY() + pt.getY());
 	moveHitbox(pt.getX(), pt.getY());
 }
 

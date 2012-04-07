@@ -84,3 +84,8 @@ void GameObject::setObjID(int id)
 {
     objID_ = id;
 }
+
+Point GameObject::getSpriteTopLeft() const
+{
+    return spritePt_;
+}

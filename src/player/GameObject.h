@@ -265,6 +265,7 @@ class GameObject
         virtual void print(std::ostream& os) const;
         
         void setObjID(int id);
+        Point getSpriteTopLeft() const;
 
         virtual void update(const std::string &str) = 0;
         virtual std::string toString() const = 0;

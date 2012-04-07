@@ -5,6 +5,7 @@
 #include "../net/client.h"
 #include "MessageWrapper.h"
 #include "graphicsobject.h"
+#include "shipgraphicsobject.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -34,16 +35,13 @@ private:
     QGraphicsScene *scene_;
     QTimer timer_;
     GOM_Ship* myShip_;
+    ShipGraphicsObject* myShipGraphic_;
     Client* client_;
     std::queue<Message *> messageQueue_;
     std::map<int, GraphicsObject *> ships_;
     std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
-
-    // this will be removed later, just for testing until the proper
-    // graphic object interfaces are implemented
-    QGraphicsPixmapItem *ship_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

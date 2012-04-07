@@ -11,11 +11,11 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
 
-    QGraphicsPixmapItem shipItem(shipPixmap);
-    shipItem.setOffset(gameObject->getPosition().getX(),
-                       gameObject->getPosition().getY());
+    QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
+    shipItem->setPos(gameObject->getPosition().getX(),
+                    gameObject->getPosition().getY());
 
-    GraphicsObject::setPixmapItem(new QGraphicsPixmapItem(shipPixmap));
+    GraphicsObject::setPixmapItem(shipItem);
 }
 
 /*

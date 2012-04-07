@@ -10,12 +10,13 @@
 #include <QCursor>
 #include <QMessageBox>
 #include <QThread>
+#include <iostream>
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene())
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    setCursor(QCursor(QPixmap("sprites/spriteCursor.png")));
+    setCursor(QCursor(QPixmap(":/sprites/spriteCursor.png")));
     setFixedSize(CLIENT_WIDTH, CLIENT_HEIGHT);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -44,13 +45,6 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     client_ = Client::getInstance();
-
-    // these pixmap objects will be replaced by proper
-    // game objects once the implementation is complete
-    QPixmap ship("sprites/spriteShip1.png");
-    ship_ = new QGraphicsPixmapItem(ship);
-    ship_->setPos(100, 100);
-    scene_->addItem(ship_);
 
     connect(&timer_, SIGNAL(timeout()), this, SLOT(updateGame()));
     this->show();
@@ -183,9 +177,24 @@ void GameWindow::processGameMessage(Message* message)
         graphic = GraphicsObjectFactory::create(obj);
 
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
-            ships_[message->getID()] = graphic;
+        {
+            if (message->getID() == clientId_)
+            {
+                myShip_ = new GOM_Ship(obj->getType(), obj->getObjID(),
+                                       obj->getDegree(), obj->getPosition().getX(), obj->getPosition().getY(),
+                                       clientId_, 0, 100, 100);
+
+                myShipGraphic_ = new ShipGraphicsObject(myShip_);
+            }
+            else
+            {
+                ships_[message->getID()] = graphic;
+            }
+        }
         else
+        {
             otherGraphics_[message->getID()] = graphic;
+        }
 
         scene_->addItem(graphic->getPixmapItem());
         break;
@@ -245,4 +254,5 @@ void GameWindow::updateGame()
     */
 
     processMessages();
+
 }

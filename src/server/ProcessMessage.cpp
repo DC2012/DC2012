@@ -103,7 +103,9 @@ void ProcessMessage(PDATA pdata)
                 printf("ERROR(client ID: %d): unable to echo ACTION message\n");
             }
             break;
-
+        
+        case Message::DEATH:
+            break;
 
         case Message::UPDATE:
             data = recvMessage->getData();

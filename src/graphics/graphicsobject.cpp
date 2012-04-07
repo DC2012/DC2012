@@ -1,7 +1,7 @@
 #include "graphicsobject.h"
 
-GraphicsObject::GraphicsObject(const Point &initialPos, GameObject* gameObject)
-    : pos_(initialPos), gameObject_(gameObject)
+GraphicsObject::GraphicsObject(GameObject* gameObject)
+    : gameObject_(gameObject)
 {
 
 }
@@ -22,9 +22,9 @@ void GraphicsObject::update(const std::string& data)
     // other stuff to update the object position
 }
 
-void GraphicsObject::setPixmapItem(const QPixmap &pixmap)
+void GraphicsObject::setPixmapItem(QGraphicsPixmapItem* pixmap)
 {
-    pixmapItem_ = new QGraphicsPixmapItem(pixmap);
+    pixmapItem_ = pixmap;
 }
 
 QGraphicsPixmapItem* GraphicsObject::getPixmapItem() const

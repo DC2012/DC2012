@@ -28,19 +28,19 @@
   <property name="styleSheet">
    <string notr="true">QWidget{
   color:white;
-  background-image:url(':/image/battleship.jpg');
+  background-image:url(':/src/env/menus/Ships/images/battleship.jpg');
 }
 QPushButton{
   color: #44310C;
   border: 1px solid#000;
   border-radius:5px;
   padding: 5px;
-  background-image:url(':/image/gold3.jpeg');
+  background-image:url(':/src/env/menus/Ships/images/gold3.jpeg');
 }
 
 QFrame{
 border: none;
-background-image:url(':/image/wood.jpg');
+background-image:url(':/src/env/menus/Ships/images/wood.jpg');
 }
 
 #pushButton{
@@ -48,7 +48,7 @@ background-image:url(':/image/wood.jpg');
   border: 1px solid#000;
   border-radius:30px;
   padding: 5px;
-  background-image:url(':/image/gold3.jpeg');
+  background-image:url(':/src/env/menus/Ships/images/gold3.jpeg');
 }
 
 
@@ -72,7 +72,7 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
 }
 #frame_3{
   color:#44310C;
-  background-image:url(':/image/gold3.jpeg');
+  background-image:url(':/src/env/menus/Ships/images/gold3.jpeg');
   border: 1px solid#44310C;
   border-radius:30px;
 }

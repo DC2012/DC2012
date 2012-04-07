@@ -1,14 +1,14 @@
 #include "tilegraphicsobject.h"
 
-TileGraphicsObject::TileGraphicsObject(const Point& initialPosition, GameObject *gameObject, int type)
-    : GraphicsObject(initialPosition, gameObject)
+TileGraphicsObject::TileGraphicsObject(GameObject *gameObject)
+    : GraphicsObject(gameObject)
 {
     QPixmap tile;
 
-    if (type == SEA_TILE)
+    if (gameObject->getType() == SEA_TILE)
         tile.load(TILE_WATER2);
-    else if (type == LAND_TILE)
+    else if (gameObject->getType() == LAND_TILE)
         tile.load(TILE_LAND1);
 
-    GraphicsObject::setPixmapItem(tile);
+    GraphicsObject::setPixmapItem(new QGraphicsPixmapItem(tile));
 }

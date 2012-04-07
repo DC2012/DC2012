@@ -19,7 +19,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != SHIP_STR)
 			break;
 		
-		return new GOM_Ship(objID, ObjectType(type), double(degree), double(posX),
+		return new GOM_Ship(ObjectType(type), objID, double(degree), double(posX),
 			double(posY), playerID, double(speed), health, attackPower);
 		
 	case PROJECTILE:
@@ -29,7 +29,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != PROJECTILE_STR)
 			break;
 		
-		return new GOM_Projectile(objID, ObjectType(type), double(degree), 
+		return new GOM_Projectile(ObjectType(type), objID, double(degree), 
 			double(posX), double(posY), playerID, double(speed), ttl, damage);
 		
 	case OBSTACLE:
@@ -38,7 +38,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != OBSTACLE_STR)
 			break;
 			
-		return new GOS_Obstacle(objID, ObjectType(type), double(degree), 
+		return new GOS_Obstacle(ObjectType(type), objID, double(degree), 
 			double(posX), double(posY));
 		
 	case POWERUP:
@@ -47,7 +47,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != POWERUP_STR)
 			break;
 			
-		return new GOS_PowerUp(objID, ObjectType(type), double(degree), 
+		return new GOS_PowerUp(ObjectType(type), objID, double(degree), 
 			double(posX), double(posY));
 	}
 	return NULL;

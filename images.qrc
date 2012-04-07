@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/env/menus/Ships/images/battleship.jpg</file>
+        <file>src/env/menus/Ships/images/canoe.gif</file>
+        <file>src/env/menus/Ships/images/gold3.jpeg</file>
+        <file>src/env/menus/Ships/images/metal_4.jpg</file>
+        <file>src/env/menus/Ships/images/old.png</file>
+        <file>src/env/menus/Ships/images/steel.jpg</file>
+        <file>src/env/menus/Ships/images/sub2.gif</file>
+        <file>src/env/menus/Ships/images/underwater.jpg</file>
+        <file>src/env/menus/Ships/images/wood.jpg</file>
+    </qresource>
+</RCC>

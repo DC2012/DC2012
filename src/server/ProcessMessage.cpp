@@ -104,8 +104,10 @@ void ProcessMessage(PDATA pdata)
             }
             break;
         
+        /* Message::DEATH not implemented yet
         case Message::DEATH:
             break;
+        */
 
         case Message::UPDATE:
             data = recvMessage->getData();

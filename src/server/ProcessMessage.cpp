@@ -47,7 +47,7 @@ void ProcessMessage(PDATA pdata)
             attack   = 30;      // hard-coded need to fix 
 
             // create the GOM_Ship object
-            gameObject = new GOM_Ship(objID, type, degree, posX, posY,
+            gameObject = new GOM_Ship(type, objID, degree, posX, posY,
                                    playerID, speed, health, attack);
             
             // add the game object to the map
@@ -103,7 +103,9 @@ void ProcessMessage(PDATA pdata)
                 printf("ERROR(client ID: %d): unable to echo ACTION message\n");
             }
             break;
-
+        
+        case Message::DEATH:
+            break;
 
         case Message::UPDATE:
             data = recvMessage->getData();

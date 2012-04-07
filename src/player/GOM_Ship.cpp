@@ -8,14 +8,14 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
 :GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
 	health_(health), attackPower_(attackPower)
 {
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	accel_ = 0.5;
-	decel_ = 0.5;
-	maxSpeed_ = 5;
-	shipCount_++;
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    accel_ = 0.5;
+    decel_ = 0.5;
+    maxSpeed_ = 5;
+    shipCount_++;
 }
 
 int GOM_Ship::getHealth()const
@@ -39,36 +39,36 @@ void GOM_Ship::decelerate()
 
 void GOM_Ship::move()
 {
-	Point pt;
-	
-	if(actionFlags_[ROTATE_L])
-	{
-		degree_.rotate(-1);
-		rotateHitbox(-1);
-	}
-	
-	if(actionFlags_[ROTATE_R])
-	{
-		degree_.rotate(1);
-		rotateHitbox(1);
-	}
-	
-	if(actionFlags_[ACCEL])
-	{
-		accelerate();
-	}
-	
-	if(actionFlags_[DECEL])
-	{
-		decelerate();
-	}
-	
-	pt = getDirectionalPoint(speed_, degree_.getDegree());
-	pos_.setX(pos_.getX() + pt.getX());
-	pos_.setY(pos_.getY() + pt.getY());
+    Point pt;
+
+    if(actionFlags_[ROTATE_L])
+    {
+        degree_.rotate(-1);
+        rotateHitbox(-1);
+    }
+
+    if(actionFlags_[ROTATE_R])
+    {
+        degree_.rotate(1);
+        rotateHitbox(1);
+    }
+
+    if(actionFlags_[ACCEL])
+    {
+        accelerate();
+    }
+
+    if(actionFlags_[DECEL])
+    {
+        decelerate();
+    }
+
+    pt = getDirectionalPoint(speed_, degree_.getDegree());
+    pos_.setX(pos_.getX() + pt.getX());
+    pos_.setY(pos_.getY() + pt.getY());
     spritePt_.setX(pos_.getX() + pt.getX());
-	spritePt_.setY(pos_.getY() + pt.getY());
-	moveHitbox(pt.getX(), pt.getY());
+    spritePt_.setY(pos_.getY() + pt.getY());
+    moveHitbox(pt.getX(), pt.getY());
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)

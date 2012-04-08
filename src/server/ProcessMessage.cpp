@@ -3,7 +3,13 @@
 void ProcessMessage(PDATA pdata)
 {
     GameObject* gameObject;
+    
+    // ***** lock mutex
+    pthread_mutex_lock(pdata->lock);
     Server*  server = pdata->server;
+    // unlock mutex *****
+    pthread_mutex_unlock(pdata->lock);
+
     Message* recvMessage;
     Message  sendMessage;
     int clientID;
@@ -21,6 +27,9 @@ void ProcessMessage(PDATA pdata)
         clientID = recvMessage->getID();
         sendMessage.setID(clientID);
         
+        // ***** lock mutex
+        pthread_mutex_lock(pdata->lock);
+        
         switch(recvMessage->getType())
         {
         case Message::CONNECTION:
@@ -28,10 +37,6 @@ void ProcessMessage(PDATA pdata)
             istr.clear();
             istr.str(recvMessage->getData());
             istr >> type >> playerName;
-            
-            // ***** lock mutex
-            pthread_mutex_lock(pdata->lock);
-            
             
             //!!! needs to implement max player checking here!!!
             data = std::string("Accepted");
@@ -76,9 +81,6 @@ void ProcessMessage(PDATA pdata)
             // add the game object to the map
             pdata->ships.erase(objID);
             pdata->ships[objID] = gameObject;
-            
-            // unlock mutex *****
-            pthread_mutex_unlock(pdata->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
@@ -98,9 +100,6 @@ void ProcessMessage(PDATA pdata)
             if(gameObject->getType() != PROJECTILE)
                 break;
             
-            // ***** lock mutex
-            pthread_mutex_lock(pdata->lock);
-            
             objID = pdata->objCount++;
             
             // assign object id to the projectile object
@@ -109,9 +108,6 @@ void ProcessMessage(PDATA pdata)
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);
             pdata->projectiles[objID] = gameObject;
-            
-            // unlock mutex *****
-            pthread_mutex_unlock(pdata->lock);
 
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
@@ -136,15 +132,9 @@ void ProcessMessage(PDATA pdata)
             if((objID = GameObjectFactory::getObjectID(data)) == -1)
                 break;
             
-            // ***** lock mutex
-            pthread_mutex_lock(pdata->lock);
-            
             // update only if the object exists
             if(pdata->ships[objID] != NULL)
                 pdata->ships[objID]->update(data);
-            
-            // unlock mutex *****
-            pthread_mutex_unlock(pdata->lock);
             
             // echo the UPDATE message to all clients
             // fall through
@@ -155,5 +145,8 @@ void ProcessMessage(PDATA pdata)
             server->write(&sendMessage);
             break;
         }// end of swtich()
+        
+        // unlock mutex *****
+        pthread_mutex_unlock(pdata->lock);
     }// end of while()
 }

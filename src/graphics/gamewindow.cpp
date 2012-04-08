@@ -243,7 +243,7 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
-    std::map<int, GameObject*>::iterator ii;
+    std::map<int, ShipGraphicsObject*>::iterator ii;
     
     processMessages();
     myShip_->move();

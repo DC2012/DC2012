@@ -12,8 +12,8 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
         shipPixmap.load(SPRITE_SHIP2);
 
     QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
-    shipItem->setPos(gameObject->getPosition().getX(),
-                    gameObject->getPosition().getY());
+    shipItem->setPos(gameObject->getSpriteTopLeft().getX(),
+                    gameObject->getSpriteTopLeft().getY());
 
     GraphicsObject::setPixmapItem(shipItem);
 }

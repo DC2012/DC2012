@@ -69,6 +69,7 @@ void GOM_Ship::move()
     spritePt_.setX(spritePt_.getX() + pt.getX());
     spritePt_.setY(spritePt_.getY() + pt.getY());
     moveHitbox(pt.getX(), pt.getY());
+    hb_.print();
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)

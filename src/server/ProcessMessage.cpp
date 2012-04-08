@@ -116,13 +116,15 @@ void ProcessMessage(PDATA pdata)
 
             // create a projectile object
             objID = pdata->objCount++;
-            gameObject = new GOM_Projectile(PROJECTILE, objID, degree, posX, posY,
-                                            clientID, 5, 1000, 10);
+            std::cout << posX << posY << degree << std::endl;
+            gameObject = new GOM_Projectile(PROJECTILE, objID, double(degree), double(posX), double(posY),
+                                            clientID, 5, 500, 10);
 
             // debugging
-            //std::cout << "projectile (clientID:" << clientID << ") - ";
-            //std::cout << gameObject->toString() << std::endl;
+            std::cout << "projectile (clientID:" << clientID << ") - ";
+            std::cout << gameObject->toString() << std::endl;
             std::cout << "recved data: " << recvMessage->getData() << std::endl;
+            std::cout << std::endl;
             
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);
@@ -131,7 +133,6 @@ void ProcessMessage(PDATA pdata)
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
-                fprintf(stderr, "echoed ACTION\n");
                 server->write(&sendMessage);
             }
             else

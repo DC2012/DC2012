@@ -19,8 +19,7 @@ void ProcessMessage(PDATA pdata)
     std::map<int, GameObject*>::iterator ii;
 
     // object creation parameters
-    int type, objID, degree, posX, posY, playerID, speed, health, attack,
-        damage, ttl;
+    int type, objID, degree, posX, posY, playerID, speed, health, attack;
     
     while(pdata->isRunning && (recvMessage = server->read()))
     {
@@ -109,16 +108,15 @@ void ProcessMessage(PDATA pdata)
             break;
 
         case Message::ACTION:
+            // extract projectile info from msg data
+            istr.clear();
+            istr.str(recvMessage->getData());
+            istr >> posX >> posY >> degree;
+
             // create a projectile object
-            gameObject = GameObjectFactory::create(recvMessage->getData());
-            
-            if(gameObject->getType() != PROJECTILE)
-                break;
-            
             objID = pdata->objCount++;
-            
-            // assign object id to the projectile object
-            gameObject->setObjID(objID);
+            gameObject = new GOM_Projectile(PROJECTILE, objID, degree, posX, posY,
+                                            clientID, 5, 1000, 10);
             
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);
@@ -163,5 +161,7 @@ void ProcessMessage(PDATA pdata)
         
         // unlock mutex *****
         pthread_mutex_unlock(pdata->lock);
+
+        delete recvMessage;
     }// end of while()
 }

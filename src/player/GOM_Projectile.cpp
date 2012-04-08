@@ -16,7 +16,8 @@ void GOM_Projectile::update(const std::string &str)
 	std::istringstream istr(str);
 	char endCheck;
 	int type = -1;
-	int objID, degree, posX, posY, playerID, speed, damage, ttl;
+        double degree, posX, posY, speed;
+        int objID, playerID, damage, ttl;
     double sprite_w, sprite_h, hb_w, hb_h;
 	
 	istr >> type;
@@ -36,11 +37,11 @@ void GOM_Projectile::update(const std::string &str)
 		
 		type_ = ObjectType(type);
 		objID_ = objID;
-		degree_.setDegree(double(degree));
-		pos_.setX(double(posX));
-		pos_.setY(double(posY));
+                degree_.setDegree(degree);
+                pos_.setX(posX);
+                pos_.setY(posY);
 		playerID_ = playerID;
-		speed_ = double(speed);
+                speed_ = speed;
 		ttl_ = ttl;
 		damage_ = damage;
         spritePt_.setX(pos_.getX()-(sprite_w/2));
@@ -55,11 +56,11 @@ std::string GOM_Projectile::toString() const
 	
 	ostr << int(type_) << " ";
 	ostr << objID_ << " ";
-	ostr << int(degree_.getDegree()) << " ";
-	ostr << int(pos_.getX()) << " ";
-	ostr << int(pos_.getY()) << " ";
+        ostr << degree_.getDegree() << " ";
+        ostr << pos_.getX() << " ";
+        ostr << pos_.getY() << " ";
 	ostr << playerID_ << " ";
-	ostr << int(speed_) << " ";
+        ostr << speed_ << " ";
 	ostr << ttl_ << " ";
 	ostr << damage_ << " ";
 	ostr << PROJECTILE_STR;

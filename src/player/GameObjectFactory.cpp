@@ -5,9 +5,9 @@ GameObject* GameObjectFactory::create(const std::string &in)
 	std::istringstream istr(in);
 	char endCheck;
 	int type = -1;
-    int objID, playerID, speed, health, attackPower,
+        int objID, playerID, health, attackPower,
 		damage, ttl;
-    double posX, degree, posY;
+        double posX, degree, posY, speed;
 	
 	istr >> type;
 	switch(ObjectType(type))
@@ -20,8 +20,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != SHIP_STR)
 			break;
 		
-		return new GOM_Ship(ObjectType(type), objID, double(degree), double(posX),
-			double(posY), playerID, double(speed), health, attackPower);
+                return new GOM_Ship(ObjectType(type), objID, degree, posX,
+                        posY, playerID, speed, health, attackPower);
 		
 	case PROJECTILE:
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
@@ -30,8 +30,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != PROJECTILE_STR)
 			break;
 		
-		return new GOM_Projectile(ObjectType(type), objID, double(degree), 
-			double(posX), double(posY), playerID, double(speed), ttl, damage);
+                return new GOM_Projectile(ObjectType(type), objID, degree,
+                        posX, posY, playerID, speed, ttl, damage);
 		
 	case OBSTACLE:
 		istr >> objID >> degree >> posX >> posY >> endCheck;
@@ -39,8 +39,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != OBSTACLE_STR)
 			break;
 			
-		return new GOS_Obstacle(ObjectType(type), objID, double(degree), 
-			double(posX), double(posY));
+                return new GOS_Obstacle(ObjectType(type), objID, degree,
+                        posX, posY);
 		
 	case POWERUP:
 		istr >> objID >> degree >> posX >> posY >> endCheck;
@@ -48,8 +48,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != POWERUP_STR)
 			break;
 			
-		return new GOS_PowerUp(ObjectType(type), objID, double(degree), 
-			double(posX), double(posY));
+                return new GOS_PowerUp(ObjectType(type), objID, degree,
+                        posX, posY);
 	}
 	return NULL;
 }
@@ -59,7 +59,8 @@ int GameObjectFactory::getObjectID(const std::string &str)
 	std::istringstream istr(str);
 	char endCheck;
 	int type = -1;
-	int objID, degree, posX, posY, playerID, speed, health, attackPower, 
+        double degree, posX, posY, speed;
+        int objID, playerID, health, attackPower,
 		damage, ttl;
 	
 	istr >> type;

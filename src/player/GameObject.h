@@ -14,20 +14,21 @@
 --                      Point  getPosition() const;
 --        
 --                      double getObjDistance(const GameObject &gObj) const;
---                      virtual void print(std::ostream& os) const;
+--              virtual void   print(std::ostream& os) const;
 --
 --  DATE:
 --                  March 9, 2012
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
---
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
 --                  Roger Fan
 --                  Zach Smoroden
---
 --  PROGRAMMER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -40,7 +41,6 @@
 --                  Classes inheriting from this:
 --                                                GameObjectMoveable
 --                                                GameObjectStationary
---
 -----------------------------------------------------------------------------*/
 #ifndef GAMEOBJECT_H_
 #define GAMEOBJECT_H_
@@ -57,12 +57,12 @@
 class GameObject
 {
     protected:
-        int         objID_;
-        ObjectType  type_;
-        Degree      degree_;
-        Point       pos_;
-        Point       spritePt_;
-        Hitbox      hb_;
+        ObjectType  type_;      // graphical types for graphics
+        int         objID_;     // unique object ID
+        Degree      degree_;    // orientation in degrees
+        Point       pos_;       // position
+        Point       spritePt_;  // top-left corner for drawing sprites
+        Hitbox      hb_;        // effective hitbox of the object
 
     public:
 /*-----------------------------------------------------------------------------
@@ -73,7 +73,9 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type in Point & Degree
---
+--                  April 4, 2012 (Po)
+--                      - modified constructor so that 'type' will be the first
+--                        parameter
 --  DESIGNER:
 --                  Aiko Rose
 --                  Po Hsu
@@ -85,7 +87,6 @@ class GameObject
 --  INTERFACE:
 --                  GameObject(int objID, ObjectType type, double degree,
 --                                                  double posX, double posY);
---
 --  RETURNS:
 --                  Constructor
 --  NOTES:
@@ -95,7 +96,7 @@ class GameObject
 --                  posX    X-coordinate
 --                  posY    Y-coordinate
 -----------------------------------------------------------------------------*/
-        explicit GameObject(int objID, ObjectType type, double degree,
+        explicit GameObject(ObjectType type, int objID, double degree,
                                                     double posX, double posY);
 
 /*-----------------------------------------------------------------------------
@@ -114,7 +115,7 @@ class GameObject
 --  RETURNS:
 --                  Destructor
 --  NOTES:
---                  Default destructor that gets inherited by all children                
+--                  Default destructor that gets inherited by all children
 -----------------------------------------------------------------------------*/
         virtual ~GameObject(){}
 
@@ -146,7 +147,6 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - created enum type ObjectType replacing the int
---
 --  DESIGNER:
 --                  Po Hsu
 --  PROGRAMMER:
@@ -169,7 +169,6 @@ class GameObject
 --  REVISIONS:
 --                  March 14, 2012 (Roger)
 --                      - switched to using double type
---
 --  DESIGNER:
 --                  Po Hsu
 --  PROGRAMMER:
@@ -203,6 +202,26 @@ class GameObject
 --                  Getter for pos_
 -----------------------------------------------------------------------------*/
         Point getPosition() const;
+
+/*-----------------------------------------------------------------------------
+--  FUNCTION:
+--                  getHitbox
+--  DATE:
+--                  April 6, 2012
+--  REVISIONS:
+--
+--  DESIGNER:
+--                  Po Hsu
+--  PROGRAMMER:
+--                  Po Hsu
+--  INTERFACE:
+--                  getHitbox() const
+--  RETURNS:
+--                  Hitbox
+--  NOTES:
+--                  Getter for hb_
+-----------------------------------------------------------------------------*/
+		Hitbox getHitbox() const;
         
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
@@ -244,9 +263,12 @@ class GameObject
 --                  Prints out the member variable values for debugging purpose
 -----------------------------------------------------------------------------*/
         virtual void print(std::ostream& os) const;
-		
-		virtual void update(const std::string &str) = 0;
-		virtual std::string toString() const = 0;
+        
+        void setObjID(int id);
+        Point getSpriteTopLeft() const;
+
+        virtual void update(const std::string &str) = 0;
+        virtual std::string toString() const = 0;
 };
 
 #endif

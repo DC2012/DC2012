@@ -3,19 +3,19 @@
 size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
-GOM_Ship::GOM_Ship(int objID, ObjectType type, double degree, double posX, double posY, 
+GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, double posY, 
 	int playerID, double speed, int health, int attackPower)
-:GameObjectMoveable(objID, type, degree ,posX ,posY ,playerID ,speed), 
+:GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
 	health_(health), attackPower_(attackPower)
 {
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	accel_ = 0.5;
-	decel_ = 0.5;
-	maxSpeed_ = 5;
-	shipCount_++;
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    accel_ = 0.5;
+    decel_ = 0.5;
+    maxSpeed_ = 5;
+    shipCount_++;
 }
 
 int GOM_Ship::getHealth()const
@@ -39,58 +39,36 @@ void GOM_Ship::decelerate()
 
 void GOM_Ship::move()
 {
-	Point pt;
-	
-	if(actionFlags_[ROTATE_L])
-	{
-		degree_.rotate(-1);
-		rotateHitbox(-1);
-	}
-	
-	if(actionFlags_[ROTATE_R])
-	{
-		degree_.rotate(1);
-		rotateHitbox(1);
-	}
-	
-	if(actionFlags_[ACCEL])
-	{
-		accelerate();
-	}
-	
-	if(actionFlags_[DECEL])
-	{
-		decelerate();
-	}
-	
-	pt = getDirectionalPoint(speed_, degree_.getDegree());
-	pos_.setX(pos_.getX() + pt.getX());
-	pos_.setY(pos_.getY() + pt.getY());
-	moveHitbox(pt.getX(), pt.getY());
-}
+    Point pt;
 
-void GOM_Ship::rotateHitbox(double degree)
-{
-	rotatePointAround(hb_.tLeft, pos_, degree);
-	rotatePointAround(hb_.tRight, pos_, degree);
-	rotatePointAround(hb_.bLeft, pos_, degree);
-	rotatePointAround(hb_.bRight, pos_, degree);
-}
+    if(actionFlags_[ROTATE_L])
+    {
+        degree_.rotate(-1);
+        rotateHitbox(-1);
+    }
 
-void GOM_Ship::moveHitbox(double x, double y)
-{
-	// tLeft
-	hb_.tLeft.setX(hb_.tLeft.getX() + x);
-	hb_.tLeft.setY(hb_.tLeft.getY() + y);
-	// tRight
-	hb_.tRight.setX(hb_.tRight.getX() + x);
-	hb_.tRight.setY(hb_.tRight.getY() + y);
-	// bLeft
-	hb_.bLeft.setX(hb_.bLeft.getX() + x);
-	hb_.bLeft.setY(hb_.bLeft.getY() + y);
-	// bRight
-	hb_.bRight.setX(hb_.bRight.getX() + x);
-	hb_.bRight.setY(hb_.bRight.getY() + y);
+    if(actionFlags_[ROTATE_R])
+    {
+        degree_.rotate(1);
+        rotateHitbox(1);
+    }
+
+    if(actionFlags_[ACCEL])
+    {
+        accelerate();
+    }
+
+    if(actionFlags_[DECEL])
+    {
+        decelerate();
+    }
+
+    pt = getDirectionalPoint(speed_, degree_.getDegree());
+    pos_.setX(pos_.getX() + pt.getX());
+    pos_.setY(pos_.getY() + pt.getY());
+    spritePt_.setX(spritePt_.getX() + pt.getX());
+    spritePt_.setY(spritePt_.getY() + pt.getY());
+    moveHitbox(pt.getX(), pt.getY());
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)
@@ -107,12 +85,23 @@ void GOM_Ship::update(const std::string &str)
 	char endCheck;
 	int type = -1;
 	int objID, degree, posX, posY, playerID, speed, health, attackPower;
+    double sprite_w, sprite_h, hb_w, hb_h;
 	
 	istr >> type;
 	switch(ObjectType(type))
 	{
 	case SHIP1:
+		sprite_w = double(SHIP1_SPRITE_WIDTH);
+		sprite_h = double(SHIP1_SPRITE_HEIGHT);
+		hb_w = double(SHIP1_WIDTH);
+		hb_h = double(SHIP1_HEIGHT);
+		
 	case SHIP2:
+		sprite_w = double(SHIP2_SPRITE_WIDTH);
+		sprite_h = double(SHIP2_SPRITE_HEIGHT);
+		hb_w = double(SHIP2_WIDTH);
+		hb_h = double(SHIP2_HEIGHT);
+
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
 			>> attackPower >> endCheck;
 		
@@ -128,6 +117,8 @@ void GOM_Ship::update(const std::string &str)
 		speed_ = double(speed);
 		health_ = health;
 		attackPower_ = attackPower;
+		spritePt_.setX(pos_.getX()-(sprite_w/2));
+		spritePt_.setY(pos_.getY()-(sprite_h/2));
 		break;
 	}
 }

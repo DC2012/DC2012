@@ -2,6 +2,7 @@
 *.o
 *.slo
 *.lo
+*.out
 
 # Vim backup
 *.swp
@@ -12,5 +13,8 @@
 ui_*.h
 moc_*.*
 moc_*.*
+qrc_*.cpp
 Makefile
 DC2012
+servermain
+*.autosave

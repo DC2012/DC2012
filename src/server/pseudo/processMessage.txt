@@ -1,0 +1,46 @@
+Assume there is 2 maps
+map<clientID, shipObject>
+map<objectID, projectilObject>
+
+
+Process Message
+{
+  Server* server = Server::getInstance();//assume it's already set to listen from main
+  Message* recvMessage;
+  Message  sendMessage;
+  while((recvMessage = server->read()))
+  {
+    switch(recvMessage->getType())
+    {
+      //LOGON message data has player name and ship type, recvMessage has correct clientID but it must be sent to client so they know it
+      case Message::LOGON:
+        //send status message with data of clientID so the client knows it's ID
+        //Create a string that the object factory can use to create the ship, set coordinates to unoccupied area if possible
+        //create and add ship to server's map of clientID's to ships
+        //Send CREATION message to all clients on how to create the ship
+        //   ( this will be the first CREATION message sent to the new client so it will assume that 
+        //    it is it's ship also that ship will have a clientID that matches the one we just sent to that client)
+        //iterate through all objects on the server and send CREATION messages to new client(can possibly be done in another thread)
+        //    (assuming all objects have a toString() that you can give to a factory to recreate the object)
+        
+      //UPDATE message data should have a string representation of the object state, use this to modify the shipObjects
+      case Message::UPDATE:
+        //use clientID to find relevant ship in a map
+        //take the data and update the ship appropriately
+        //echo the update message to all clients
+        
+      //ACTION message data should be a string that can be used to create a projectile of whatever weapon type
+      case Message::ACTION:
+        //create a string that the factory can use to make the projectile, basically add in the objectID to it
+        //create the projectil and add it to projectileMap
+        //send CREATION message to all clients
+        
+      //CHAT message data is just text of the message currently, but could be modified later to make PM's not just global
+      case Message::CHAT:
+        //echo to all clients
+        
+      
+        
+    }
+  }
+}

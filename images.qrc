@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/env/menus/Ships/images/battleship.jpg</file>
+        <file>src/env/menus/Ships/images/canoe.gif</file>
+        <file>src/env/menus/Ships/images/gold3.jpeg</file>
+        <file>src/env/menus/Ships/images/metal_4.jpg</file>
+        <file>src/env/menus/Ships/images/old.png</file>
+        <file>src/env/menus/Ships/images/steel.jpg</file>
+        <file>src/env/menus/Ships/images/sub2.gif</file>
+        <file>src/env/menus/Ships/images/underwater.jpg</file>
+        <file>src/env/menus/Ships/images/wood.jpg</file>
+        <file>sprites/spriteBullet.png</file>
+        <file>sprites/spriteCannonball.png</file>
+        <file>sprites/spriteCursor.png</file>
+        <file>sprites/spriteExplosion1.png</file>
+        <file>sprites/spriteExplosion2.png</file>
+        <file>sprites/spriteExplosion3.png</file>
+        <file>sprites/spriteExplosion4.png</file>
+        <file>sprites/spriteExplosion5.png</file>
+        <file>sprites/spriteExplosion6.png</file>
+        <file>sprites/tileLand1.png</file>
+        <file>sprites/tileWater1.png</file>
+        <file>sprites/tileWater2.png</file>
+        <file>sprites/spriteShip1.png</file>
+        <file>sprites/spriteShip2.png</file>
+    </qresource>
+</RCC>

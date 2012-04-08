@@ -35,8 +35,12 @@
 class GameObjectFactory
 {
 	public:
-		//call to create the new object
+		// call to create the new object
 		static GameObject *create(const std::string &in);
+		
+		// retrieves the object ID from an object string
+		// returns -1 if invalid object string is passed in
+		static int getObjectID(const std::string &str);
 };
 
 #endif

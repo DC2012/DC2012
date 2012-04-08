@@ -13,12 +13,13 @@
 class GraphicsObject
 {
 public:
-    GraphicsObject(const Point& initialPos, GameObject* gameObject);
+    GraphicsObject(GameObject* gameObject);
     QGraphicsPixmapItem* getPixmapItem() const;
-    void setPixmapItem(const QPixmap& pixmap);
+    void setPixmapItem(QGraphicsPixmapItem* pixmapItem);
+    GameObject* getGameObject();
+    virtual void update(const std::string& data);
 
 private:
-    Point pos_;
     GameObject* gameObject_;
     QGraphicsPixmapItem* pixmapItem_;
 };

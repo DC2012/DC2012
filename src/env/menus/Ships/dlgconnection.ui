@@ -6,25 +6,72 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>195</width>
+    <width>222</width>
     <height>174</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Connect To Server</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+  color:white;
+  background-image:url(':/src/env/menus/Ships/images/wood.jpg');
+}
+QLabel{
+border-right: 1px;
+border-bottom: 1px;
+background-color:transparent;
+}
+
+QPushButton{
+  color: #44310C;
+  border: 1px solid#000;
+  border-radius:5px;
+  padding: 5px;
+  background-image:url(':/src/env/menus/Ships/images/gold3.jpeg');
+}
+
+QPushButton:hover {
+background: qradialgradient(cx: 0.3, cy: -0.4,fx: 0.3, fy: -0.4,radius: 1.35, stop: 0 #000, stop: 1 #C89225);
+}
+
+ QPushButton:pressed {
+background: qradialgradient(cx: 0.4, cy: -0.1,
+fx: 0.4, fy: -0.1,
+radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
+}
+
+QLineEdit{
+  color:#FFF;
+  padding: 5px;
+  background-color:#000;
+}</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget1">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>130</y>
-     <width>168</width>
-     <height>26</height>
+     <y>140</y>
+     <width>211</width>
+     <height>31</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QPushButton" name="pushButton_cancel">
+      <property name="maximumSize">
+       <size>
+        <width>75</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Cancel</string>
       </property>
@@ -32,6 +79,18 @@
     </item>
     <item>
      <widget class="QPushButton" name="pushButton_connect">
+      <property name="maximumSize">
+       <size>
+        <width>75</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Connect</string>
       </property>
@@ -39,13 +98,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>21</x>
-     <y>11</y>
-     <width>154</width>
-     <height>88</height>
+     <x>20</x>
+     <y>10</y>
+     <width>191</width>
+     <height>117</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">

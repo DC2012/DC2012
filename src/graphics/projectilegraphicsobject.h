@@ -6,7 +6,8 @@
 class ProjectileGraphicsObject : public GraphicsObject
 {
 public:
-    ProjectileGraphicsObject(const Point& initialPoint, GameObject* gameObject);
+    ProjectileGraphicsObject(GameObject* gameObject);
+    void update(const std::string &data);
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

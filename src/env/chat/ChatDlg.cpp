@@ -63,16 +63,8 @@ void ChatDlg::doChat()
     msg_->setData(ui->lineEdit_input->text().toStdString());
     this->clearFocus();
     p->setFocus();
-<<<<<<< HEAD
-
-
     client->write(msg_);
-
-
-
     //this->close();
-=======
->>>>>>> c750d24e79f7e9412b3df4a4391f00f738566532
 
 }
 

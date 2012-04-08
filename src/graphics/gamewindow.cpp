@@ -243,6 +243,7 @@ void GameWindow::processGameMessage(Message* message)
 void GameWindow::updateGame()
 {
     std::map<int, ShipGraphicsObject*>::iterator ii;
+    GameObject *gameObject;
     
     processMessages();
     myShip_->move();
@@ -252,9 +253,10 @@ void GameWindow::updateGame()
     
     for(ii = ships_.begin(); ii != ships_.end(); ++ii)
     {
-        ii->second->getPixmapItem()->setOffset(ii->second->shipObj->getSpriteTopLeft().getX(),ii->second->shipObj->getSpriteTopLeft().getY());
-        ii->second->getPixmapItem()->setTransformOriginPoint(ii->second->shipObj->getPosition().getX(), ii->second->shipObj->getPosition().getY());
-        ii->second->getPixmapItem()->setRotation(ii->second->shipObj->getDegree()-270);
+        gameObject = ii->second->getGameObject();
+        ii->second->getPixmapItem()->setOffset(gameObject->getSpriteTopLeft().getX(),gameObject->getSpriteTopLeft().getY());
+        ii->second->getPixmapItem()->setTransformOriginPoint(gameObject->getPosition().getX(), gameObject->getPosition().getY());
+        ii->second->getPixmapItem()->setRotation(gameObject->getDegree()-270);
     }
 
     /*

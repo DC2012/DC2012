@@ -17,7 +17,7 @@ public:
     QGraphicsPixmapItem* getPixmapItem() const;
     void setPixmapItem(QGraphicsPixmapItem* pixmapItem);
     GameObject* getGameObject();
-    void update(const std::string& data);
+    virtual void update(const std::string& data);
 
 private:
     GameObject* gameObject_;

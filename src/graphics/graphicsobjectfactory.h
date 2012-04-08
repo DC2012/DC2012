@@ -5,27 +5,24 @@
 #include "projectilegraphicsobject.h"
 #include "shipgraphicsobject.h"
 #include "tilegraphicsobject.h"
+#include "../player/ObjectType.h"
 
 class GraphicsObjectFactory
 {
-    static GraphicsObject* create(const std::string& objectType, GameObject* gameObject)
+public:
+    static GraphicsObject* create(GameObject* gameObject)
     {
-        QString type = QString::fromStdString(objectType);
-        QStringList tokens = type.split(" ");
-
-        Point initial(tokens.at(1).toDouble(), tokens.at(2).toDouble());
-
-        if (tokens.at(0) == "P")
+        if (gameObject->getType() == PROJECTILE)
         {
-            return new ProjectileGraphicsObject(initial, gameObject);
+            return new ProjectileGraphicsObject(gameObject);
         }
-        else if (tokens.at(0) == "S")
+        else if (gameObject->getType() == SHIP1 || gameObject->getType() == SHIP2)
         {
-            return new ShipGraphicsObject(initial, gameObject, tokens.at(3).toInt());
+            return new ShipGraphicsObject(gameObject);
         }
-        else if (tokens.at(0) == "T")
+        else if (gameObject->getType() == OBSTACLE)
         {
-            return new TileGraphicsObject(initial, gameObject, tokens.at(3).toInt());
+            return new TileGraphicsObject(gameObject);
         }
         else
         {

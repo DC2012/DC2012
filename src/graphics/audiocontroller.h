@@ -32,7 +32,7 @@ signals:
 
 public slots:
 
-    void playSound(AudioController::Sounds);
+    void playSound(AudioController::Sounds, double dist);
     void printState(Phonon::State, Phonon::State);
 
 
@@ -44,7 +44,7 @@ private:
     int                             current, audioOutCount;
     Phonon::MediaObject             *media;
 
-    Phonon::MediaObject* getNextAvailable();
+    int getNextAvailable();
     void createFilePaths();
     void writeFile(QString message);
 

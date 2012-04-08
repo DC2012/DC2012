@@ -2,5 +2,5 @@
 
 void GameObjectStationary::print(std::ostream& os)const
 {
-	GameObject::print(os);
+    GameObject::print(os);
 }

@@ -1,9 +1,27 @@
 #include "shipgraphicsobject.h"
 
-ShipGraphicsObject::ShipGraphicsObject(const Point& initialPoint, GameObject* gameObject, int type)
-    : GraphicsObject(initialPoint, gameObject)
+ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
+    : GraphicsObject(gameObject)
 {
-    GraphicsObject::setPixmapItem(QPixmap(SPRITE_SHIP1));
+    QPixmap shipPixmap;
+    ObjectType type = gameObject->getType();
+
+    if (type == SHIP1)
+        shipPixmap.load(SPRITE_SHIP1);
+    else if (type == SHIP2)
+        shipPixmap.load(SPRITE_SHIP2);
+
+    QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
+
+    shipItem->setOffset(gameObject->getSpriteTopLeft().getX(),
+                        gameObject->getSpriteTopLeft().getY());
+
+    shipItem->setTransformOriginPoint(gameObject->getPosition().getX(),
+                                      gameObject->getPosition().getY());
+
+    shipItem->setRotation(gameObject->getDegree() - 270);
+
+    GraphicsObject::setPixmapItem(shipItem);
 }
 
 /*

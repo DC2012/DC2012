@@ -15,7 +15,6 @@ void ProcessMessage(PDATA pdata)
     // object creation parameters
     int type, objID, degree, posX, posY, playerID, speed, health, attack,
         damage, ttl;
-    char end;
     
     while(pdata->isRunning && (recvMessage = server->read()))
     {

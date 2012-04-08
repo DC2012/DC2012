@@ -185,6 +185,7 @@ void GameWindow::processGameMessage(Message* message)
                                        clientId_, 0, 100, 100);
 
                 myShipGraphic_ = new ShipGraphicsObject(myShip_);
+                scene_->addItem(myShipGraphic_->getPixmapItem());
             }
             else
             {
@@ -194,9 +195,10 @@ void GameWindow::processGameMessage(Message* message)
         else
         {
             otherGraphics_[message->getID()] = graphic;
+            scene_->addItem(graphic->getPixmapItem());
         }
 
-        scene_->addItem(graphic->getPixmapItem());
+
         break;
 
     case Message::UPDATE:
@@ -238,12 +240,9 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
-    // myShip_->move();
-    /*
-    ship_->setOffset(myShip_->getPosition().getX(), myShip_->getPosition().getY());
-    ship_->setTransformOriginPoint(myShip_->getPosition());
-    ship_->setRotation(myShip_->getDegree()-270);
-    */
+
+
+
 
     /*
     Message msg;
@@ -253,6 +252,13 @@ void GameWindow::updateGame()
     client_->write(&msg);
     */
 
+
     processMessages();
+    myShipGraphic_->getPixmapItem()->setOffset(myShipGraphic_->getPixmapItem()->offset().x() + 1,
+                                               myShipGraphic_->getPixmapItem()->offset().y());
+    //myShip_->move();
+    //myShipGraphic_->getPixmapItem()->setOffset(myShip_->getPosition().getX(), myShip_->getPosition().getY());
+    //myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition());
+    //myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
 
 }

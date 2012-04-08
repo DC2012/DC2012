@@ -55,6 +55,9 @@ void ProcessMessage(PDATA pdata)
             {
                 sendMessage.setAll(ii->second->toString(), Message::CREATION);
                 server->write(&sendMessage, clientID);
+                
+                // debugging
+                std::cout << ii->second->toString() << std::endl;
             }
             
             for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
@@ -86,6 +89,10 @@ void ProcessMessage(PDATA pdata)
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
                 server->write(&sendMessage);
+                
+                // debugging
+                std::cout << "ship string for client#" << clientID << std::endl;
+                std::cout << pdata->ships[objID]->toString() << std::endl;
             }
             else
             {

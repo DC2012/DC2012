@@ -38,7 +38,7 @@ private:
     ShipGraphicsObject* myShipGraphic_;
     Client* client_;
     std::queue<Message *> messageQueue_;
-    std::map<int, GraphicsObject *> ships_;
+    std::map<int, ShipGraphicsObject *> ships_;
     std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;

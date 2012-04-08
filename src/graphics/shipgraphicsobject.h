@@ -7,6 +7,7 @@ class ShipGraphicsObject : public GraphicsObject
 {
 public:
     ShipGraphicsObject(GameObject* gameObject);
+    GOM_Ship *shipObj;
     //void draw();
     //QGraphicsPixmapItem* getPixmapItem();
 private:

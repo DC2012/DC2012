@@ -158,6 +158,7 @@ void GameWindow::processGameMessage(Message* message)
     GameObject* obj;
     GraphicsObject* graphic;
     QStringList tokens;
+    int objID; // game object map should be indexed by object ID
 
     switch (message->getType())
     {
@@ -174,6 +175,7 @@ void GameWindow::processGameMessage(Message* message)
     case Message::CREATION:
         QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
         obj = GameObjectFactory::create(message->getData());
+        objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
 
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
@@ -189,12 +191,13 @@ void GameWindow::processGameMessage(Message* message)
             }
             else
             {
-                ships_[message->getID()] = graphic;
+                ships_[objID] = graphic;
+                scene_->addItem(ships_[objID]->getPixmapItem());
             }
         }
         else
         {
-            otherGraphics_[message->getID()] = graphic;
+            otherGraphics_[objID] = graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
 
@@ -240,11 +243,20 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
+    std::map<int, GameObject*>::iterator ii;
+    
     processMessages();
     myShip_->move();
     myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(), myShip_->getSpriteTopLeft().getY());
     myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(), myShip_->getPosition().getY());
     myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
+    
+    for(ii = ships_.begin(); ii != ships_.end(); ++ii)
+    {
+        ii->second->getPixmapItem()->setOffset(ii->second->shipObj->getSpriteTopLeft().getX(),ii->second->shipObj->getSpriteTopLeft().getY());
+        ii->second->getPixmapItem()->setTransformOriginPoint(ii->second->shipObj->getPosition().getX(), ii->second->shipObj->getPosition().getY());
+        ii->second->getPixmapItem()->setRotation(ii->second->shipObj->getDegree()-270);
+    }
 
     /*
     Message msg;

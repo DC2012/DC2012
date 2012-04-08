@@ -5,6 +5,7 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();
+    shipObj = (GOM_Ship*)gameOjbect;
 
     if (type == SHIP1)
         shipPixmap.load(SPRITE_SHIP1);

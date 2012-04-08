@@ -16,8 +16,8 @@ void GraphicsObject::update(const std::string& data)
     gameObject_->update(data);
 
     Point pos = gameObject_->getPosition();
-    pixmapItem_->setOffset(pixmapItem_->offset().x() + pos.getX(),
-                           pixmapItem_->offset().y() + pos.getY());
+    pixmapItem_->setOffset(gameObject_->getPosition().getX(),
+                           gameObject_->getPosition().getY());
 
     // other stuff to update the object position
 }

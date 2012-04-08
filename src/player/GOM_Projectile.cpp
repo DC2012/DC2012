@@ -17,11 +17,17 @@ void GOM_Projectile::update(const std::string &str)
 	char endCheck;
 	int type = -1;
 	int objID, degree, posX, posY, playerID, speed, damage, ttl;
+    double sprite_w, sprite_h, hb_w, hb_h;
 	
 	istr >> type;
 	switch(ObjectType(type))
 	{
 	case PROJECTILE:
+        sprite_w = double(CANNON_SPRITE_WIDTH);
+        sprite_h = double(CANNON_SPRITE_HEIGHT);
+        hb_w = double(CANNON_WIDTH);
+        hb_h = double(CANNON_HEIGHT);
+
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
 			damage >> endCheck;
 			
@@ -37,6 +43,8 @@ void GOM_Projectile::update(const std::string &str)
 		speed_ = double(speed);
 		ttl_ = ttl;
 		damage_ = damage;
+        spritePt_.setX(pos_.getX()-(sprite_w/2));
+		spritePt_.setY(pos_.getY()-(sprite_h/2));
 		break;
 	}
 }

@@ -90,7 +90,17 @@ void GOM_Ship::update(const std::string &str)
 	switch(ObjectType(type))
 	{
 	case SHIP1:
+		sprite_w = double(SHIP1_SPRITE_WIDTH);
+		sprite_h = double(SHIP1_SPRITE_HEIGHT);
+		hb_w = double(SHIP1_WIDTH);
+		hb_h = double(SHIP1_HEIGHT);
+		
 	case SHIP2:
+		sprite_w = double(SHIP2_SPRITE_WIDTH);
+		sprite_h = double(SHIP2_SPRITE_HEIGHT);
+		hb_w = double(SHIP2_WIDTH);
+		hb_h = double(SHIP2_HEIGHT);
+
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
 			>> attackPower >> endCheck;
 		
@@ -106,6 +116,8 @@ void GOM_Ship::update(const std::string &str)
 		speed_ = double(speed);
 		health_ = health;
 		attackPower_ = attackPower;
+		spritePt_.setX(pos_.getX()-(sprite_w/2));
+		spritePt_.setY(pos_.getY()-(sprite_h/2));
 		break;
 	}
 }

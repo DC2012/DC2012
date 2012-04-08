@@ -34,7 +34,7 @@ class GameMap
     private:
         QFile                           xmlMap_;
         //QMap<int, GameObjectStationary> mapObjects_; <<<<<<<--- need fix, cannot have instance of abstract class
-        Tile                        gameTiles_;
+        //Tile                        gameTiles_;
         
 
 };

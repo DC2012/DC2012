@@ -71,14 +71,12 @@ GameMap :: GameMap(QString fileName)
     if(!map.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "Failed to open file";
-        return -1;
     }
     else
     {
         if(doc.setContent(&map))
         {
             qDebug() << "Failed to load the map";
-            return -1;
         }
         map.close();
     }
@@ -87,7 +85,7 @@ GameMap :: GameMap(QString fileName)
     QDomElement maps = doc.firstChildElement();
 
     // create tiles
-    arrangeElements(maps, "tile", "grid");
+    arrangeElements(maps, "tile", "gid");
 
 }
 
@@ -112,6 +110,7 @@ void arrangeElements(QDomElement root, QString tagname, QString attribute)
 {
     QDomNodeList items = root.elementsByTagName(tagname);
     int posX = 0, posY = 0;
+    GameMap g;
     
     for(int i = 0; i < items.count(); i++)
     {
@@ -122,13 +121,13 @@ void arrangeElements(QDomElement root, QString tagname, QString attribute)
         {
             QDomElement tile = itemnode.toElement();
         
-            if(tile == 0)
+            if(tile.attribute(attribute) == 0)
             {
-                gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
+                g.gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
             }
             else
             {
-                gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
+                g.gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
             }
 
             if((posX += tileSize) == xSize)

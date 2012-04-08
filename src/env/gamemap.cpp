@@ -106,11 +106,10 @@ GameMap :: GameMap(QString fileName)
 --  NOTES:      goes row by row (ie. 0 to xSize at y = 0, then same again at y = tileSize)
 -------------------------------------------------------------------------------------*/
 
-void arrangeElements(QDomElement root, QString tagname, QString attribute)
+void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribute)
 {
     QDomNodeList items = root.elementsByTagName(tagname);
     int posX = 0, posY = 0;
-    GameMap g;
     
     for(int i = 0; i < items.count(); i++)
     {
@@ -123,11 +122,11 @@ void arrangeElements(QDomElement root, QString tagname, QString attribute)
         
             if(tile.attribute(attribute) == 0)
             {
-                g.gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
+                gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
             }
             else
             {
-                g.gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
+                gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
             }
 
             if((posX += tileSize) == xSize)

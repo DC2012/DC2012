@@ -255,7 +255,7 @@ void GameWindow::updateGame()
 
     processMessages();
     myShip_->move();
-    myShipGraphic_->getPixmapItem()->setOffset(myShip_->getPosition().getX(), myShip_->getPosition().getY());
+    myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(), myShip_->getSpriteTopLeft().getY());
     myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(), myShip_->getPosition().getY());
     myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
 

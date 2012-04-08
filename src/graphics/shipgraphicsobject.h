@@ -2,6 +2,7 @@
 #define SHIPGRAPHICSOBJECT_H
 
 #include "graphicsobject.h"
+#include "../player/GOM_Ship.h"
 
 class ShipGraphicsObject : public GraphicsObject
 {

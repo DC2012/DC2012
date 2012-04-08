@@ -240,23 +240,15 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
-
-
-
-
-    /*
-    Message msg;
-    msg.setID(gcontroller_.getClientId());
-    msg.setData(myShip_->toString());
-    msg.setType(Message::UPDATE);
-    client_->write(&msg);
-    */
-
-
     processMessages();
     myShip_->move();
     myShipGraphic_->getPixmapItem()->setOffset(myShip_->getPosition().getX(), myShip_->getPosition().getY());
     myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(), myShip_->getPosition().getY());
     myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
 
+    Message msg;
+    msg.setID(clientId_);
+    msg.setData(myShip_->toString());
+    msg.setType(Message::UPDATE);
+    client_->write(&msg);
 }

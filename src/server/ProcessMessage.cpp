@@ -64,6 +64,9 @@ void ProcessMessage(PDATA pdata)
             {
                 sendMessage.setAll(ii->second->toString(), Message::CREATION);
                 server->write(&sendMessage, clientID);
+                
+                // debugging
+                std::cout << ii->second->toString() << std::endl;
             }
             
             // create a string for GameObjectFactory to create the ship

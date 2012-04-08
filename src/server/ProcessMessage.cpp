@@ -118,6 +118,10 @@ void ProcessMessage(PDATA pdata)
             objID = pdata->objCount++;
             gameObject = new GOM_Projectile(PROJECTILE, objID, degree, posX, posY,
                                             clientID, 5, 1000, 10);
+
+            // debugging
+            std::cout << "projectile (clientID:" << clientID << ") - ";
+            std::cout << gameObject->toString() << std::endl;
             
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);

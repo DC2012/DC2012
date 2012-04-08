@@ -19,20 +19,29 @@ void update(sigval arg)
     {
         // move the projectile
         projectile = (GOM_Projectile *)(ii->second);
-        projectile->move();
-        // check collision with ships
-        for(iii = pdata->ships.begin(); iii != pdata->ships.end(); ++iii)
+
+        //  move() returns true if ttl_ is 0
+        if(projectile->move())
         {
-            ship = (GOM_Ship *)(iii->second);
-            if(projectile->getHitbox().isCollision(ship->getHitbox()))
-            {
-                // send HIT msg to collided client
-
-                // send DELETION msg for the projectile to all clients
-
-                break;
-            }
+            //  remove the projectile from map is true
+            pdata->projectiles[projectile->getObjID()].erase(ii->first);
         }
+        else
+        {
+            // check collision with ships
+            for(iii = pdata->ships.begin(); iii != pdata->ships.end(); ++iii)
+            {
+                ship = (GOM_Ship *)(iii->second);
+                if(projectile->getHitbox().isCollision(ship->getHitbox()))
+                {
+                    // send HIT msg to collided client
+
+                    // send DELETION msg for the projectile to all clients
+
+                    break;
+                }
+            } // end of for
+        } // end of if
     }
     
     // send UPDATE messages of objects to all clients

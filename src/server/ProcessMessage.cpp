@@ -118,7 +118,7 @@ void ProcessMessage(PDATA pdata)
             // create a projectile object
             objID = pdata->objCount++;
             gameObject = new GOM_Projectile(PROJECTILE, objID, degree, posX, posY,
-                                            clientID, 7, 100, 10);
+                                            clientID, 9, 80, 10);
 
             // debugging
             //std::cout << "projectile (clientID:" << clientID << ") - ";

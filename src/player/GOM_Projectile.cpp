@@ -72,7 +72,7 @@ bool GOM_Projectile::move()
 {
     Point pt;
 
-    std::cout << "ttl_: " << (ttl_ + 1) << std::endl;
+    //std::cout << "ttl_: " << (ttl_ + 1) << std::endl;
 
     if(--ttl_ <= 0)
         return true;

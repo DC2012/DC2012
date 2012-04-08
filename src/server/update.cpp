@@ -6,6 +6,7 @@ void update(sigval arg)
     Server *server;
     Message sendMsg;
     std::map<int, GameObject*>::iterator ii, iii;
+    std::ostringstream ostr;
     GOM_Projectile *projectile;
     GOM_Ship *ship;
     
@@ -35,6 +36,10 @@ void update(sigval arg)
                 if(projectile->getHitbox().isCollision(ship->getHitbox()))
                 {
                     // send HIT msg to collided client
+                    ostr.clear();
+                    ostr << ship->getObjID();
+                    sendMsg.setID(ship->getPlayerID());
+                    sendMsg.setAll(ostr.str(), Message::HIT);
 
                     // send DELETION msg for the projectile to all clients
 

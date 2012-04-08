@@ -40,6 +40,8 @@ void update(sigval arg)
                     ostr << ship->getObjID();
                     sendMsg.setID(ship->getPlayerID());
                     sendMsg.setAll(ostr.str(), Message::HIT);
+                    server->write(&sendMsg);
+                    //std::cout << "Someone got hit!!" << std::endl;
 
                     // send DELETION msg for the projectile to all clients
 

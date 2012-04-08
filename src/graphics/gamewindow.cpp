@@ -81,8 +81,10 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         Message msg;
         msg.setID(clientId_);
         msg.setType(Message::ACTION);
-        msg.setData((QString::number(myShip_->getPosition().getX()) + " " + QString::number(myShip_->getPosition().getY()) + " " + QString::number(angle)).toStdString());
 
+        std::string sent = (QString::number(myShip_->getPosition().getX()) + " " + QString::number(myShip_->getPosition().getY()) + " " + QString::number(angle)).toStdString();
+        msg.setData(sent);
+        std::cerr << "sent: " << sent << "\n";
         client_->write(&msg);
     }
 }
@@ -211,8 +213,9 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
+            std::cerr << "received: " << message->getData() << "\n";
             //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
-            otherGraphics_[objID] = graphic;
+            otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
 
@@ -263,9 +266,17 @@ void GameWindow::updateGame()
         timerCounter_ = 0;
     }
 
-    std::map<int, GraphicsObject*>::iterator it;
+    std::map<int, ProjectileGraphicsObject*>::iterator it;
     for(it = otherGraphics_.begin(); it != otherGraphics_.end(); ++it)
+    {
         it->second->update("");
+        if (it->second->isExpired())
+        {
+            scene_->removeItem(it->second->getPixmapItem());
+            otherGraphics_.erase(it->first);
+            delete it->second;
+        }
+    }
 
     processMessages();
     myShip_->move();

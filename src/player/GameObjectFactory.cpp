@@ -5,8 +5,9 @@ GameObject* GameObjectFactory::create(const std::string &in)
 	std::istringstream istr(in);
 	char endCheck;
 	int type = -1;
-	int objID, degree, posX, posY, playerID, speed, health, attackPower, 
+    int objID, playerID, speed, health, attackPower,
 		damage, ttl;
+    double posX, degree, posY;
 	
 	istr >> type;
 	switch(ObjectType(type))

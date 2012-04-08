@@ -6,6 +6,7 @@
 #include "MessageWrapper.h"
 #include "graphicsobject.h"
 #include "shipgraphicsobject.h"
+#include "projectilegraphicsobject.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -39,7 +40,7 @@ private:
     Client* client_;
     std::queue<Message *> messageQueue_;
     std::map<int, ShipGraphicsObject *> ships_;
-    std::map<int, GraphicsObject *> otherGraphics_;
+    std::map<int, ProjectileGraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
     size_t timerCounter_;

@@ -8,6 +8,10 @@ class ProjectileGraphicsObject : public GraphicsObject
 public:
     ProjectileGraphicsObject(GameObject* gameObject);
     void update(const std::string &data);
+    bool isExpired();
+
+private:
+    bool expired_;
 };
 
 #endif // PROJECTILEGRAPHICSOBJECT_H

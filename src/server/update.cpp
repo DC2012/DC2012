@@ -24,7 +24,7 @@ void update(sigval arg)
         if(projectile->move())
         {
             //  remove the projectile from map is true
-            pdata->projectiles[projectile->getObjID()].erase(ii->first);
+            pdata->projectiles.erase(ii->first);
         }
         else
         {

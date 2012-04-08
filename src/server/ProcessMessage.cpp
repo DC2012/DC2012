@@ -53,8 +53,8 @@ void ProcessMessage(PDATA pdata)
             // send CREATION message for every object in the maps to the client
             for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
             {
-                sendMessage.setAll(ii->second->toString(), Message::CREATION);
                 sendMessage.setID(((GOM_Ship*)ii->second)->getPlayerID());
+                sendMessage.setAll(ii->second->toString(), Message::CREATION);
                 server->write(&sendMessage, clientID);
                 
                 // debugging

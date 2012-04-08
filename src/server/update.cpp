@@ -23,6 +23,7 @@ void update(sigval arg)
     // send UPDATE messages of objects to all clients
     for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
     {
+        sendMsg.setID(((GOM_Ship*)ii->second)->getPlayerID());
         sendMsg.setAll(ii->second->toString(), Message::UPDATE);
         server->write(&sendMsg);
     }

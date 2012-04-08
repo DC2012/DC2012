@@ -120,8 +120,9 @@ void ProcessMessage(PDATA pdata)
                                             clientID, 5, 1000, 10);
 
             // debugging
-            std::cout << "projectile (clientID:" << clientID << ") - ";
-            std::cout << gameObject->toString() << std::endl;
+            //std::cout << "projectile (clientID:" << clientID << ") - ";
+            //std::cout << gameObject->toString() << std::endl;
+            std::cout << "recved data: " << recvMessage->getData() << std::endl;
             
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);

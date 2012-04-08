@@ -163,7 +163,7 @@ void GameWindow::processGameMessage(Message* message)
     switch (message->getType())
     {
     case Message::CONNECTION:
-        QMessageBox::information(NULL, QString("Connection Message Received!"), QString::fromStdString(message->getData()));
+        //QMessageBox::information(NULL, QString("Connection Message Received!"), QString::fromStdString(message->getData()));
         clientId_ = message->getID();
         if (message->getData() == "Refused")
         {
@@ -173,7 +173,7 @@ void GameWindow::processGameMessage(Message* message)
         break;
 
     case Message::CREATION:
-        QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
+        //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
         obj = GameObjectFactory::create(message->getData());
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
@@ -251,9 +251,9 @@ void GameWindow::updateGame()
 
     myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree() - 270);
 
-    Message msg;
-    msg.setID(clientId_);
-    msg.setData(myShip_->toString());
-    msg.setType(Message::UPDATE);
-    client_->write(&msg);
+    Message* msg = new Message;
+    msg->setID(clientId_);
+    msg->setData(myShip_->toString());
+    msg->setType(Message::UPDATE);
+    client_->write(msg);
 }

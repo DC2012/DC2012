@@ -7,21 +7,13 @@ class ShipGraphicsObject : public GraphicsObject
 {
 public:
     ShipGraphicsObject(GameObject* gameObject);
-    //void draw();
-    //QGraphicsPixmapItem* getPixmapItem();
+    void update(const std::string &data);
+    void setCanShoot();
+    bool canShoot();
+    double shoot(QPoint clickPos);
+
 private:
-    //QGraphicsPixmapItem* currentPixmapItem_;
-    //QPixmap pixmapArray[];
-    //int type_;
-    //int pixmapIndex_;
-    //int animateState_;
-    //int previousState_;
-    //int animateCounter_;
-    //int speed_;
-    //Point position_;
-    //void update();
-    //void animate(int flag);
-    //void initGraphics();
+    bool canShoot_;
 };
 
 #endif // SHIPGRAPHICSOBJECT_H

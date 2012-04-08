@@ -42,9 +42,11 @@ private:
     std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
+    size_t timerCounter_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
+    void mousePressEvent(QMouseEvent *event);
     void processGameMessage(Message* message);
     void processMessages();
 };

@@ -10,10 +10,10 @@
 #include <QCursor>
 #include <QMessageBox>
 #include <QThread>
-#include <iostream>
+#include <cmath>
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene())
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
 {
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     setCursor(QCursor(QPixmap(":/sprites/spriteCursor.png")));
@@ -70,6 +70,21 @@ void GameWindow::start()
 
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
+}
+
+void GameWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (myShipGraphic_->canShoot())
+    {
+        double angle = myShipGraphic_->shoot(event->pos());
+
+        Message msg;
+        msg.setID(clientId_);
+        msg.setType(Message::ACTION);
+        msg.setData(QString("%1 %2 %3").arg(myShip_->getPosition().getX(),
+                                            myShip_->getPosition().getY(),
+                                            angle).toStdString());
+    }
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
@@ -201,7 +216,6 @@ void GameWindow::processGameMessage(Message* message)
             scene_->addItem(graphic->getPixmapItem());
         }
 
-
         break;
 
     case Message::UPDATE:
@@ -241,6 +255,18 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
+    // ship can only shoot
+    timerCounter_++;
+    if (timerCounter_ >= 20)
+    {
+        myShipGraphic_->setCanShoot();
+        timerCounter_ = 0;
+    }
+
+    std::map<int, GraphicsObject*>::iterator it;
+    for(it = otherGraphics_.begin(); it != otherGraphics_.end(); ++it)
+        it->second->update("");
+
     processMessages();
     myShip_->move();
     myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(),
@@ -256,4 +282,5 @@ void GameWindow::updateGame()
     msg->setData(myShip_->toString());
     msg->setType(Message::UPDATE);
     client_->write(msg);
+    delete msg;
 }

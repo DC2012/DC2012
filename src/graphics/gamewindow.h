@@ -12,6 +12,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QMutex>
+#include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -20,7 +21,9 @@ class GameWindow : public QGraphicsView
 public:
     explicit GameWindow(QWidget *parent = 0);
     void start();
-
+    void setChatting(bool b);
+    bool isChatting();
+    
 signals:
     
 public slots:
@@ -42,11 +45,18 @@ private:
     std::map<int, GraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
-
+    
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void processGameMessage(Message* message);
     void processMessages();
+    
+    GraphicsController gcontroller_;
+    qreal currentScale_;
+
+    // env chat message box
+    ChatDlg *chatdlg_;
+    bool isChatting_;
 };
 
 #endif // GAMEWINDOW_H

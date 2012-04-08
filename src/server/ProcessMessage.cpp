@@ -16,6 +16,7 @@ void ProcessMessage(PDATA pdata)
     std::string data;
     std::string playerName;
     std::istringstream istr;
+    std::ostringstream ostr;
     std::map<int, GameObject*>::iterator ii;
 
     // object creation parameters
@@ -132,11 +133,9 @@ void ProcessMessage(PDATA pdata)
                 printf("ERROR(client ID: %d): unable to echo ACTION message\n");
             }
             break;
-        
-        /* Message::DEATH not implemented yet
+
         case Message::DEATH:
             break;
-        */
 
         case Message::UPDATE:
             data = recvMessage->getData();

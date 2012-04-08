@@ -26,7 +26,11 @@ void update(sigval arg)
             ship = (GOM_Ship *)(iii->second);
             if(projectile->getHitbox().isCollision(ship->getHitbox()))
             {
+                // send HIT msg to collided client
 
+                // send DELETION msg for the projectile to all clients
+
+                break;
             }
         }
     }

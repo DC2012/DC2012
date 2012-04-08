@@ -246,9 +246,11 @@ void GameWindow::updateGame()
     myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(), myShip_->getPosition().getY());
     myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
 
+    /*
     Message msg;
     msg.setID(clientId_);
     msg.setData(myShip_->toString());
     msg.setType(Message::UPDATE);
     client_->write(&msg);
+    */
 }

@@ -263,6 +263,10 @@ void GameWindow::updateGame()
         timerCounter_ = 0;
     }
 
+    std::map<int, GraphicsObject*>::iterator it;
+    for(it = otherGraphics_.begin(); it != otherGraphics_.end(); ++it)
+        it->second->update("");
+
     processMessages();
     myShip_->move();
     myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(),

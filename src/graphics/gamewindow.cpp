@@ -191,8 +191,8 @@ void GameWindow::processGameMessage(Message* message)
             }
             else
             {
-                ships_[objID] = (ShipGraphicsObject*)graphic;
-                scene_->addItem(ships_[objID]->getPixmapItem());
+                ships_[message->getID()] = (ShipGraphicsObject*) graphic;
+                scene_->addItem(graphic->getPixmapItem());
             }
         }
         else
@@ -205,11 +205,10 @@ void GameWindow::processGameMessage(Message* message)
         break;
 
     case Message::UPDATE:
-        objID = GameObjectFactory::getObjectID(message->getData());
         // check to not update client's own ship
-        if(objID != myShip_->getObjID())
+        if(message->getID() != clientId_)
         {
-            
+            ships_[message->getID()]->update(message->getData());
         }
         break;
 
@@ -242,28 +241,19 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
-    std::map<int, ShipGraphicsObject*>::iterator ii;
-    GameObject *gameObject;
-    
     processMessages();
     myShip_->move();
-    myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(), myShip_->getSpriteTopLeft().getY());
-    myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(), myShip_->getPosition().getY());
-    myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree()-270);
-    
-    for(ii = ships_.begin(); ii != ships_.end(); ++ii)
-    {
-        gameObject = ii->second->getGameObject();
-        ii->second->getPixmapItem()->setOffset(gameObject->getSpriteTopLeft().getX(),gameObject->getSpriteTopLeft().getY());
-        ii->second->getPixmapItem()->setTransformOriginPoint(gameObject->getPosition().getX(), gameObject->getPosition().getY());
-        ii->second->getPixmapItem()->setRotation(gameObject->getDegree()-270);
-    }
+    myShipGraphic_->getPixmapItem()->setOffset(myShip_->getSpriteTopLeft().getX(),
+                                               myShip_->getSpriteTopLeft().getY());
 
-    /*
+    myShipGraphic_->getPixmapItem()->setTransformOriginPoint(myShip_->getPosition().getX(),
+                                                             myShip_->getPosition().getY());
+
+    myShipGraphic_->getPixmapItem()->setRotation(myShip_->getDegree() - 270);
+
     Message msg;
     msg.setID(clientId_);
     msg.setData(myShip_->toString());
     msg.setType(Message::UPDATE);
     client_->write(&msg);
-    */
 }

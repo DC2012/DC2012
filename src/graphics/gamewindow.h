@@ -7,6 +7,7 @@
 #include "graphicsobject.h"
 #include "shipgraphicsobject.h"
 #include "projectilegraphicsobject.h"
+#include "audiocontroller.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -23,6 +24,7 @@ public:
     void start();
 
 signals:
+    void shotFired(AudioController::Sounds, double);
     
 public slots:
     void updateGame();
@@ -44,6 +46,7 @@ private:
     QMutex mutex_;
     int clientId_;
     size_t timerCounter_;
+    AudioController audio;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

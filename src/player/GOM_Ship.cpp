@@ -85,6 +85,7 @@ void GOM_Ship::update(const std::string &str)
 	char endCheck;
 	int type = -1;
 	int objID, degree, posX, posY, playerID, speed, health, attackPower;
+    double sprite_w, sprite_h, hb_w, hb_h;
 	
 	istr >> type;
 	switch(ObjectType(type))

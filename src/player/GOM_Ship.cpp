@@ -86,7 +86,11 @@ void GOM_Ship::update(const std::string &str)
         int type = -1;
         double degree, posX, posY, speed;
         int objID, playerID, health, attackPower;
-    double sprite_w, sprite_h, hb_w, hb_h;
+        double sprite_w, sprite_h, hb_w, hb_h;
+        double tl_x, tl_y;
+        double tr_x, tr_y;
+        double bl_x, bl_y;
+        double br_x, br_y;
 	
 	istr >> type;
 	switch(ObjectType(type))
@@ -104,10 +108,20 @@ void GOM_Ship::update(const std::string &str)
 		hb_h = double(SHIP2_HEIGHT);
 
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
-			>> attackPower >> endCheck;
+                        >> attackPower
+                        >> tl_x >> tl_y
+                        >> tr_x >> tr_y
+                        >> bl_x >> bl_y
+                        >> br_x >> br_y
+                        >> endCheck;
 		
 		if(!istr.good() || endCheck != SHIP_STR)
 			break;
+
+                hb_.tLeft = Point(tl_x, tl_y);
+                hb_.tRight = Point(tr_x, tr_y);
+                hb_.bLeft = Point(bl_x, bl_y);
+                hb_.bRight = Point(br_x, br_y);
 		
 		type_ = ObjectType(type);
 		objID_ = objID;
@@ -137,6 +151,14 @@ std::string GOM_Ship::toString() const
         ostr << speed_ << " ";
 	ostr << health_ << " ";
 	ostr << attackPower_ << " ";
+        ostr << hb_.tLeft.getX() << " ";
+        ostr << hb_.tLeft.getY() << " ";
+        ostr << hb_.tRight.getX() << " ";
+        ostr << hb_.tRight.getY() << " ";
+        ostr << hb_.bLeft.getX() << " ";
+        ostr << hb_.bLeft.getY() << " ";
+        ostr << hb_.bRight.getX() << " ";
+        ostr << hb_.bRight.getY() << " ";
 	ostr << SHIP_STR;
 	
 	return ostr.str();

@@ -266,6 +266,11 @@ class GameObject
         
         void setObjID(int id);
         Point getSpriteTopLeft() const;
+        void setHitBox(Point tl,
+                       Point tr,
+                       Point bl,
+                       Point br);
+        void printHitBox(std::ostream& os) const;
 
         virtual void update(const std::string &str) = 0;
         virtual std::string toString() const = 0;

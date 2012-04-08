@@ -20,7 +20,8 @@ void ProcessMessage(PDATA pdata)
     std::map<int, GameObject*>::iterator ii;
 
     // object creation parameters
-    int type, objID, degree, posX, posY, playerID, speed, health, attack;
+    int type, objID, playerID, speed, health, attack;
+    double degree, posX, posY;
     
     while(pdata->isRunning && (recvMessage = server->read()))
     {
@@ -117,14 +118,13 @@ void ProcessMessage(PDATA pdata)
             // create a projectile object
             objID = pdata->objCount++;
             std::cout << posX << posY << degree << std::endl;
-            gameObject = new GOM_Projectile(PROJECTILE, objID, double(degree), double(posX), double(posY),
+            gameObject = new GOM_Projectile(PROJECTILE, objID, degree, posX, posY,
                                             clientID, 5, 500, 10);
 
             // debugging
-            std::cout << "projectile (clientID:" << clientID << ") - ";
-            std::cout << gameObject->toString() << std::endl;
-            std::cout << "recved data: " << recvMessage->getData() << std::endl;
-            std::cout << std::endl;
+            //std::cout << "projectile (clientID:" << clientID << ") - ";
+            //std::cout << gameObject->toString() << std::endl;
+            //std::cout << "recved data: " << recvMessage->getData() << std::endl;
             
             // add projectile object to the projectil map
             pdata->projectiles.erase(objID);

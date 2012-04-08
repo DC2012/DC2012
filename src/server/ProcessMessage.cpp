@@ -54,6 +54,7 @@ void ProcessMessage(PDATA pdata)
             for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
             {
                 sendMessage.setAll(ii->second->toString(), Message::CREATION);
+                sendMessage.setID(((GOM_Ship*)ii->second)->getPlayerID());
                 server->write(&sendMessage, clientID);
                 
                 // debugging
@@ -62,12 +63,16 @@ void ProcessMessage(PDATA pdata)
             
             for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)
             {
+                sendMessage.setID(((GOM_Projectile*)ii->second)->getPlayerID());
                 sendMessage.setAll(ii->second->toString(), Message::CREATION);
                 server->write(&sendMessage, clientID);
                 
                 // debugging
                 std::cout << ii->second->toString() << std::endl;
             }
+            
+            // set the SendMessage's clientID back
+            sendMessage.setID(clientID);
             
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters

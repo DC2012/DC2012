@@ -81,9 +81,9 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
         Message msg;
         msg.setID(clientId_);
         msg.setType(Message::ACTION);
-        msg.setData(QString("%1 %2 %3").arg(myShip_->getPosition().getX(),
-                                            myShip_->getPosition().getY(),
-                                            angle).toStdString());
+        msg.setData((QString::number(myShip_->getPosition().getX()) + " " + QString::number(myShip_->getPosition().getY()) + " " + QString::number(angle)).toStdString());
+
+        client_->write(&msg);
     }
 }
 
@@ -188,7 +188,6 @@ void GameWindow::processGameMessage(Message* message)
         break;
 
     case Message::CREATION:
-        //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
         obj = GameObjectFactory::create(message->getData());
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
@@ -212,6 +211,7 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
+            //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
             otherGraphics_[objID] = graphic;
             scene_->addItem(graphic->getPixmapItem());
         }

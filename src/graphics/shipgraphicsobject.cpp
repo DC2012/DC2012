@@ -51,6 +51,9 @@ void ShipGraphicsObject::setCanShoot()
 
 double ShipGraphicsObject::shoot(QPoint clickPos)
 {
+    if (!canShoot_)
+        return -1;
+
     double h, angle, x, y;
     GameObject* gameObject = getGameObject();
 

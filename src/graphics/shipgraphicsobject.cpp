@@ -6,7 +6,7 @@
 #define RAD_TO_DEG ((DEG_CIRCLE / 2) / M_PI)
 
 ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
-    : GraphicsObject(gameObject)
+    : GraphicsObject(gameObject), canShoot_(true)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();

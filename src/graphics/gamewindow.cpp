@@ -191,7 +191,7 @@ void GameWindow::processGameMessage(Message* message)
             }
             else
             {
-                ships_[objID] = graphic;
+                ships_[objID] = (ShipGraphicsObject*)graphic;
                 scene_->addItem(ships_[objID]->getPixmapItem());
             }
         }

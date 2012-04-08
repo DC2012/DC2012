@@ -67,9 +67,12 @@ std::string GOM_Projectile::toString() const
 	return ostr.str();
 }
 
-void GOM_Projectile::move()
+bool GOM_Projectile::move()
 {
     Point pt;
+
+    if(--ttl_ == 0)
+        return true;
 
     pt = getDirectionalPoint(speed_, degree_.getDegree());
     pos_.setX(pos_.getX() + pt.getX());
@@ -77,6 +80,8 @@ void GOM_Projectile::move()
     spritePt_.setX(spritePt_.getX() + pt.getX());
     spritePt_.setY(spritePt_.getY() + pt.getY());
     moveHitbox(pt.getX(), pt.getY());
+
+    return false;
 }
 
 void GOM_Projectile::print(std::ostream& os)const

@@ -205,13 +205,12 @@ void GameWindow::processGameMessage(Message* message)
         break;
 
     case Message::UPDATE:
-        // only update other client ships
-        if (message->getID() != clientId_)
+        objID = GameObjectFactory::getObjectID(message->getData());
+        // check to not update client's own ship
+        if(objID != myShip_->getObjID())
         {
-            ships_[message->getID()]->update(message->getData());
+            
         }
-
-        // other objects are not handled yet
         break;
 
 

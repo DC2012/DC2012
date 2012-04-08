@@ -130,6 +130,7 @@ void ProcessMessage(PDATA pdata)
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
+                fprintf(stderr, "echoed ACTION\n");
                 server->write(&sendMessage);
             }
             else

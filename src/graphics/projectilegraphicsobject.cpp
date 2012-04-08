@@ -1,9 +1,10 @@
 #include "projectilegraphicsobject.h"
+#include "../player/GOM_Projectile.h"
 
 ProjectileGraphicsObject::ProjectileGraphicsObject(GameObject* gameObject)
     : GraphicsObject(gameObject)
 {
-    QGraphicsPixmapItem* projectile = new QGraphicsPixmapItem(QPixmap(SPRITE_BULLET));
+    QGraphicsPixmapItem* projectile = new QGraphicsPixmapItem(QPixmap(SPRITE_CANNONBALL));
 
     projectile->setOffset(gameObject->getSpriteTopLeft().getX(),
                           gameObject->getSpriteTopLeft().getY());
@@ -13,9 +14,10 @@ ProjectileGraphicsObject::ProjectileGraphicsObject(GameObject* gameObject)
 
 void ProjectileGraphicsObject::update(const std::string &data)
 {
-    GameObject* gameObject = getGameObject();
+    GOM_Projectile* projectile = (GOM_Projectile *) getGameObject();
     QGraphicsPixmapItem* pixmap = getPixmapItem();
 
-    pixmap->setOffset(pixmap->offset().x() + 1, pixmap->offset().y() + 1);
+    projectile->move();
+    pixmap->setOffset(projectile->getPosition().getX(), projectile->getPosition().getY());
 }
 

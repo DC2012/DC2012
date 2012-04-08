@@ -2,6 +2,7 @@
 #define SHIPGRAPHICSOBJECT_H
 
 #include "graphicsobject.h"
+#include <QMutex>
 
 class ShipGraphicsObject : public GraphicsObject
 {
@@ -13,6 +14,7 @@ public:
     double shoot(QPoint clickPos);
 
 private:
+    QMutex mutex_;
     bool canShoot_;
 };
 

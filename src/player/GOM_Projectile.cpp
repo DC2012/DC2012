@@ -72,7 +72,9 @@ bool GOM_Projectile::move()
 {
     Point pt;
 
-    if(--ttl_ == 0)
+    std::cout << "ttl_: " << (ttl_ + 1) << std::endl;
+
+    if(--ttl_ <= 0)
         return true;
 
     pt = getDirectionalPoint(speed_, degree_.getDegree());

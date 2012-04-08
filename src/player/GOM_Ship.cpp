@@ -14,7 +14,7 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     actionFlags_.push_back(false);
     accel_ = 0.5;
     decel_ = 0.5;
-    maxSpeed_ = 5;
+    maxSpeed_ = 4.4;
     shipCount_++;
 }
 

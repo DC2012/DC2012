@@ -245,23 +245,23 @@ void GameWindow::processGameMessage(Message* message)
         if(message->getID() != clientId_)
         {
             ships_[message->getID()]->update(message->getData());
-        }
 
-        // these lines are temporary to help us determine if the hitboxes
-        // are being updated properly for collision detection
-        scene_->removeItem(line1);
-        scene_->removeItem(line2);
-        scene_->removeItem(line3);
-        scene_->removeItem(line4);
-        shipBox = ships_[clientId_]->getGameObject()->getHitbox();
-        //scene_->addRect(QRectF(QPointF(shipBox.tLeft.getX(), shipBox.tLeft.getY()),
-        //                       QPointF(shipBox.bRight.getX(), shipBox.bRight.getY())));
-        pen = QPen(Qt::SolidLine);
-        pen.setWidth(1);
-        line1 = scene_->addLine(shipBox.tLeft.getX(), shipBox.tLeft.getY(), shipBox.tRight.getX(), shipBox.tRight.getY(), pen);
-        line2 = scene_->addLine(shipBox.tRight.getX(), shipBox.tRight.getY(), shipBox.bRight.getX(), shipBox.bRight.getY(), pen);
-        line3 = scene_->addLine(shipBox.bRight.getX(), shipBox.bRight.getY(), shipBox.bLeft.getX(), shipBox.bLeft.getY(), pen);
-        line4 = scene_->addLine(shipBox.bLeft.getX(), shipBox.bLeft.getY(), shipBox.tLeft.getX(), shipBox.tLeft.getY(), pen);
+            // these lines are temporary to help us determine if the hitboxes
+            // are being updated properly for collision detection
+            scene_->removeItem(line1);
+            scene_->removeItem(line2);
+            scene_->removeItem(line3);
+            scene_->removeItem(line4);
+            shipBox = ships_[message->getID()]->getGameObject()->getHitbox();
+            //scene_->addRect(QRectF(QPointF(shipBox.tLeft.getX(), shipBox.tLeft.getY()),
+            //                       QPointF(shipBox.bRight.getX(), shipBox.bRight.getY())));
+            pen = QPen(Qt::SolidLine);
+            pen.setWidth(1);
+            line1 = scene_->addLine(shipBox.tLeft.getX(), shipBox.tLeft.getY(), shipBox.tRight.getX(), shipBox.tRight.getY(), pen);
+            line2 = scene_->addLine(shipBox.tRight.getX(), shipBox.tRight.getY(), shipBox.bRight.getX(), shipBox.bRight.getY(), pen);
+            line3 = scene_->addLine(shipBox.bRight.getX(), shipBox.bRight.getY(), shipBox.bLeft.getX(), shipBox.bLeft.getY(), pen);
+            line4 = scene_->addLine(shipBox.bLeft.getX(), shipBox.bLeft.getY(), shipBox.tLeft.getX(), shipBox.tLeft.getY(), pen);
+        }
         break;
 
 

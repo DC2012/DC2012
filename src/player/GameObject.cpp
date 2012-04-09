@@ -38,7 +38,7 @@ GameObject::GameObject(ObjectType type, int objID, double degree, double posX, d
 	}
     
     spritePt_ = Point(posX-(sprite_w/2.0), posY-(sprite_h/2.0));
-    hb_ = Hitbox(pos_, hb_w, hb_h);
+    hb_ = Hitbox(pos_, hb_h, hb_w);
 }
 
 int GameObject::getObjID()const

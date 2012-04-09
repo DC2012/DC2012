@@ -27,6 +27,9 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 #include "Point.h"
+#include <string>
+#include <sstream>
+#include <iostream>
 
 class Hitbox
 {

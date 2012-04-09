@@ -89,3 +89,11 @@ Point GameObject::getSpriteTopLeft() const
 {
     return spritePt_;
 }
+
+void GameObject::setHitBox(Point tl, Point tr, Point bl, Point br)
+{
+    hb_.tLeft = tl;
+    hb_.tRight = tr;
+    hb_.bLeft = bl;
+    hb_.bRight = br;
+}

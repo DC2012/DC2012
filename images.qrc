@@ -22,6 +22,8 @@
         <file>sprites/tileWater1.png</file>
         <file>sprites/tileWater2.png</file>
         <file>sprites/spriteShip1.png</file>
+        <file>sprites/spriteShip1Hit.png</file>
         <file>sprites/spriteShip2.png</file>
+        <file>sprites/spriteShip2Hit.png</file>
     </qresource>
 </RCC>

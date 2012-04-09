@@ -10,16 +10,12 @@
 #define CANNON_SPRITE_HEIGHT 12
 
 // hitbox sizes
-//#define SHIP1_WIDTH 20
-//#define SHIP1_HEIGHT 90
-#define SHIP1_WIDTH 41
-#define SHIP1_HEIGHT 110
+#define SHIP1_WIDTH 20
+#define SHIP1_HEIGHT 90
 #define SHIP2_WIDTH 30
 #define SHIP2_HEIGHT 125
-//#define CANNON_WIDTH 10
-//#define CANNON_HEIGHT 10
-#define CANNON_WIDTH 12
-#define CANNON_HEIGHT 12
+#define CANNON_WIDTH 10
+#define CANNON_HEIGHT 10
 
 #define SPRITE_SHIP1 QString(":/sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString(":/sprites/spriteShip1Hit.png")

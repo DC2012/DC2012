@@ -68,12 +68,12 @@ void GameWindow::start()
         QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
     }
 
-    qRegisterMetaType<AudioController::Sounds>("AudioController::Sounds");
-    if (!connect(this, SIGNAL(shotFired(AudioController::Sounds, double)),
-                 &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
-    {
-        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
-    }
+    //qRegisterMetaType<AudioController::Sounds>("AudioController::Sounds");
+    //if (!connect(this, SIGNAL(shotFired(AudioController::Sounds, double)),
+    //             &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
+    //{
+    //    QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    //}
 
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
@@ -182,6 +182,7 @@ void GameWindow::processGameMessage(Message* message)
     GraphicsObject* graphic;
     QStringList tokens;
     int objID; // game object map should be indexed by object ID
+    Hitbox shipBox;
 
     switch (message->getType())
     {
@@ -219,7 +220,7 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
-            emit shotFired(AudioController::SHOOT1, 50);
+            //emit shotFired(AudioController::SHOOT1, 50);
             //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
@@ -233,6 +234,10 @@ void GameWindow::processGameMessage(Message* message)
         {
             ships_[message->getID()]->update(message->getData());
         }
+
+        shipBox = myShip_->getHitbox();
+        scene_->addRect(QRectF(QPointF(shipBox.tLeft.getX(), shipBox.tLeft.getY()),
+                               QPointF(shipBox.bRight.getX(), shipBox.bRight.getY())));
         break;
 
 

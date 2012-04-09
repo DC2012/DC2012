@@ -14,6 +14,7 @@ class GraphicsObject
 {
 public:
     GraphicsObject(GameObject* gameObject);
+    virtual ~GraphicsObject();
     QGraphicsPixmapItem* getPixmapItem() const;
     void setPixmapItem(QGraphicsPixmapItem* pixmapItem);
     GameObject* getGameObject();

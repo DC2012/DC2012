@@ -121,7 +121,6 @@ int GameObjectFactory::getObjectID(const std::string &str)
 	case PROJECTILE:
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
                         damage
-                     >> attackPower
                      >> tl_x >> tl_y
                      >> tr_x >> tr_y
                      >> bl_x >> bl_y

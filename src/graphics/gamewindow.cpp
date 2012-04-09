@@ -277,15 +277,19 @@ void GameWindow::updateGame()
         timerCounter_ = 0;
     }
 
-    std::map<int, ProjectileGraphicsObject*>::iterator it;
-    for(it = otherGraphics_.begin(); it != otherGraphics_.end(); ++it)
+    std::map<int, ProjectileGraphicsObject*>::iterator it = otherGraphics_.begin();
+    while(it != otherGraphics_.end())
     {
         it->second->update("");
         if (it->second->isExpired())
         {
             scene_->removeItem(it->second->getPixmapItem());
-            otherGraphics_.erase(it->first);
             delete it->second;
+            otherGraphics_.erase(it++);
+        }
+        else
+        {
+            ++it;
         }
     }
 

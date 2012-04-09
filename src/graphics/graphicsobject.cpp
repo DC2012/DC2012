@@ -6,6 +6,11 @@ GraphicsObject::GraphicsObject(GameObject* gameObject)
 
 }
 
+GraphicsObject::~GraphicsObject()
+{
+    delete pixmapItem_;
+}
+
 GameObject* GraphicsObject::getGameObject()
 {
     return gameObject_;

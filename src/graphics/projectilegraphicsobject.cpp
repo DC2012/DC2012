@@ -17,7 +17,10 @@ void ProjectileGraphicsObject::update(const std::string &data)
     GOM_Projectile* projectile = (GOM_Projectile *) getGameObject();
     QGraphicsPixmapItem* pixmap = getPixmapItem();
 
-    expired_ = projectile->move();
+    // dont change this to expired_ = projectile->move()
+    if (projectile->move())
+        expired_ = true;
+
     pixmap->setOffset(projectile->getPosition().getX(), projectile->getPosition().getY());
 }
 
@@ -26,3 +29,7 @@ bool ProjectileGraphicsObject::isExpired()
     return expired_;
 }
 
+bool ProjectileGraphicsObject::setExpired()
+{
+    expired_ = true;
+}

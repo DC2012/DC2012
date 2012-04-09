@@ -75,12 +75,12 @@ void GameWindow::start()
     }
 
     // audio is disabled for now since it's still a bit flaky
-    //qRegisterMetaType<AudioController::Sounds>("AudioController::Sounds");
-    //if (!connect(this, SIGNAL(shotFired(AudioController::Sounds, double)),
-    //             &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
-    //{
-    //    QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
-    //}
+    qRegisterMetaType<AudioController::Sounds>("AudioController::Sounds");
+    if (!connect(this, SIGNAL(shotFired(AudioController::Sounds, double)),
+                 &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
 
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
@@ -204,6 +204,7 @@ void GameWindow::processGameMessage(Message* message)
     QStringList tokens;
     int objID;
     Hitbox shipBox;
+    QGraphicsPixmapItem* px;
 
     // for debugging hit box
     static QGraphicsItem *line1, *line2, *line3, *line4;
@@ -233,7 +234,6 @@ void GameWindow::processGameMessage(Message* message)
         else
         {
             //emit shotFired(AudioController::SHOOT1, 50);
-            //QMessageBox::information(NULL, QString("Creation Message Received!"), QString::fromStdString(message->getData()));
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -245,22 +245,6 @@ void GameWindow::processGameMessage(Message* message)
         if(message->getID() != clientId_)
         {
             ships_[message->getID()]->update(message->getData());
-
-            // these lines are temporary to help us determine if the hitboxes
-            // are being updated properly for collision detection
-            scene_->removeItem(line1);
-            scene_->removeItem(line2);
-            scene_->removeItem(line3);
-            scene_->removeItem(line4);
-            shipBox = ships_[message->getID()]->getGameObject()->getHitbox();
-            //scene_->addRect(QRectF(QPointF(shipBox.tLeft.getX(), shipBox.tLeft.getY()),
-            //                       QPointF(shipBox.bRight.getX(), shipBox.bRight.getY())));
-            pen = QPen(Qt::SolidLine);
-            pen.setWidth(1);
-            line1 = scene_->addLine(shipBox.tLeft.getX(), shipBox.tLeft.getY(), shipBox.tRight.getX(), shipBox.tRight.getY(), pen);
-            line2 = scene_->addLine(shipBox.tRight.getX(), shipBox.tRight.getY(), shipBox.bRight.getX(), shipBox.bRight.getY(), pen);
-            line3 = scene_->addLine(shipBox.bRight.getX(), shipBox.bRight.getY(), shipBox.bLeft.getX(), shipBox.bLeft.getY(), pen);
-            line4 = scene_->addLine(shipBox.bLeft.getX(), shipBox.bLeft.getY(), shipBox.tLeft.getX(), shipBox.tLeft.getY(), pen);
         }
         break;
 
@@ -268,20 +252,25 @@ void GameWindow::processGameMessage(Message* message)
     case Message::DELETION:
         tokens = QString::fromStdString(message->getData()).split(" ");
 
-        // 0 - object type where 'S' is ship and 'P' is projectile
+        // 0 - object type where 's' is ship and 'p' is projectile
         // 1 - object ID
         // 2 - explode flag (1 means object should explode, 0 don't explode)
 
-        if (tokens[0] == "S")
+        if (tokens[0] == "s")
+        {
             scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
-        else
-            scene_->removeItem(otherGraphics_[tokens[1].toInt()]->getPixmapItem());
+        }
+        else if (tokens[0] == "p")
+        {
+            otherGraphics_[tokens[1].toInt()]->setExpired();
+        }
 
-        // explosions not handled yet
         break;
 
     case Message::HIT:
-        std::cerr << "I got a hit!\n";
+        // message client id = client id that was hit
+        // data = object id that client id collided with
+        ships_[message->getID()]->gotHit();
         break;
 
     case Message::STATUS:
@@ -319,7 +308,6 @@ void GameWindow::updateGame()
             ++it;
         }
     }
-
 
     processMessages();
 

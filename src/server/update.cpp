@@ -33,7 +33,7 @@ void update(sigval arg)
             {
                 ship = (GOM_Ship *)(iii->second);
                 if((ship->getPlayerID() != projectile->getPlayerID())
-                    && projectile->getHitbox().isCollision(ship->getHitbox()))
+                    && ship->getHitbox().isCollision(projectile->getHitbox()))
                 {
                     // send HIT msg to collided client
                     ostr.clear();
@@ -41,9 +41,15 @@ void update(sigval arg)
                     sendMsg.setID(ship->getPlayerID());
                     sendMsg.setAll(ostr.str(), Message::HIT);
                     server->write(&sendMsg);
-                    std::cout << "Someone got hit!!" << std::endl;
 
                     // send DELETION msg for the projectile to all clients
+                    ostr.clear();
+                    ostr.str("");
+                    ostr << "p" << " " << projectile->getObjID() << " 0";
+                    sendMsg.setAll(ostr.str(), Message::DELETION);
+                    server->write(&sendMsg);
+                    std::cout << "sent deletion: " << sendMsg.getData() << "\n";
+                    pdata->projectiles.erase(ii);
 
                     break;
                 }

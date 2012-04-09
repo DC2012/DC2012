@@ -18,7 +18,6 @@ void update(sigval arg)
     // move the projectiles and do hit detection
     for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
     {
-        // move the projectile
         projectile = (GOM_Projectile *)(ii->second);
 
         //  move() returns true if ttl_ is 0
@@ -49,8 +48,8 @@ void update(sigval arg)
                     break;
                 }
             } // end of for
-        } // end of if
-    }
+        } // end of if-else
+    } // end of for
     
     // send UPDATE messages of objects to all clients
     for(ii = pdata->ships.begin(); ii != pdata->ships.end(); ++ii)

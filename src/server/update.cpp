@@ -33,7 +33,8 @@ void update(sigval arg)
             for(iii = pdata->ships.begin(); iii != pdata->ships.end(); ++iii)
             {
                 ship = (GOM_Ship *)(iii->second);
-                if(projectile->getHitbox().isCollision(ship->getHitbox()))
+                if((ship->getPlayerID() != projectile->getPlayerID())
+                    && projectile->getHitbox().isCollision(ship->getHitbox()))
                 {
                     // send HIT msg to collided client
                     ostr.clear();

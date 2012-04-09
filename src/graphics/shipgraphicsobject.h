@@ -14,7 +14,6 @@ public:
     double shoot(QPoint clickPos);
 
 private:
-    QMutex mutex_;
     bool canShoot_;
 };
 

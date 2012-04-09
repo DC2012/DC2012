@@ -37,8 +37,6 @@ private:
 
     QGraphicsScene *scene_;
     QTimer timer_;
-    GOM_Ship* myShip_;
-    ShipGraphicsObject* myShipGraphic_;
     Client* client_;
     std::queue<Message *> messageQueue_;
     std::map<int, ShipGraphicsObject *> ships_;

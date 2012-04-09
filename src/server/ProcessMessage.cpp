@@ -154,7 +154,7 @@ void ProcessMessage(PDATA pdata)
             if(pdata->ships[objID] != NULL)
                 pdata->ships[objID]->update(data);
 
-            pdata->ships[objID]->printHitBox(std::cout);
+            //pdata->ships[objID]->printHitBox(std::cout);
             
             // echo the UPDATE message to all clients
             // fall through

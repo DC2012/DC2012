@@ -6,7 +6,7 @@
 #define RAD_TO_DEG ((DEG_CIRCLE / 2) / M_PI)
 
 ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
-    : GraphicsObject(gameObject), canShoot_(true)
+    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();
@@ -51,6 +51,9 @@ void ShipGraphicsObject::setCanShoot()
 
 double ShipGraphicsObject::shoot(QPoint clickPos)
 {
+    if (!canShoot_)
+        return -1;
+
     double h, angle, x, y;
     GameObject* gameObject = getGameObject();
 
@@ -126,6 +129,21 @@ double ShipGraphicsObject::shoot(QPoint clickPos)
 bool ShipGraphicsObject::canShoot()
 {
     return canShoot_;
+}
+
+void ShipGraphicsObject::gotHit()
+{
+    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
+    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
+    pixmapSwitchTimer_.setSingleShot(true);
+    pixmapSwitchTimer_.start(100);
+    connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
+}
+
+void ShipGraphicsObject::switchPixmap()
+{
+    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
+    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1));
 }
 
 /*

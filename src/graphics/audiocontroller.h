@@ -14,6 +14,8 @@
 class AudioController : public QObject
 {
 Q_OBJECT
+Q_ENUMS(Sounds)
+
 public:
     explicit AudioController(QObject *parent = 0);
     ~AudioController();

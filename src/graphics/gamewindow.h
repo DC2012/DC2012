@@ -6,6 +6,8 @@
 #include "MessageWrapper.h"
 #include "graphicsobject.h"
 #include "shipgraphicsobject.h"
+#include "projectilegraphicsobject.h"
+#include "audiocontroller.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -25,6 +27,7 @@ public:
     bool isChatting();
     
 signals:
+    void shotFired(AudioController::Sounds, double);
     
 public slots:
     void updateGame();
@@ -37,15 +40,14 @@ private:
     
     QGraphicsScene *scene_;
     QTimer timer_;
-    GOM_Ship* myShip_;
-    ShipGraphicsObject* myShipGraphic_;
     Client* client_;
     std::queue<Message *> messageQueue_;
     std::map<int, ShipGraphicsObject *> ships_;
-    std::map<int, GraphicsObject *> otherGraphics_;
+    std::map<int, ProjectileGraphicsObject *> otherGraphics_;
     QMutex mutex_;
     int clientId_;
     size_t timerCounter_;
+    AudioController audio;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

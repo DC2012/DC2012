@@ -1,9 +1,14 @@
 #include "graphicsobject.h"
 
-GraphicsObject::GraphicsObject(GameObject* gameObject)
-    : gameObject_(gameObject)
+GraphicsObject::GraphicsObject(GameObject* gameObject, QObject *parent)
+    : QObject(parent), gameObject_(gameObject)
 {
 
+}
+
+GraphicsObject::~GraphicsObject()
+{
+    delete pixmapItem_;
 }
 
 GameObject* GraphicsObject::getGameObject()

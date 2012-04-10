@@ -16,8 +16,13 @@ void GOM_Projectile::update(const std::string &str)
 	std::istringstream istr(str);
 	char endCheck;
 	int type = -1;
-	int objID, degree, posX, posY, playerID, speed, damage, ttl;
-    double sprite_w, sprite_h, hb_w, hb_h;
+        double degree, posX, posY, speed;
+        int objID, playerID, damage, ttl;
+        double sprite_w, sprite_h, hb_w, hb_h;
+        double tl_x, tl_y;
+        double tr_x, tr_y;
+        double bl_x, bl_y;
+        double br_x, br_y;
 	
 	istr >> type;
 	switch(ObjectType(type))
@@ -29,18 +34,28 @@ void GOM_Projectile::update(const std::string &str)
         hb_h = double(CANNON_HEIGHT);
 
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
-			damage >> endCheck;
+                        damage
+                     >> tl_x >> tl_y
+                     >> tr_x >> tr_y
+                     >> bl_x >> bl_y
+                     >> br_x >> br_y
+                     >> endCheck;
 			
 		if(!istr.good() || endCheck != PROJECTILE_STR)
 			break;
+
+                hb_.tLeft = Point(tl_x, tl_y);
+                hb_.tRight = Point(tr_x, tr_y);
+                hb_.bLeft = Point(bl_x, bl_y);
+                hb_.bRight = Point(br_x, br_y);
 		
 		type_ = ObjectType(type);
 		objID_ = objID;
-		degree_.setDegree(double(degree));
-		pos_.setX(double(posX));
-		pos_.setY(double(posY));
+                degree_.setDegree(degree);
+                pos_.setX(posX);
+                pos_.setY(posY);
 		playerID_ = playerID;
-		speed_ = double(speed);
+                speed_ = speed;
 		ttl_ = ttl;
 		damage_ = damage;
         spritePt_.setX(pos_.getX()-(sprite_w/2));
@@ -55,21 +70,34 @@ std::string GOM_Projectile::toString() const
 	
 	ostr << int(type_) << " ";
 	ostr << objID_ << " ";
-	ostr << int(degree_.getDegree()) << " ";
-	ostr << int(pos_.getX()) << " ";
-	ostr << int(pos_.getY()) << " ";
+        ostr << degree_.getDegree() << " ";
+        ostr << pos_.getX() << " ";
+        ostr << pos_.getY() << " ";
 	ostr << playerID_ << " ";
-	ostr << int(speed_) << " ";
+        ostr << speed_ << " ";
 	ostr << ttl_ << " ";
 	ostr << damage_ << " ";
+        ostr << hb_.tLeft.getX() << " ";
+        ostr << hb_.tLeft.getY() << " ";
+        ostr << hb_.tRight.getX() << " ";
+        ostr << hb_.tRight.getY() << " ";
+        ostr << hb_.bLeft.getX() << " ";
+        ostr << hb_.bLeft.getY() << " ";
+        ostr << hb_.bRight.getX() << " ";
+        ostr << hb_.bRight.getY() << " ";
 	ostr << PROJECTILE_STR;
 	
 	return ostr.str();
 }
 
-void GOM_Projectile::move()
+bool GOM_Projectile::move()
 {
     Point pt;
+
+    //std::cout << "ttl_: " << (ttl_ + 1) << std::endl;
+
+    if(--ttl_ <= 0)
+        return true;
 
     pt = getDirectionalPoint(speed_, degree_.getDegree());
     pos_.setX(pos_.getX() + pt.getX());
@@ -77,6 +105,8 @@ void GOM_Projectile::move()
     spritePt_.setX(spritePt_.getX() + pt.getX());
     spritePt_.setY(spritePt_.getY() + pt.getY());
     moveHitbox(pt.getX(), pt.getY());
+
+    return false;
 }
 
 void GOM_Projectile::print(std::ostream& os)const

@@ -2,6 +2,7 @@
 #define GRAPHICSOBJECT_H
 
 #include <QGraphicsPixmapItem>
+#include <QObject>
 #include <string>
 #include "../player/GameObject.h"
 #include "../../sprites/sprites.h"
@@ -10,14 +11,20 @@
 #define ANIMATE_MOVING      1;
 #define ANIMATE_DESTRUCTION 2;
 
-class GraphicsObject
+class GraphicsObject : public QObject
 {
+    Q_OBJECT
+
 public:
-    GraphicsObject(GameObject* gameObject);
+    GraphicsObject(GameObject* gameObject, QObject* parent = 0);
+    virtual ~GraphicsObject();
     QGraphicsPixmapItem* getPixmapItem() const;
     void setPixmapItem(QGraphicsPixmapItem* pixmapItem);
     GameObject* getGameObject();
     virtual void update(const std::string& data);
+
+signals:
+    void shipHit();
 
 private:
     GameObject* gameObject_;

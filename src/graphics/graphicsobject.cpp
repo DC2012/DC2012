@@ -1,9 +1,14 @@
 #include "graphicsobject.h"
 
-GraphicsObject::GraphicsObject(GameObject* gameObject)
-    : gameObject_(gameObject)
+GraphicsObject::GraphicsObject(GameObject* gameObject, QObject *parent)
+    : QObject(parent), gameObject_(gameObject)
 {
 
+}
+
+GraphicsObject::~GraphicsObject()
+{
+    delete pixmapItem_;
 }
 
 GameObject* GraphicsObject::getGameObject()
@@ -11,15 +16,9 @@ GameObject* GraphicsObject::getGameObject()
     return gameObject_;
 }
 
-void GraphicsObject::update(const std::string& data)
+void GraphicsObject::update(const std::string &data)
 {
     gameObject_->update(data);
-
-    Point pos = gameObject_->getPosition();
-    pixmapItem_->setOffset(pixmapItem_->offset().x() + pos.getX(),
-                           pixmapItem_->offset().y() + pos.getY());
-
-    // other stuff to update the object position
 }
 
 void GraphicsObject::setPixmapItem(QGraphicsPixmapItem* pixmap)

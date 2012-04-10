@@ -8,6 +8,7 @@
 
 class TileGraphicsObject : public GraphicsObject
 {
+    Q_OBJECT
 public:
     TileGraphicsObject(GameObject* gameObject);
 };

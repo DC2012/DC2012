@@ -8,14 +8,14 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
 :GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
 	health_(health), attackPower_(attackPower)
 {
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	actionFlags_.push_back(false);
-	accel_ = 0.5;
-	decel_ = 0.5;
-	maxSpeed_ = 5;
-	shipCount_++;
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    actionFlags_.push_back(false);
+    accel_ = 0.5;
+    decel_ = 0.5;
+    maxSpeed_ = 4;
+    shipCount_++;
 }
 
 int GOM_Ship::getHealth()const
@@ -39,34 +39,36 @@ void GOM_Ship::decelerate()
 
 void GOM_Ship::move()
 {
-	Point pt;
-	
-	if(actionFlags_[ROTATE_L])
-	{
-		degree_.rotate(-1);
-		rotateHitbox(-1);
-	}
-	
-	if(actionFlags_[ROTATE_R])
-	{
-		degree_.rotate(1);
-		rotateHitbox(1);
-	}
-	
-	if(actionFlags_[ACCEL])
-	{
-		accelerate();
-	}
-	
-	if(actionFlags_[DECEL])
-	{
-		decelerate();
-	}
-	
-	pt = getDirectionalPoint(speed_, degree_.getDegree());
-	pos_.setX(pos_.getX() + pt.getX());
-	pos_.setY(pos_.getY() + pt.getY());
-	moveHitbox(pt.getX(), pt.getY());
+    Point pt;
+
+    if(actionFlags_[ROTATE_L])
+    {
+        degree_.rotate(-1);
+        rotateHitbox(-1);
+    }
+
+    if(actionFlags_[ROTATE_R])
+    {
+        degree_.rotate(1);
+        rotateHitbox(1);
+    }
+
+    if(actionFlags_[ACCEL])
+    {
+        accelerate();
+    }
+
+    if(actionFlags_[DECEL])
+    {
+        decelerate();
+    }
+
+    pt = getDirectionalPoint(speed_, degree_.getDegree());
+    pos_.setX(pos_.getX() + pt.getX());
+    pos_.setY(pos_.getY() + pt.getY());
+    spritePt_.setX(spritePt_.getX() + pt.getX());
+    spritePt_.setY(spritePt_.getY() + pt.getY());
+    moveHitbox(pt.getX(), pt.getY());
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)
@@ -81,29 +83,57 @@ void GOM_Ship::update(const std::string &str)
 {
 	std::istringstream istr(str);
 	char endCheck;
-	int type = -1;
-	int objID, degree, posX, posY, playerID, speed, health, attackPower;
+        int type = -1;
+        double degree, posX, posY, speed;
+        int objID, playerID, health, attackPower;
+        double sprite_w, sprite_h, hb_w, hb_h;
+        double tl_x, tl_y;
+        double tr_x, tr_y;
+        double bl_x, bl_y;
+        double br_x, br_y;
 	
 	istr >> type;
 	switch(ObjectType(type))
 	{
 	case SHIP1:
+		sprite_w = double(SHIP1_SPRITE_WIDTH);
+		sprite_h = double(SHIP1_SPRITE_HEIGHT);
+		hb_w = double(SHIP1_WIDTH);
+		hb_h = double(SHIP1_HEIGHT);
+		
 	case SHIP2:
+		sprite_w = double(SHIP2_SPRITE_WIDTH);
+		sprite_h = double(SHIP2_SPRITE_HEIGHT);
+		hb_w = double(SHIP2_WIDTH);
+		hb_h = double(SHIP2_HEIGHT);
+
 		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
-			>> attackPower >> endCheck;
+                        >> attackPower
+                        >> tl_x >> tl_y
+                        >> tr_x >> tr_y
+                        >> bl_x >> bl_y
+                        >> br_x >> br_y
+                        >> endCheck;
 		
 		if(!istr.good() || endCheck != SHIP_STR)
 			break;
+
+                hb_.tLeft = Point(tl_x, tl_y);
+                hb_.tRight = Point(tr_x, tr_y);
+                hb_.bLeft = Point(bl_x, bl_y);
+                hb_.bRight = Point(br_x, br_y);
 		
 		type_ = ObjectType(type);
 		objID_ = objID;
-		degree_.setDegree(double(degree));
-		pos_.setX(double(posX));
-		pos_.setY(double(posY));
+                degree_.setDegree(degree);
+                pos_.setX(posX);
+                pos_.setY(posY);
 		playerID_ = playerID;
-		speed_ = double(speed);
+                speed_ = speed;
 		health_ = health;
 		attackPower_ = attackPower;
+		spritePt_.setX(pos_.getX()-(sprite_w/2));
+		spritePt_.setY(pos_.getY()-(sprite_h/2));
 		break;
 	}
 }
@@ -114,13 +144,21 @@ std::string GOM_Ship::toString() const
 	
 	ostr << int(type_) << " ";
 	ostr << objID_ << " ";
-	ostr << int(degree_.getDegree()) << " ";
-	ostr << int(pos_.getX()) << " ";
-	ostr << int(pos_.getY()) << " ";
+        ostr << degree_.getDegree() << " ";
+        ostr << pos_.getX() << " ";
+        ostr << pos_.getY() << " ";
 	ostr << playerID_ << " ";
-	ostr << int(speed_) << " ";
+        ostr << speed_ << " ";
 	ostr << health_ << " ";
 	ostr << attackPower_ << " ";
+        ostr << hb_.tLeft.getX() << " ";
+        ostr << hb_.tLeft.getY() << " ";
+        ostr << hb_.tRight.getX() << " ";
+        ostr << hb_.tRight.getY() << " ";
+        ostr << hb_.bLeft.getX() << " ";
+        ostr << hb_.bLeft.getY() << " ";
+        ostr << hb_.bRight.getX() << " ";
+        ostr << hb_.bRight.getY() << " ";
 	ostr << SHIP_STR;
 	
 	return ostr.str();

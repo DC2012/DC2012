@@ -9,7 +9,7 @@ AudioController::AudioController(QObject *parent) :
         mediaObjects.push_back(new Phonon::MediaObject(this));
         audioOutputs.push_back(new Phonon::AudioOutput(Phonon::GameCategory, this));
         Phonon::createPath(mediaObjects.back(), audioOutputs.back());
-        mediaObjects.back()->setCurrentSource(Phonon::MediaSource("../audio/cannon.ogg"));
+        mediaObjects.back()->setCurrentSource(Phonon::MediaSource("audio/cannon.ogg"));
     }
     current = 0;
     audioOutCount = 0;
@@ -29,13 +29,13 @@ AudioController::~AudioController()
 
 void AudioController::createFilePaths()
 {
-    soundFiles[SHOOT1] = "../audio/cannon.ogg";
-    soundFiles[SHOOT2] = "../audio/cannon2.ogg";
-    soundFiles[SHOOT3] = "../audio/aaGun.ogg";
-    soundFiles[RELEASE] = "../audio/release.ogg";
-    soundFiles[KRAKENWARN] = "../audio/krakenPart.ogg";
-    soundFiles[KRAKENDESTROY] = "../audio/mainKraken.ogg";
-    soundFiles[DIE] = "../audio/mainExplosion.ogg";
+    soundFiles[SHOOT1] = "audio/cannon.ogg";
+    soundFiles[SHOOT2] = "audio/cannon2.ogg";
+    soundFiles[SHOOT3] = "audio/aaGun.ogg";
+    soundFiles[RELEASE] = "audio/release.ogg";
+    soundFiles[KRAKENWARN] = "audio/krakenPart.ogg";
+    soundFiles[KRAKENDESTROY] = "audio/mainKraken.ogg";
+    soundFiles[DIE] = "audio/mainExplosion.ogg";
 }
 
 
@@ -55,7 +55,7 @@ void AudioController::playSound(AudioController::Sounds sound, double dist)
     }
 }
 
-void AudioController::printState(Phonon::State newState,Phonon::State oldState)
+void AudioController::printState(Phonon::State newState, Phonon::State oldState)
 {
     std::cout << (int)oldState << "  " << newState <<  std::endl ;
 }

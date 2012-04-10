@@ -49,7 +49,7 @@ class GOM_Projectile : public GameObjectMoveable
         // destructor
         virtual ~GOM_Projectile(){}
         
-        void move();
+        bool move();
         
         virtual void update(const std::string &str);
         virtual std::string toString() const;

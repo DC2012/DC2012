@@ -45,6 +45,12 @@ void MainWindow::connect_accept(QString port, QString ip, QString username)
         return;
     }
 
+    #ifdef DEBUG
+        username = "tester";
+        p = 9900;
+        i = "127.0.0.1";
+    #endif
+
     if (client_->connectClient(p, i))
     {
         mDialog.close();

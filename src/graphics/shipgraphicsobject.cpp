@@ -1,7 +1,12 @@
 #include "shipgraphicsobject.h"
 
+#define M_PI 3.14159265358979323846
+#define DEG_CIRCLE 360
+#define DEG_TO_RAD (M_PI / (DEG_CIRCLE / 2))
+#define RAD_TO_DEG ((DEG_CIRCLE / 2) / M_PI)
+
 ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
-    : GraphicsObject(gameObject)
+    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();
@@ -11,11 +16,134 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
 
-    QGraphicsPixmapItem shipItem(shipPixmap);
-    shipItem.setOffset(gameObject->getPosition().getX(),
-                       gameObject->getPosition().getY());
+    QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
 
-    GraphicsObject::setPixmapItem(new QGraphicsPixmapItem(shipPixmap));
+    shipItem->setOffset(gameObject->getSpriteTopLeft().getX(),
+                        gameObject->getSpriteTopLeft().getY());
+
+    shipItem->setTransformOriginPoint(gameObject->getPosition().getX(),
+                                      gameObject->getPosition().getY());
+
+    shipItem->setRotation(gameObject->getDegree() - 270);
+
+    GraphicsObject::setPixmapItem(shipItem);
+}
+
+void ShipGraphicsObject::update(const std::string& data)
+{
+    GraphicsObject::update(data);
+    GameObject* gameObject = getGameObject();
+    QGraphicsPixmapItem* pixmap = getPixmapItem();
+
+    pixmap->setOffset(gameObject->getSpriteTopLeft().getX(),
+                      gameObject->getSpriteTopLeft().getY());
+
+    pixmap->setTransformOriginPoint(gameObject->getPosition().getX(),
+                                    gameObject->getPosition().getY());
+
+    pixmap->setRotation(gameObject->getDegree() - 270);
+}
+
+void ShipGraphicsObject::setCanShoot()
+{
+    canShoot_ = true;
+}
+
+double ShipGraphicsObject::shoot(QPoint clickPos)
+{
+    if (!canShoot_)
+        return -1;
+
+    double h, angle, x, y;
+    GameObject* gameObject = getGameObject();
+
+    //Move the click point to 0,0 according to the ship position
+    x = clickPos.x() - gameObject->getPosition().getX();
+    y = clickPos.y() - gameObject->getPosition().getY();
+
+    angle = 0;
+    h = sqrt((x * x) + (y * y));
+
+    //If bullet is being shot directly below the ship
+    if(x == 0 && y > 0)
+    {
+        angle = 90;
+    }
+
+    //If bullet is being shot directly above the ship
+    if(x == 0 && y < 0)
+    {
+        angle = 270;
+    }
+
+    //If bullet is being shot directly to the right of the ship
+    if(x > 0 && y == 0)
+    {
+        angle = 0;
+    }
+
+    //If bullet is being shot directly to the left of the ship
+    if(x < 0 && y == 0)
+    {
+        angle = 180;
+    }
+
+    //If bullet is being shot to the bottom right of the ship
+    if(x > 0 && y > 0)
+    {
+        //any trig function
+        angle = atan(y / x);
+        angle *= RAD_TO_DEG;
+    }
+
+    //If bullet is being shot to the bottom left of the ship
+    if(x < 0 && y > 0)
+    {
+        //cos trig function
+        angle = acos(x / h);
+        angle *= RAD_TO_DEG;
+    }
+
+    //If the bullet is being shot to the top left of the ship
+    if(x < 0 && y < 0)
+    {
+        //tan trig function
+        angle = atan(y / x);
+        angle *= RAD_TO_DEG;
+        angle += 180;
+    }
+
+    //If the bullet is being shot to the top right of the ship
+    if(x > 0 && y < 0)
+    {
+        //sin trig function
+        angle = asin(y / h);
+        angle *= RAD_TO_DEG;
+        angle += 360;
+    }
+
+    canShoot_ = false;
+    return angle;
+}
+
+bool ShipGraphicsObject::canShoot()
+{
+    return canShoot_;
+}
+
+void ShipGraphicsObject::gotHit()
+{
+    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
+    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
+    pixmapSwitchTimer_.setSingleShot(true);
+    pixmapSwitchTimer_.start(100);
+    connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
+}
+
+void ShipGraphicsObject::switchPixmap()
+{
+    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
+    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1));
 }
 
 /*

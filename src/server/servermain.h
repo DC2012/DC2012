@@ -36,7 +36,7 @@ extern "C"
     #include <time.h>
     #include <errno.h>
 
-    #define FRAME_RATE 30 // frame rate (update frequency)
+    #define FRAME_RATE 40 // frame rate (update frequency)
     #define DEFAULT_SV_PORT 9900 // default server listen port
     #define MAX_PLAYERS 8
     
@@ -50,6 +50,7 @@ extern "C"
         pthread_mutex_t *lock;
         std::map<int, GameObject *>ships;
         std::map<int, GameObject *>projectiles;
+        std::map<int, std::string>clients;
     } DATA, *PDATA;
     
     // timer data

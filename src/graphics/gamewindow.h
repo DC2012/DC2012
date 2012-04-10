@@ -14,6 +14,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QMutex>
+#include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView
 {
@@ -22,7 +23,9 @@ class GameWindow : public QGraphicsView
 public:
     explicit GameWindow(QWidget *parent = 0);
     void start();
-
+    void setChatting(bool b);
+    bool isChatting();
+    
 signals:
     void shotFired(AudioController::Sounds, double);
     
@@ -34,7 +37,7 @@ private:
     static const int FRAME_RATE = 40;
     static const int CLIENT_WIDTH = 1024;
     static const int CLIENT_HEIGHT = 768;
-
+    
     QGraphicsScene *scene_;
     QTimer timer_;
     Client* client_;
@@ -51,6 +54,13 @@ private:
     void mousePressEvent(QMouseEvent *event);
     void processGameMessage(Message* message);
     void processMessages();
+    
+    //GraphicsController gcontroller_;
+    //qreal currentScale_;
+
+    // env chat message box
+    ChatDlg *chatdlg_;
+    bool isChatting_;
 };
 
 #endif // GAMEWINDOW_H

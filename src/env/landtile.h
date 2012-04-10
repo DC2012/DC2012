@@ -6,7 +6,7 @@
 class LandTile : public Tile
 {
     public:
-        LandTile(const Point& point);
+        LandTile(Point position);
         //void setGraphic();
 
 };

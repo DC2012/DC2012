@@ -14,11 +14,10 @@
 --
 --  DESIGNERS:      Mike Zobac
 --
---  PROGRAMMERS:    Mike Zobac
+--  PROGRAMMERS:    Mike Zobac / Chris Sim
 --
 --  NOTES:
 ----------------------------------------------------------------------------------*/
-
 
 
 #include "gamemap.h"
@@ -46,51 +45,15 @@ GameMap::GameMap()
 }
 
 
-/*-----------------------------------------------------------------------------------
---  FUNCTION:   GameMap ctor - creates and x X y map of tiles, with a perimeter of
---              LandTiles, and an interior of SeaTiles
---
---  DATE:       March 10, 2012
---
---  DESIGNER:   Mike Zobac
---
---  PROGRAMMER: Mike Zobac
---
---  INTERFACE:  GameMap :: GameMap(int xSize, int ySize)
---
---  NOTES:      This function is for creating a basic map used to test other game
---              functions.
--------------------------------------------------------------------------------------*/
-
-
-GameMap :: GameMap(int xSize, int ySize)
-{
-    for(int i = 0; i < xSize; i++)
-    {
-        for(int j = 0; j < ySize; j++)
-        {
-            if(i == 0 || i == xSize - 1 || j == 0 || j == ySize - 1)
-            {
-                gameTiles_[i][j] = new LandTile(Point(xSize, ySize));
-            }
-            else
-            {
-                gameTiles_[i][j] = new SeaTile(Point(xSize, ySize));
-            }
-        }
-    }
-}
-
-
 /*------------------------------------------------------------------------------------
 --  FUNCTION:   GameMap ctor - reads a map of tiles from and xml file and instanciates
---                   that map.
+--                             that map.
 --
---  DATE:
+--  DATE:       March 29, 2012
 --
---  DESIGNER:   Mike Zobac
+--  DESIGNER:   Chris Sim
 --
---  PROGRAMMER: Mike Zobac
+--  PROGRAMMER: Chris Sim
 --
 --  INTERFACE:  GameMap :: GameMap(QString fileName)
 --
@@ -99,6 +62,85 @@ GameMap :: GameMap(int xSize, int ySize)
 
 GameMap :: GameMap(QString fileName)
 {
+    // DOM method of reading XML, not SAX
+    // it reads the entire document, then parse any data needed
+    QDomDocument doc;
+
+    // Load the file
+    QFile map(fileName);
+    if(!map.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "Failed to open file";
+    }
+    else
+    {
+        if(doc.setContent(&map))
+        {
+            qDebug() << "Failed to load the map";
+        }
+        map.close();
+    }
+
+    // get the root element
+    QDomElement maps = doc.firstChildElement();
+
+    // create tiles
+    arrangeElements(maps, "tile", "gid");
 
 }
+
+
+
+/*------------------------------------------------------------------------------------
+--  FUNCTION:   arrangeElements - go through each node in the XML doc and lay out
+--                                the tiles at positions in tileSize intervals
+--
+--  DATE:       March 29, 2012
+--
+--  DESIGNER:   Chris Sim
+--
+--  PROGRAMMER: Chris Sim
+--
+--  INTERFACE:  void arrangeElements(QDomElement root, QString tagname, QString attribute)
+--
+--  NOTES:      goes row by row (ie. 0 to xSize at y = 0, then same again at y = tileSize)
+-------------------------------------------------------------------------------------*/
+
+void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribute)
+{
+    QDomNodeList items = root.elementsByTagName(tagname);
+    int posX = 0, posY = 0;
+    GameMap g;
+    
+    for(int i = 0; i < items.count(); i++)
+    {
+        QDomNode itemnode = items.at(i);
+
+        // convert to element
+        if(itemnode.isElement())
+        {
+            QDomElement tile = itemnode.toElement();
+        
+            if(tile.attribute(attribute) == 0)
+            {
+                g.gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
+            }
+            else
+            {
+                g.gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
+            }
+
+            if((posX += tileSize) == xSize)
+            {
+                posX = 0;
+                posY += tileSize;
+            }
+        }
+    }
+}
+
+
+
+
+
 

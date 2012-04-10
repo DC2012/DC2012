@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------------
---  SOURCE FILE:    seatile.cpp   -  a class for map tiles containing a sea graphic
+--  SOURCE FILE:    SeaTile.cpp   -  a class for map tiles containing a sea graphic
 --                                  which moveable game objects can be drawn on top of.
 --
 --  PROGRAM:
@@ -40,11 +40,12 @@
 --                  value to instanciate a propper graphic for that tile.
 -------------------------------------------------------------------------------------*/
 
-SeaTile::SeaTile(const Point& position)
+SeaTile::SeaTile(Point position)
     : Tile(position)
 {
 
 }
+
 
 /*-----------------------------------------------------------------------------------
 --  FUNCTION:       Set Graphic - instanciates a TileGraphicObject and assigns it to
@@ -66,8 +67,6 @@ SeaTile::SeaTile(const Point& position)
 /*
 void SeaTile::setGraphic()
 {
-    graphic_ = new TileGraphicsObject(Tile::getPosition(), SEA);
+    graphic_ = new TileGraphicsObject(getPosition(), Sea);
 }
 */
-
-

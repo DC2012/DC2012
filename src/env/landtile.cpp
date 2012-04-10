@@ -40,7 +40,7 @@
 --                  value to instanciate a propper graphic for that tile.
 -------------------------------------------------------------------------------------*/
 
-LandTile::LandTile(const Point& position)
+LandTile::LandTile(Point position)
     : Tile(position)
 {
 

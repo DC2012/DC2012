@@ -28,12 +28,14 @@ class GameMap
         GameMap();
         GameMap(QString fileName);
         int addTile(Tile tile);
+        void arrangeElements(QDomElement root, QString tagname, QString attribute);
+        std::vector<std::vector<Tile*> > gameTiles_;
 
     private:
         QFile                           xmlMap_;
         //QMap<int, GameObjectStationary> mapObjects_; <<<<<<<--- need fix, cannot have instance of abstract class
         //Tile                        gameTiles_;
-        std::vector<std::vector<Tile*> > gameTiles_;
+        
 
 };
 

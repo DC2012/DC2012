@@ -101,7 +101,7 @@ void ProcessMessage(PDATA pdata)
                 
                 // debugging
                 std::cout << "ship string for client#" << clientID << std::endl;
-                std::cout << pdata->ships[objID]->toString() << std::endl;
+                std::cout << pdata->ships[clientID]->toString() << std::endl;
             }
             else
             {

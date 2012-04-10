@@ -6,7 +6,7 @@
 class SeaTile : public Tile
 {
     public:
-        SeaTile(const Point& position);
+        SeaTile(Point position);
         //void setGraphic();
 };
 

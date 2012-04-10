@@ -7,7 +7,9 @@
 
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
+#include <QLineEdit>
 #include <QCursor>
+#include "../../src/env/chat/ChatDlg.h"
 #include <QMessageBox>
 #include <QThread>
 #include <cmath>
@@ -23,6 +25,15 @@ GameWindow::GameWindow(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    // env chat message stuff
+    //change 1 to actual client ID
+    chatdlg_ = new ChatDlg(this, 1);
+    //
+    chatdlg_->setModal(false);
+    isChatting_ = false;
+    chatdlg_->setGeometry(0, (this->geometry().height() - 150), 400, 150);
+
+    scene_ = new QGraphicsScene();
     scene_->setSceneRect(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
     setScene(scene_);
 
@@ -44,6 +55,7 @@ GameWindow::GameWindow(QWidget *parent)
             seaTile->setOffset(x, y);
             scene_->addItem(seaTile);
         }
+
     }
 
     // get instance to client so we can send and receive
@@ -114,6 +126,9 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
+
+    QLineEdit *le = chatdlg_->findChild<QLineEdit *>("lineEdit_input");
+
     GOM_Ship* myShip = (GOM_Ship *) ships_[clientId_]->getGameObject();
 
     switch(event->key())
@@ -141,6 +156,27 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Space:
         QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
         break;
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+        // this will change when we have the chat portion as it's own
+        // frame/widget. We also set the lineEdit_input to have focus()
+        if(!this->isChatting())
+        {
+            if(!chatdlg_->isVisible())
+                chatdlg_->show();
+            le->setVisible(true);
+            le->setFocus();
+
+            this->setChatting(true);
+        }
+        else
+        {
+            // eventually we will just hide the lineEdit control
+            le->setVisible(false);
+            this->setChatting(false);
+        }
+        break;
+
     }
 }
 
@@ -331,4 +367,14 @@ void GameWindow::updateGame()
     msg->setType(Message::UPDATE);
     client_->write(msg);
     delete msg;
+}
+
+void GameWindow::setChatting(bool b)
+{
+    GameWindow::isChatting_ = b;
+}
+
+bool GameWindow::isChatting()
+{
+    return GameWindow::isChatting_;
 }

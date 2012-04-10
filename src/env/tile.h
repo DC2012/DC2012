@@ -10,7 +10,7 @@
 class Tile
 {
     public:
-        Tile(const Point& position);
+        Tile(Point position);
         //virtual int getTileType();
         //virtual void setPosition(int x, int y);
         //virtual Point getPosition();

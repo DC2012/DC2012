@@ -106,7 +106,7 @@ GameMap :: GameMap(QString fileName)
 --  NOTES:      goes row by row (ie. 0 to xSize at y = 0, then same again at y = tileSize)
 -------------------------------------------------------------------------------------*/
 
-void arrangeElements(QDomElement root, QString tagname, QString attribute)
+void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribute)
 {
     QDomNodeList items = root.elementsByTagName(tagname);
     int posX = 0, posY = 0;

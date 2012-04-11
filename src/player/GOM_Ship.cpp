@@ -33,8 +33,8 @@ void GOM_Ship::accelerate()
 void GOM_Ship::decelerate()
 {
     speed_ -= decel_;
-	if(speed_ < -maxSpeed_)
-		speed_ = -maxSpeed_;
+        if(speed_ < 0)
+                speed_ = 0;
 }
 
 void GOM_Ship::move()
@@ -43,7 +43,7 @@ void GOM_Ship::move()
 
     if(actionFlags_[ROTATE_L])
     {
-        if(speed_ > 2 || speed_ < -2)
+        if(speed_ > 2)
         {
             degree_.rotate(-1);
             rotateHitbox(-1);
@@ -57,7 +57,7 @@ void GOM_Ship::move()
 
     if(actionFlags_[ROTATE_R])
     {
-        if(speed_ > 2 || speed_ < -2)
+        if(speed_ > 2)
         {
             degree_.rotate(1);
             rotateHitbox(1);

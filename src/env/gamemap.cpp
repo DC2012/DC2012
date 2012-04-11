@@ -119,7 +119,7 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
         {
             QDomElement tile = itemnode.toElement();
         
-            if(tile.attribute(attribute) == "1")
+            if(tile.attribute(attribute) == "0")
             {
                 this->gameTiles_.push_back(new SeaTile(Point(posX, posY)));
             }

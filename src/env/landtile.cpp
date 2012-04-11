@@ -41,9 +41,9 @@
 -------------------------------------------------------------------------------------*/
 
 LandTile::LandTile(Point position)
-    : Tile(position)
+    : Tile(QPixmap(TILE_LAND1), position)
 {
-
+  
 }
 
 

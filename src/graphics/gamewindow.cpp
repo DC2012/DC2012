@@ -14,6 +14,7 @@
 #include <QThread>
 #include <cmath>
 #include <sstream>
+#include "../env/gamemap.h"
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
@@ -38,8 +39,14 @@ GameWindow::GameWindow(QWidget *parent)
     setScene(scene_);
 
     // load map - the positions will eventually be stored in an xml file
-    QPixmap land(TILE_LAND1);
-    QPixmap sea(TILE_WATER1);
+    
+    GameMap* map = new GameMap(":/src/env/maps/finalMap.tmx");
+    
+    for(std::vector<Tile*>::iterator i = map->gameTiles_.begin(); i != map->gameTiles_.end(); i++)
+    {
+         scene_->addItem(*i);
+    }
+    /*
     for (int x = 0; x < CLIENT_WIDTH; x += 50)
     {
         for(int y = 0; y < CLIENT_HEIGHT / 3; y += 50)
@@ -57,6 +64,7 @@ GameWindow::GameWindow(QWidget *parent)
         }
 
     }
+    */
 
     // get instance to client so we can send and receive
     // at this point, client should be connected already
@@ -350,13 +358,14 @@ void GameWindow::updateGame()
     // update our own ship
     GOM_Ship* shipObj = (GOM_Ship *) ships_[clientId_]->getGameObject();
     shipObj->move();
+
+
     ships_[clientId_]->getPixmapItem()->setOffset(shipObj->getSpriteTopLeft().getX(),
                                                   shipObj->getSpriteTopLeft().getY());
-
     ships_[clientId_]->getPixmapItem()->setTransformOriginPoint(shipObj->getPosition().getX(),
                                                                shipObj->getPosition().getY());
-
     ships_[clientId_]->getPixmapItem()->setRotation(shipObj->getDegree() - 270);
+
 
     // send new coordinates of our ship to server
     // the message is dynamically allocated although typically there is no need to do so

@@ -3,14 +3,17 @@
 
 #include "../player/Point.h"
 #include "../graphics/tilegraphicsobject.h"
+#include "../../sprites/sprites.h"
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
 
 #define     SEA     0
 #define     LAND    1
 
-class Tile
+class Tile : public QGraphicsPixmapItem
 {
     public:
-        Tile(Point position);
+        Tile(QPixmap sprite, Point position);
         //virtual int getTileType();
         //virtual void setPosition(int x, int y);
         //virtual Point getPosition();

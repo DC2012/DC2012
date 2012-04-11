@@ -74,19 +74,16 @@ GameMap :: GameMap(QString fileName)
     }
     else
     {
-        if(doc.setContent(&map))
+        if(!doc.setContent(QTextStream(&map).readAll()))
         {
             qDebug() << "Failed to load the map";
         }
-        map.close();
     }
-
-    // get the root element
+    map.close();
     QDomElement maps = doc.firstChildElement();
 
     // create tiles
     arrangeElements(maps, "tile", "gid");
-
 }
 
 
@@ -110,7 +107,8 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
 {
     QDomNodeList items = root.elementsByTagName(tagname);
     int posX = 0, posY = 0;
-    GameMap g;
+
+    this->gameTiles_.resize(items.count());
     
     for(int i = 0; i < items.count(); i++)
     {
@@ -121,19 +119,18 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
         {
             QDomElement tile = itemnode.toElement();
         
-            if(tile.attribute(attribute) == 0)
+            if(tile.attribute(attribute) == "1")
             {
-                g.gameTiles_[posX / tileSize][posY / tileSize] = new SeaTile(Point(posX, posY));
+                this->gameTiles_.push_back(new SeaTile(Point(posX, posY)));
             }
             else
             {
-                g.gameTiles_[posX / tileSize][posY / tileSize] = new LandTile(Point(posX, posY));
+                this->gameTiles_.push_back(new LandTile(Point(posX, posY)));
             }
-
             if((posX += tileSize) == xSize)
             {
                 posX = 0;
-                posY += tileSize;
+              posY += tileSize;
             }
         }
     }

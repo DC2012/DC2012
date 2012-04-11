@@ -7,15 +7,16 @@ class Message
 {
 public:
   enum MessageType { 
-	CHAT, 
-	CREATION, 
+    CHAT,
+    CREATION,
     CONNECTION,
     DEATH,
-	DELETION,
-	UPDATE, 
-	ACTION, 
+    DELETION,
+    UPDATE,
+    ACTION,
     STATUS,
-    HIT
+    HIT,
+    RESPAWN
   };
   static const size_t MAXMSGDATA = 254;
   static const size_t MSGHEADER;

@@ -85,9 +85,7 @@ void ProcessMessage(PDATA pdata)
 
             // get a furthest start point from other ships
             pt = getStartPoint(pdata->ships);
-            
-            // create a string for GameObjectFactory to create the ship
-                // setting up all the parameters
+
             objID    = pdata->objCount++;
             degree   = 0;
             posX     = pt.getX();
@@ -156,7 +154,7 @@ void ProcessMessage(PDATA pdata)
             ostr.clear();
             ostr.str("");
             ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
-            sendMessage.setData(ostr.str());
+            sendMessage.setAll(ostr.str(), Message::DELETION);
             server->write(&sendMessage);
 
             // delete the ship on server

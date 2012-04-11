@@ -6,6 +6,7 @@ enum ObjectType
 {
 	SHIP1,
 	SHIP2,
+        SHIP3,
 	PROJECTILE,
 	OBSTACLE,
 	POWERUP

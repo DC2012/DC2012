@@ -16,6 +16,26 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
 
+    ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
+    ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
+    ShipGraphicsObject::ex3 = new QPixmap(SPRITE_EXPLOSION3);
+    ShipGraphicsObject::ex4 = new QPixmap(SPRITE_EXPLOSION4);
+    ShipGraphicsObject::ex5 = new QPixmap(SPRITE_EXPLOSION5);
+    ShipGraphicsObject::ex6 = new QPixmap(SPRITE_EXPLOSION6);
+    ShipGraphicsObject::ex7 = new QPixmap(SPRITE_EXPLOSION7);
+    ShipGraphicsObject::ex8 = new QPixmap(SPRITE_EXPLOSION8);
+
+    //Load the list of explosion pictures
+    exAnim.push_back(ex1);
+    exAnim.push_back(ex2);
+    exAnim.push_back(ex3);
+    exAnim.push_back(ex4);
+    exAnim.push_back(ex5);
+    exAnim.push_back(ex6);
+    exAnim.push_back(ex7);
+    exAnim.push_back(ex8);
+    curPic = exAnim.begin();
+
     QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
 
     shipItem->setOffset(gameObject->getSpriteTopLeft().getX(),
@@ -27,6 +47,18 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     shipItem->setRotation(gameObject->getDegree() - 270);
 
     GraphicsObject::setPixmapItem(shipItem);
+}
+
+ShipGraphicsObject::~ShipGraphicsObject()
+{
+    delete ex1;
+    delete ex2;
+    delete ex3;
+    delete ex4;
+    delete ex5;
+    delete ex6;
+    delete ex7;
+    delete ex8;
 }
 
 void ShipGraphicsObject::update(const std::string& data)
@@ -131,19 +163,39 @@ bool ShipGraphicsObject::canShoot()
     return canShoot_;
 }
 
-void ShipGraphicsObject::gotHit()
+void ShipGraphicsObject::gotHit(GameObject* hitter)
 {
-    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
-    pixmapSwitchTimer_.setSingleShot(true);
-    pixmapSwitchTimer_.start(100);
-    connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
+    QGraphicsPixmapItem* pixmapItem;
+
+    switch(hitter->getType())
+    {
+    case PROJECTILE:
+        if(!((GOM_Ship*)this->getGameObject())->takeDamage(((GOM_Projectile*)hitter)->getDamage()))
+        {
+            emit death();
+        }
+        pixmapItem = getPixmapItem();
+        pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
+        pixmapSwitchTimer_.start(100);
+        connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(explode()));
+        break;
+    case POWERUP:
+        //get powerup
+        //((GOM_Ship*)this->getGameObject())->applyPowerUp(((GOS_PowerUp*)hitter)->getBonus());
+        break;
+
+    }
 }
 
-void ShipGraphicsObject::switchPixmap()
+void ShipGraphicsObject::explode()
 {
     QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1));
+    pixmapItem->setPixmap(**curPic);
+    if(++curPic == exAnim.end())
+    {
+        pixmapSwitchTimer_.stop();
+        delete this; //done explosion animation
+    }
 }
 
 /*

@@ -62,7 +62,7 @@ QPushButton:hover {
  QPushButton:pressed {
 background: qradialgradient(cx: 0.4, cy: -0.1,
 fx: 0.4, fy: -0.1,
-radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
+radius: 1.35, stop: 0 #000, stop: 1 #808080);
 }</string>
   </property>
   <widget class="QFrame" name="frame">
@@ -109,8 +109,8 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship1</string>
     </property>
     <property name="icon">
-     <iconset>
-         <normaloff>:/src/env/menus/Ships/images/old.png</normaloff>:/src/env/menus/Ships/images/old.png</iconset>
+     <iconset resource="../../../../images.qrc">
+      <normaloff>:/src/env/menus/Ships/images/old.png</normaloff>:/src/env/menus/Ships/images/old.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -140,8 +140,8 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship2</string>
     </property>
     <property name="icon">
-     <iconset>
-         <normaloff>:/src/env/menus/Ships/images/sub2.gif</normaloff>:/src/env/menus/Ships/images/sub2.gif</iconset>
+     <iconset resource="../../../../images.qrc">
+      <normaloff>:/src/env/menus/Ships/images/sub2.gif</normaloff>:/src/env/menus/Ships/images/sub2.gif</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -171,8 +171,8 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
      <string>Ship3</string>
     </property>
     <property name="icon">
-     <iconset>
-         <normaloff>:/src/env/menus/Ships/images/canoe.gif</normaloff>:/src/env/menus/Ships/images/canoe.gif</iconset>
+     <iconset resource="../../../../images.qrc">
+      <normaloff>:/src/env/menus/Ships/images/canoe.gif</normaloff>:/src/env/menus/Ships/images/canoe.gif</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -183,6 +183,8 @@ radius: 1.35, stop: 0 #FFF, stop: 1 #C89225);
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../images.qrc"/>
+ </resources>
  <connections/>
 </ui>

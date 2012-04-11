@@ -149,7 +149,7 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
 --
 --  RETURNS:        bool
 --
---  NOTES:          Returns whether or not a point is on a land tile.
+--  NOTES:          Returns whether or not a point is on a land
 --
 -----------------------------------------------------------------------------*/
 bool GameMap::isLand(const Point& location)

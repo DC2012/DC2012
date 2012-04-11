@@ -37,7 +37,7 @@ void GOM_Ship::decelerate()
                 speed_ = 0;
 }
 
-void GOM_Ship::move()
+bool GOM_Ship::move()
 {
     Point pt;
 
@@ -85,6 +85,8 @@ void GOM_Ship::move()
     spritePt_.setX(spritePt_.getX() + pt.getX());
     spritePt_.setY(spritePt_.getY() + pt.getY());
     moveHitbox(pt.getX(), pt.getY());
+
+    return true;
 }
 
 void GOM_Ship::setActionFlag(int flag, bool val)

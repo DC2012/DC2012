@@ -2,6 +2,7 @@
 #define PICKYOURSHIP_H
 
 #include <QDialog>
+#include "../../../net/client.h"
 
 namespace Ui {
 class PickYourShip;
@@ -14,6 +15,8 @@ class PickYourShip : public QDialog
 public:
     explicit PickYourShip(QWidget *parent = 0);
     ~PickYourShip();
+    bool isCreating();
+    void setCreating(bool creating);
 
 signals:
     void shipChosen(QString shipType);
@@ -24,7 +27,9 @@ private slots:
     void on_btnShip3_clicked();
 
 private:
-    Ui::PickYourShip *ui;
+    bool                creating_;
+    Ui::PickYourShip*   ui;
+    Client*             client_;
 };
 
 #endif // PICKYOURSHIP_H

@@ -69,7 +69,7 @@ class GOM_Ship : public GameObjectMoveable
         int getHealth()const;
 
         // movement
-        void move();
+        bool move();
         
         // set actionFlags_
         void setActionFlag(int flag, bool val);

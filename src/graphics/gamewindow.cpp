@@ -268,13 +268,17 @@ void GameWindow::processGameMessage(Message* message)
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
         {
             if(message->getID() == clientId_)
+            {
                 isClientDead_ = FALSE;
+                connect((ShipGraphicsObject*)graphic, SIGNAL(death()), this, SLOT(death()))   ;
+                shipChooser.setCreating(false);
+            }
             ships_[message->getID()] = (ShipGraphicsObject*) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
         else
         {
-            //emit shotFired(AudioController::SHOOT1, 50);
+            emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -294,24 +298,30 @@ void GameWindow::processGameMessage(Message* message)
         tokens = QString::fromStdString(message->getData()).split(" ");
 
         // 0 - object type where 's' is ship and 'p' is projectile
-        // 1 - object ID
+        // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
 
         if (tokens[0] == "s")
         {
             scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
+            if(tokens[1].toInt() == clientId_)
+            {
+                //we died
+                isClientDead_ = true;
+            }
         }
         else if (tokens[0] == "p")
         {
             otherGraphics_[tokens[1].toInt()]->setExpired();
         }
 
+        ships_[clientId_]->explode();
         break;
 
     case Message::HIT:
         // message client id = client id that was hit
         // data = object id that client id collided with
-        ships_[message->getID()]->gotHit();
+        ships_[message->getID()]->gotHit(otherGraphics_[QString(message->getData().c_str()).toInt()]->getGameObject());
         break;
 
     case Message::STATUS:
@@ -370,8 +380,8 @@ void GameWindow::updateGame()
 
         if(map_->isLand(shipObj->getPosition()))
         {
-            printf("Hit Land: %d %d\n", (int)shipObj->getPosition().getX(), (int)shipObj->getPosition().getY()); //Ship hit land, do something here
-            fflush(stdout);
+            death();
+            return;
         }
 
         centerOn(shipObj->getPosition().getX(), shipObj->getPosition().getY());
@@ -390,6 +400,15 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
+    else
+    {
+        if(!shipChooser.isCreating())
+        {
+            shipChooser.setCreating(true);
+            shipChooser.setModal(false);
+            shipChooser.show();
+        }
+    }
 }
 
 
@@ -401,4 +420,11 @@ void GameWindow::setChatting(bool b)
 bool GameWindow::isChatting()
 {
     return GameWindow::isChatting_;
+}
+
+void GameWindow::death()
+{
+    Message msg(clientId_);
+    msg.setType(Message::DEATH);
+    client_->write(&msg);
 }

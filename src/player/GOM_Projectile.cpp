@@ -28,39 +28,39 @@ void GOM_Projectile::update(const std::string &str)
 	switch(ObjectType(type))
 	{
 	case PROJECTILE:
-        sprite_w = double(CANNON_SPRITE_WIDTH);
-        sprite_h = double(CANNON_SPRITE_HEIGHT);
-        hb_w = double(CANNON_WIDTH);
-        hb_h = double(CANNON_HEIGHT);
+            sprite_w = double(CANNON_SPRITE_WIDTH);
+            sprite_h = double(CANNON_SPRITE_HEIGHT);
+            hb_w = double(CANNON_WIDTH);
+            hb_h = double(CANNON_HEIGHT);
 
-		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl >> 
-                        damage
-                     >> tl_x >> tl_y
-                     >> tr_x >> tr_y
-                     >> bl_x >> bl_y
-                     >> br_x >> br_y
-                     >> endCheck;
-			
-		if(!istr.good() || endCheck != PROJECTILE_STR)
-			break;
+            istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl
+                 >> damage
+                 >> tl_x >> tl_y
+                 >> tr_x >> tr_y
+                 >> bl_x >> bl_y
+                 >> br_x >> br_y
+                 >> endCheck;
 
-                hb_.tLeft = Point(tl_x, tl_y);
-                hb_.tRight = Point(tr_x, tr_y);
-                hb_.bLeft = Point(bl_x, bl_y);
-                hb_.bRight = Point(br_x, br_y);
-		
-		type_ = ObjectType(type);
-		objID_ = objID;
-                degree_.setDegree(degree);
-                pos_.setX(posX);
-                pos_.setY(posY);
-		playerID_ = playerID;
-                speed_ = speed;
-		ttl_ = ttl;
-		damage_ = damage;
-        spritePt_.setX(pos_.getX()-(sprite_w/2));
-		spritePt_.setY(pos_.getY()-(sprite_h/2));
-		break;
+            if(!istr.good() || endCheck != PROJECTILE_STR)
+                    break;
+
+            hb_.tLeft = Point(tl_x, tl_y);
+            hb_.tRight = Point(tr_x, tr_y);
+            hb_.bLeft = Point(bl_x, bl_y);
+            hb_.bRight = Point(br_x, br_y);
+
+            type_ = ObjectType(type);
+            objID_ = objID;
+            degree_.setDegree(degree);
+            pos_.setX(posX);
+            pos_.setY(posY);
+            playerID_ = playerID;
+            speed_ = speed;
+            ttl_ = ttl;
+            damage_ = damage;
+            spritePt_.setX(pos_.getX()-(sprite_w/2));
+            spritePt_.setY(pos_.getY()-(sprite_h/2));
+            break;
 	}
 }
 

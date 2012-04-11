@@ -18,3 +18,4 @@ Makefile
 DC2012
 servermain
 *.autosave
+*~

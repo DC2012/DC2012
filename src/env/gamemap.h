@@ -17,8 +17,8 @@
 #include "tile.h"
 
 
-#define xSize 4000
-#define ySize 3000
+#define xSize (160 * tileSize)
+#define ySize (120 * tileSize)
 #define tileSize 25
 
 
@@ -29,7 +29,7 @@ class GameMap
         GameMap(QString fileName);
         int addTile(Tile tile);
         void arrangeElements(QDomElement root, QString tagname, QString attribute);
-        std::vector<std::vector<Tile*> > gameTiles_;
+        std::vector<Tile*> gameTiles_;
 
     private:
         QFile                           xmlMap_;

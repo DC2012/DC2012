@@ -14,6 +14,7 @@
 #include <QThread>
 #include <cmath>
 #include <sstream>
+#include "../env/gamemap.h"
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
@@ -34,12 +35,20 @@ GameWindow::GameWindow(QWidget *parent)
     chatdlg_->setGeometry(0, (this->geometry().height() - 150), 400, 150);
 
     scene_ = new QGraphicsScene();
-    scene_->setSceneRect(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
+    /* Change these constants later */
+    scene_->setSceneRect(0, 0, 160 * 25, 120 * 25);
     setScene(scene_);
+    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    setTransformationAnchor(QGraphicsView::AnchorViewCenter);
 
-    // load map - the positions will eventually be stored in an xml file
-    QPixmap land(TILE_LAND1);
-    QPixmap sea(TILE_WATER1);
+    // load map - this will take a few seconds
+    
+    GameMap* map = new GameMap(":/src/env/maps/finalMap.tmx");
+    for(std::vector<Tile*>::iterator i = map->gameTiles_.begin(); i != map->gameTiles_.end(); i++)
+    {
+         scene()->addItem(*i);
+    }
+    /*
     for (int x = 0; x < CLIENT_WIDTH; x += 50)
     {
         for(int y = 0; y < CLIENT_HEIGHT / 3; y += 50)
@@ -57,6 +66,7 @@ GameWindow::GameWindow(QWidget *parent)
         }
 
     }
+    */
 
     // get instance to client so we can send and receive
     // at this point, client should be connected already
@@ -107,7 +117,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     // this is set by the update game timer to prevent ships from spamming shots
     if (ships_[clientId_]->canShoot())
     {
-        double angle = ships_[clientId_]->shoot(event->pos());
+        double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
         Message msg;
         msg.setID(clientId_);
@@ -350,12 +360,18 @@ void GameWindow::updateGame()
     // update our own ship
     GOM_Ship* shipObj = (GOM_Ship *) ships_[clientId_]->getGameObject();
     shipObj->move();
+
+    /* Needs to move the viewport, not the ship. */
+
     ships_[clientId_]->getPixmapItem()->setOffset(shipObj->getSpriteTopLeft().getX(),
                                                   shipObj->getSpriteTopLeft().getY());
-
     ships_[clientId_]->getPixmapItem()->setTransformOriginPoint(shipObj->getPosition().getX(),
                                                                shipObj->getPosition().getY());
 
+    centerOn(shipObj->getPosition().getX(), shipObj->getPosition().getY());
+
+    
+    /* This is ok */
     ships_[clientId_]->getPixmapItem()->setRotation(shipObj->getDegree() - 270);
 
     // send new coordinates of our ship to server
@@ -368,6 +384,7 @@ void GameWindow::updateGame()
     client_->write(msg);
     delete msg;
 }
+
 
 void GameWindow::setChatting(bool b)
 {

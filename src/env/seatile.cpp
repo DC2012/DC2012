@@ -41,9 +41,9 @@
 -------------------------------------------------------------------------------------*/
 
 SeaTile::SeaTile(Point position)
-    : Tile(position)
+    : Tile(QPixmap(TILE_WATER1), position)
 {
-
+  
 }
 
 

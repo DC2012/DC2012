@@ -38,7 +38,7 @@ void ProcessMessage(PDATA pdata)
             // extract ship type and player name from message data
             istr.clear();
             istr.str(recvMessage->getData());
-            istr >> type >> playerName;
+            istr >> playerName;
             
             // check if max player is reached on server
             if(pdata->ships.size() >= 8)
@@ -79,28 +79,30 @@ void ProcessMessage(PDATA pdata)
                 // debugging
                 std::cout << ii->second->toString() << std::endl;
             }
-            
-            // set the SendMessage's clientID back
-            sendMessage.setID(clientID);
+            break;
+
+        case Message::RESPAWN:
+            // extract ship type from msg data
+            istr.clear();
+            istr.str(recvMessage->getData());
+            istr >> type;
 
             // get a furthest start point from other ships
             pt = getStartPoint(pdata->ships);
-            
-            // create a string for GameObjectFactory to create the ship
-                // setting up all the parameters
+
             objID    = pdata->objCount++;
             degree   = 0;
             posX     = pt.getX();
             posY     = pt.getY();
             playerID = clientID;
             speed    = 0;
-            health   = 100;     // hard-coded need to fix 
-            attack   = 30;      // hard-coded need to fix 
+            health   = 100;     // hard-coded need to fix
+            attack   = 30;      // hard-coded need to fix
 
             // create the GOM_Ship object
             gameObject = new GOM_Ship(ObjectType(type), objID, degree, posX, posY,
                                    playerID, speed, health, attack);
-            
+
             // add the game object to the map
             pdata->ships.erase(clientID);
             pdata->ships[clientID] = gameObject;
@@ -109,7 +111,7 @@ void ProcessMessage(PDATA pdata)
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {
                 server->write(&sendMessage);
-                
+
                 // debugging
                 std::cout << "ship string for client#" << clientID << std::endl;
                 std::cout << pdata->ships[clientID]->toString() << std::endl;
@@ -156,7 +158,7 @@ void ProcessMessage(PDATA pdata)
             ostr.clear();
             ostr.str("");
             ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
-            sendMessage.setData(ostr.str());
+            sendMessage.setAll(ostr.str(), Message::DELETION);
             server->write(&sendMessage);
 
             // delete the ship on server

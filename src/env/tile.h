@@ -13,14 +13,14 @@
 class Tile : public QGraphicsPixmapItem
 {
     public:
-        Tile(QPixmap sprite, Point position);
-        //virtual int getTileType();
+        Tile(QPixmap sprite, Point position, int type);
+        int getTileType();
         //virtual void setPosition(int x, int y);
         //virtual Point getPosition();
-        //virtual void setGraphic();
+        //virtual void setGrahic();
 
     private:
-        //int                 type_;
+        int                 type_;
         Point               position_;
 
     protected:

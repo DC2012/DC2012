@@ -26,6 +26,7 @@ class GameMap
     public:
         GameMap();
         GameMap(QString fileName);
+        bool isLand(const Point& location);
         int addTile(Tile tile);
         void arrangeElements(QDomElement root, QString tagname, QString attribute);
         std::map<Point, Tile*> gameTiles_;

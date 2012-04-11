@@ -26,6 +26,7 @@ GameWindow::GameWindow(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    map_ = new GameMap(":/src/env/maps/finalMap.tmx");
     // env chat message stuff
     //change 1 to actual client ID
     chatdlg_ = new ChatDlg(this, 1);
@@ -43,30 +44,10 @@ GameWindow::GameWindow(QWidget *parent)
 
     // load map - this will take a few seconds
     
-    map_ = new GameMap(":/src/env/maps/finalMap.tmx");
     for(std::map<Point, Tile*>::iterator i = map_->gameTiles_.begin(); i != map_->gameTiles_.end(); i++)
     {
         scene()->addItem(i->second);
     }
-    /*
-    for (int x = 0; x < CLIENT_WIDTH; x += 50)
-    {
-        for(int y = 0; y < CLIENT_HEIGHT / 3; y += 50)
-        {
-            QGraphicsPixmapItem *landTile = new QGraphicsPixmapItem(land);
-            landTile->setOffset(x, y);
-            scene_->addItem(landTile);
-        }
-
-        for(int y = CLIENT_HEIGHT / 3; y < CLIENT_HEIGHT; y += 50)
-        {
-            QGraphicsPixmapItem *seaTile = new QGraphicsPixmapItem(sea);
-            seaTile->setOffset(x, y);
-            scene_->addItem(seaTile);
-        }
-
-    }
-    */
 
     // get instance to client so we can send and receive
     // at this point, client should be connected already
@@ -367,6 +348,11 @@ void GameWindow::updateGame()
                                                   shipObj->getSpriteTopLeft().getY());
     ships_[clientId_]->getPixmapItem()->setTransformOriginPoint(shipObj->getPosition().getX(),
                                                                shipObj->getPosition().getY());
+
+    if(map_->isLand(shipObj->getPosition()))
+    {
+        ;
+    }
 
     centerOn(shipObj->getPosition().getX(), shipObj->getPosition().getY());
 

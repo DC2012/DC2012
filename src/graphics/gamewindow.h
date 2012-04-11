@@ -15,7 +15,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
-#include <QMutex>4
+#include <QMutex>
 #include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView

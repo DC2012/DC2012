@@ -116,3 +116,8 @@ void GOM_Projectile::print(std::ostream& os)const
 	os << "ttl:\t\t" << ttl_ << std::endl;
 	os << "damage:\t\t" << damage_ << std::endl << std::endl << std::endl;
 }
+
+int GOM_Projectile::getDamage() const
+{
+    return damage_;
+}

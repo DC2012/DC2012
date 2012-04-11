@@ -1,6 +1,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include "../env/gamemap.h"
 #include "../player/GOM_Ship.h"
 #include "../net/client.h"
 #include "MessageWrapper.h"
@@ -14,7 +15,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
-#include <QMutex>
+#include <QMutex>4
 #include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView
@@ -43,6 +44,7 @@ private:
     Point curPos;
     QTimer timer_;
     Client* client_;
+    GameMap* map_;
     std::queue<Message *> messageQueue_;
     std::map<int, ShipGraphicsObject *> ships_;
     std::map<int, ProjectileGraphicsObject *> otherGraphics_;

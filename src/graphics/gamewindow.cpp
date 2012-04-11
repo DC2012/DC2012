@@ -43,10 +43,10 @@ GameWindow::GameWindow(QWidget *parent)
 
     // load map - this will take a few seconds
     
-    GameMap* map = new GameMap(":/src/env/maps/finalMap.tmx");
-    for(std::vector<Tile*>::iterator i = map->gameTiles_.begin(); i != map->gameTiles_.end(); i++)
+    map_ = new GameMap(":/src/env/maps/finalMap.tmx");
+    for(std::map<Point, Tile*>::iterator i = map_->gameTiles_.begin(); i != map_->gameTiles_.end(); i++)
     {
-         scene()->addItem(*i);
+        scene()->addItem(i->second);
     }
     /*
     for (int x = 0; x < CLIENT_WIDTH; x += 50)

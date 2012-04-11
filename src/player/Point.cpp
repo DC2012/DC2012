@@ -33,6 +33,26 @@ Point& Point::operator+=(const Point& rhs)
 	return *this;
 }
 
+bool Point::operator<(const Point& rhs) const
+{
+    if(x_ == rhs.x_)
+    {
+        if(y_ == rhs.y_)
+            return false; //equal
+        if(y_ < rhs.y_)
+            return true;
+        else
+            return false;
+    }
+    else
+    {
+        if(x_ < rhs.x_)
+            return true;
+        else
+            return false;
+    }
+}
+
 void Point::print(std::ostream& os)const
 {
 	os << "Point:\t\tx(" << x_ << ") y(" << y_ << ")" << std::endl;

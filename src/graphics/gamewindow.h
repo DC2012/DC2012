@@ -8,6 +8,7 @@
 #include "shipgraphicsobject.h"
 #include "projectilegraphicsobject.h"
 #include "audiocontroller.h"
+#include "../player/Point.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -37,8 +38,9 @@ private:
     static const int FRAME_RATE = 40;
     static const int CLIENT_WIDTH = 1024;
     static const int CLIENT_HEIGHT = 768;
-    
+
     QGraphicsScene *scene_;
+    Point curPos;
     QTimer timer_;
     Client* client_;
     std::queue<Message *> messageQueue_;

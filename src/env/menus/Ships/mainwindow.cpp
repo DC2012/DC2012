@@ -60,8 +60,9 @@ void MainWindow::connect_accept(QString port, QString ip, QString username)
         shipDialog.exec();
 
         Message msg;
+        msg.setID(0);
         msg.setType(Message::CONNECTION);
-        msg.setData((shipType_ + " " + username).toStdString());
+        msg.setData(username.toStdString());
 
         client_->write(&msg);
 

@@ -107,8 +107,6 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
 {
     QDomNodeList items = root.elementsByTagName(tagname);
     int posX = 0, posY = 0;
-
-    this->gameTiles_.resize(items.count());
     
     for(int i = 0; i < items.count(); i++)
     {
@@ -121,19 +119,28 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
         
             if(tile.attribute(attribute) == "0")
             {
-                this->gameTiles_.push_back(new SeaTile(Point(posX, posY)));
+                this->gameTiles_[Point(posX, posY)] = new SeaTile(Point(posX, posY));
             }
             else
             {
-                this->gameTiles_.push_back(new LandTile(Point(posX, posY)));
+                this->gameTiles_[Point(posX, posY)] = new LandTile(Point(posX, posY));
             }
             if((posX += tileSize) == xSize)
             {
                 posX = 0;
-              posY += tileSize;
+                posY += tileSize;
             }
         }
     }
+}
+
+bool GameMap::isLand(const Point& location)
+{
+    Point temp((int)(location.getX() / 25), (int)(location.getY() / 25));
+    if(gameTiles_[temp] != 0)
+        if(gameTiles_[temp]->getTileType() == LAND)
+            return true;
+    return false;
 }
 
 

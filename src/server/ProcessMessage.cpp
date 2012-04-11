@@ -107,6 +107,8 @@ void ProcessMessage(PDATA pdata)
             pdata->ships.erase(clientID);
             pdata->ships[clientID] = gameObject;
 
+            sendMessage.setID(clientID);
+
             //Send CREATION message to all clients
             if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
             {

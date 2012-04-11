@@ -52,6 +52,7 @@ private:
     int clientId_;
     size_t timerCounter_;
     AudioController audio;
+    bool isClientDead_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

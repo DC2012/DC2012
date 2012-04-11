@@ -264,7 +264,7 @@ void GameWindow::processGameMessage(Message* message)
         obj = GameObjectFactory::create(message->getData());
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
-std::cerr << "creation" << std::endl;
+        std::cerr << "creation" << std::endl;
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
         {
             if(message->getID() == clientId_)
@@ -287,9 +287,13 @@ std::cerr << "creation" << std::endl;
 
     case Message::UPDATE:
         // update ship only if it's not our ship
+
         if(message->getID() != clientId_)
         {
-            ships_[message->getID()]->update(message->getData());
+            if (ships_.count(message->getID()) > 0)
+            {
+                ships_[message->getID()]->update(message->getData());
+            }
         }
         break;
 

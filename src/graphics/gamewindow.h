@@ -1,6 +1,7 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
+#include "../env/gamemap.h"
 #include "../player/GOM_Ship.h"
 #include "../net/client.h"
 #include "MessageWrapper.h"
@@ -43,6 +44,7 @@ private:
     Point curPos;
     QTimer timer_;
     Client* client_;
+    GameMap* map_;
     std::queue<Message *> messageQueue_;
     std::map<int, ShipGraphicsObject *> ships_;
     std::map<int, ProjectileGraphicsObject *> otherGraphics_;

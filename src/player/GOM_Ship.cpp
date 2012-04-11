@@ -12,8 +12,8 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
-    accel_ = 0.5;
-    decel_ = 0.5;
+    accel_ = 0.2;
+    decel_ = 0.2;
     maxSpeed_ = 4;
     shipCount_++;
 }
@@ -175,4 +175,12 @@ void GOM_Ship::print(std::ostream& os)const
 	os << " rotateR=" << actionFlags_[ROTATE_R];
 	os << " accelerate=" << actionFlags_[ACCEL];
 	os << " decelerate=" << actionFlags_[DECEL] << std::endl << std::endl;
+}
+
+bool GOM_Ship::takeDamage(int dmg)
+{
+    health_ -= dmg;
+    if(health_ <= 0)
+        return false;
+    return true;
 }

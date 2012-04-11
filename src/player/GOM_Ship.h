@@ -73,6 +73,9 @@ class GOM_Ship : public GameObjectMoveable
         
         // set actionFlags_
         void setActionFlag(int flag, bool val);
+
+        // returns false if health is <= 0
+        bool takeDamage(int dmg);
         
         virtual void update(const std::string &str);
         virtual std::string toString() const;

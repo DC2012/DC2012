@@ -159,38 +159,6 @@ void ProcessMessage(PDATA pdata)
 
             // delete the ship on server
             pdata->ships.erase(clientID);
-
-            // creat a new ship for the client
-
-            // get a furthest start point from other ships
-            pt = getStartPoint(pdata->ships);
-
-            objID    = pdata->objCount++;
-            degree   = 0;
-            posX     = pt.getX();
-            posY     = pt.getY();
-            playerID = clientID;
-            speed    = 0;
-            health   = 100;     // hard-coded need to fix
-            attack   = 30;      // hard-coded need to fix
-
-            // create the GOM_Ship object
-            gameObject = new GOM_Ship(ObjectType(type), objID, degree, posX, posY,
-                                   playerID, speed, health, attack);
-
-            // add the game object to the map
-            pdata->ships.erase(clientID);
-            pdata->ships[clientID] = gameObject;
-
-            //Send CREATION message to all clients
-            if(sendMessage.setAll(gameObject->toString(), Message::CREATION))
-            {
-                server->write(&sendMessage);
-
-                // debugging
-                std::cout << "ship string for client#" << clientID << std::endl;
-                std::cout << pdata->ships[clientID]->toString() << std::endl;
-            }
             break;
 
         case Message::UPDATE:

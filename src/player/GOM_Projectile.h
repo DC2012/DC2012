@@ -50,6 +50,9 @@ class GOM_Projectile : public GameObjectMoveable
         virtual ~GOM_Projectile(){}
         
         bool move();
+
+        // returns damage
+        int getDamage() const;
         
         virtual void update(const std::string &str);
         virtual std::string toString() const;

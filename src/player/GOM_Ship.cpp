@@ -12,9 +12,9 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
-    accel_ = 0.5;
-    decel_ = 0.5;
-    maxSpeed_ = 4;
+    accel_ = 0.02;
+    decel_ = 0.02;
+    maxSpeed_ = 3.6;
     shipCount_++;
 }
 
@@ -43,14 +43,30 @@ void GOM_Ship::move()
 
     if(actionFlags_[ROTATE_L])
     {
-        degree_.rotate(-1);
-        rotateHitbox(-1);
+        if(speed_ > 2 || speed_ < -2)
+        {
+            degree_.rotate(-1);
+            rotateHitbox(-1);
+        }
+        else if(speed_ != 0)
+        {
+            degree_.rotate(-1.5);
+            rotateHitbox(-1.5);
+        }
     }
 
     if(actionFlags_[ROTATE_R])
     {
-        degree_.rotate(1);
-        rotateHitbox(1);
+        if(speed_ > 2 || speed_ < -2)
+        {
+            degree_.rotate(1);
+            rotateHitbox(1);
+        }
+        else if(speed_ != 0)
+        {
+            degree_.rotate(2);
+            rotateHitbox(2);
+        }
     }
 
     if(actionFlags_[ACCEL])
@@ -175,4 +191,12 @@ void GOM_Ship::print(std::ostream& os)const
 	os << " rotateR=" << actionFlags_[ROTATE_R];
 	os << " accelerate=" << actionFlags_[ACCEL];
 	os << " decelerate=" << actionFlags_[DECEL] << std::endl << std::endl;
+}
+
+bool GOM_Ship::takeDamage(int dmg)
+{
+    health_ -= dmg;
+    if(health_ <= 0)
+        return false;
+    return true;
 }

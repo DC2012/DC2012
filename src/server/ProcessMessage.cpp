@@ -12,6 +12,7 @@ void ProcessMessage(PDATA pdata)
 
     Message* recvMessage;
     Message  sendMessage;
+    Point pt;
     int clientID;
     std::string data;
     std::string playerName;
@@ -39,7 +40,15 @@ void ProcessMessage(PDATA pdata)
             istr.str(recvMessage->getData());
             istr >> type >> playerName;
             
-            //!!! needs to implement max player checking here!!!
+            // check if max player is reached on server
+            if(pdata->ships.size() >= 8)
+            {
+                data = std::string("Refused");
+                if(sendMessage.setAll(data, Message::CONNECTION))
+                    server->write(&sendMessage, clientID);
+                break;
+            }
+
             data = std::string("Accepted");
             // add new client to the clients map
             pdata->clients.erase(clientID);
@@ -49,7 +58,6 @@ void ProcessMessage(PDATA pdata)
 
             if(sendMessage.setAll(data, Message::CONNECTION))
                 server->write(&sendMessage, clientID);
-            //!!! needs to implement max player checking here!!!
             
             // send CREATION message for every object in the maps to the client
             for(ii = pdata->projectiles.begin(); ii != pdata->projectiles.end(); ++ii)
@@ -74,13 +82,16 @@ void ProcessMessage(PDATA pdata)
             
             // set the SendMessage's clientID back
             sendMessage.setID(clientID);
+
+            // get a furthest start point from other ships
+            pt = getStartPoint(pdata->ships);
             
             // create a string for GameObjectFactory to create the ship
                 // setting up all the parameters
             objID    = pdata->objCount++;
-            degree   = 0;       // hard-coded need to fix 
-            posX     = 150 * pdata->clients.size();     // hard-coded need to fix 
-            posY     = 300;     // hard-coded need to fix 
+            degree   = 0;
+            posX     = pt.getX();
+            posY     = pt.getY();
             playerID = clientID;
             speed    = 0;
             health   = 100;     // hard-coded need to fix 

@@ -307,12 +307,12 @@ void GameWindow::processGameMessage(Message* message)
 std::cerr << "deletion" << std::endl;
         if (tokens[0] == "S")
         {
-            ships_[clientId_]->explode();
             scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             std::cerr << "ship deletion" << std::endl;
             if(message->getID() == clientId_)
             {
                 //we died
+                ships_[clientId_]->explode();
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 

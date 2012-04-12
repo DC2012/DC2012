@@ -51,7 +51,11 @@ void ProcessMessage(PDATA pdata)
 
             data = std::string("Accepted");
             // add new client to the clients map
-            pdata->clients.erase(clientID);
+            if(pddata->clients.count(clientID) > 0)
+            {
+                delete pdata->clients[clientID];
+                pdata->clients.erase(clientID);
+            }
             pdata->clients[clientID] = playerName;
             
             printf("client (ID: %d) connected\n", clientID);
@@ -145,7 +149,11 @@ void ProcessMessage(PDATA pdata)
             //std::cout << "recved data: " << recvMessage->getData() << std::endl;
             
             // add projectile object to the projectil map
-            pdata->projectiles.erase(objID);
+            if(pdata->projectiles.count(objID) > 0)
+            {
+                delete pdata->projectiles[objID];
+                pdata->projectiles.erase(objID);
+            }
             pdata->projectiles[objID] = gameObject;
 
             //Send CREATION message to all clients

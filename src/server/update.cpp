@@ -51,6 +51,7 @@ void update(sigval arg)
                     std::cout << "sent deletion: " << sendMsg.getData() << "\n";
 
                     // delete the projectile
+                    delete pdata->projectiles[ii->first];
                     pdata->projectiles.erase(ii->first);
 
                     break;

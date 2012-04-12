@@ -320,7 +320,7 @@ void GameWindow::processGameMessage(Message* message)
         {
             std::cerr << "ship deletion" << std::endl;
             scene_->removeItem(ships_[message->getID()]->getPixmapItem());
-            emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(ships_[clientId_]->getGameObject()));
+            emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
             ships_[message->getID()]->explode();
 
             if(message->getID() == clientId_)

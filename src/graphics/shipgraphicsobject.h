@@ -12,6 +12,7 @@ class ShipGraphicsObject : public GraphicsObject
     Q_OBJECT
 public:
     ShipGraphicsObject(GameObject* gameObject);
+    ~ShipGraphicsObject();
     void update(const std::string &data);
     void setCanShoot();
     bool canShoot();
@@ -29,14 +30,14 @@ private:
     QTimer pixmapSwitchTimer_;
     QList<const QPixmap*> exAnim;
     QList<const QPixmap*>::iterator curPic;
-    static const QPixmap* ex1;
-    static const QPixmap* ex2;
-    static const QPixmap* ex3;
-    static const QPixmap* ex4;
-    static const QPixmap* ex5;
-    static const QPixmap* ex6;
-    static const QPixmap* ex7;
-    static const QPixmap* ex8;
+    QPixmap* ex1;
+    QPixmap* ex2;
+    QPixmap* ex3;
+    QPixmap* ex4;
+    QPixmap* ex5;
+    QPixmap* ex6;
+    QPixmap* ex7;
+    QPixmap* ex8;
 };
 
 #endif // SHIPGRAPHICSOBJECT_H

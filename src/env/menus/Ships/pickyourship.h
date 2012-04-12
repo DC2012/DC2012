@@ -2,7 +2,7 @@
 #define PICKYOURSHIP_H
 
 #include <QDialog>
-#include "client.h"
+#include "../../../net/client.h"
 
 namespace Ui {
 class PickYourShip;

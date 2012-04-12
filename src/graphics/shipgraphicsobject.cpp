@@ -1,14 +1,5 @@
 #include "shipgraphicsobject.h"
 
-const QPixmap* ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
-const QPixmap* ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
-const QPixmap* ShipGraphicsObject::ex3 = new QPixmap(SPRITE_EXPLOSION3);
-const QPixmap* ShipGraphicsObject::ex4 = new QPixmap(SPRITE_EXPLOSION4);
-const QPixmap* ShipGraphicsObject::ex5 = new QPixmap(SPRITE_EXPLOSION5);
-const QPixmap* ShipGraphicsObject::ex6 = new QPixmap(SPRITE_EXPLOSION6);
-const QPixmap* ShipGraphicsObject::ex7 = new QPixmap(SPRITE_EXPLOSION7);
-const QPixmap* ShipGraphicsObject::ex8 = new QPixmap(SPRITE_EXPLOSION8);
-
 #define M_PI 3.14159265358979323846
 #define DEG_CIRCLE 360
 #define DEG_TO_RAD (M_PI / (DEG_CIRCLE / 2))
@@ -24,6 +15,15 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
         shipPixmap.load(SPRITE_SHIP1);
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
+
+    ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
+    ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
+    ShipGraphicsObject::ex3 = new QPixmap(SPRITE_EXPLOSION3);
+    ShipGraphicsObject::ex4 = new QPixmap(SPRITE_EXPLOSION4);
+    ShipGraphicsObject::ex5 = new QPixmap(SPRITE_EXPLOSION5);
+    ShipGraphicsObject::ex6 = new QPixmap(SPRITE_EXPLOSION6);
+    ShipGraphicsObject::ex7 = new QPixmap(SPRITE_EXPLOSION7);
+    ShipGraphicsObject::ex8 = new QPixmap(SPRITE_EXPLOSION8);
 
     //Load the list of explosion pictures
     exAnim.push_back(ex1);
@@ -47,6 +47,18 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     shipItem->setRotation(gameObject->getDegree() - 270);
 
     GraphicsObject::setPixmapItem(shipItem);
+}
+
+ShipGraphicsObject::~ShipGraphicsObject()
+{
+    delete ex1;
+    delete ex2;
+    delete ex3;
+    delete ex4;
+    delete ex5;
+    delete ex6;
+    delete ex7;
+    delete ex8;
 }
 
 void ShipGraphicsObject::update(const std::string& data)

@@ -34,6 +34,7 @@
 #define GOM_SHIP_H_
 
 #include "GameObjectMoveable.h"
+#include "GOS_PowerUp.h"
 #include <vector>
 
 // array indexes for the actionFlags vector
@@ -45,13 +46,15 @@
 class GOM_Ship : public GameObjectMoveable
 {
     private:
-        int health_;
+        int maxHealth_;
+        int currentHealth_;
         int attackPower_;
         std::vector<bool> actionFlags_;
         static size_t shipCount_;
         double accel_;
         double decel_;
         double maxSpeed_;
+        GOS_PowerUp::BONUS bonus_;
         
         // movement
         void accelerate();
@@ -60,13 +63,17 @@ class GOM_Ship : public GameObjectMoveable
     public:
         //constructor
         explicit GOM_Ship(ObjectType type = SHIP1, int objID = 0, double degree = 0, double posX = 0, double posY = 0, 
-            int playerID = 0, double speed = 0, int health = 0, int attackPower = 0);
+            int playerID = 0, double speed = 0, int maxHealth = 0, int attackPower = 0);
 
         // destructor
         virtual ~GOM_Ship(){}
 
         // getters
-        int getHealth()const;
+        int getMaxHealth() const;
+        int getCurrentHealth()const;
+
+        // setter
+        void setCurrentHealth(int health);
 
         // movement
         bool move();
@@ -76,6 +83,8 @@ class GOM_Ship : public GameObjectMoveable
 
         // returns false if health is <= 0
         bool takeDamage(int dmg);
+
+        void applyPowerUp(GOS_PowerUp::BONUS bonus);
         
         virtual void update(const std::string &str);
         virtual std::string toString() const;

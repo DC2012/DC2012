@@ -175,7 +175,7 @@ void ProcessMessage(PDATA pdata)
                 break;
             
             // update only if the object exists
-            if(pdata->ships[clientID] != NULL)
+            if(pdata->ships.count(clientID) > 0)
                 pdata->ships[clientID]->update(data);
 
             //pdata->ships[objID]->printHitBox(std::cout);

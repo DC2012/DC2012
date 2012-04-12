@@ -278,7 +278,7 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
-            //emit shotFired(AudioController::SHOOT1, 50);
+            emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }

@@ -42,11 +42,11 @@ class GOS_PowerUp : public GOM_Projectile
     
     	enum BONUS
         {
-            HEALTH,
-            SPEED,
-            DAMAGE,
-            KRAKIFY,
-            SLOW,
+            HEALTH, // fills health up
+            SPEED, // (duration effect)
+            DAMAGE, // (duration effect)
+            KRAKIFY, // (duration effect)
+            SLOW, // slow until death or SPEED powerup
             NON
         };
 		

@@ -30,5 +30,6 @@
         <file>sprites/spriteShip2Hit.png</file>
         <file>src/env/maps/finalMap.tmx</file>
         <file>sprites/finalMap.png</file>
+        <file>src/env/chat/chatBackground.png</file>
     </qresource>
 </RCC>

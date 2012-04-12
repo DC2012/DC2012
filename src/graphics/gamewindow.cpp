@@ -331,7 +331,6 @@ void GameWindow::processGameMessage(Message* message)
             {
                 //we died
 
-                state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 
             }
@@ -412,6 +411,10 @@ void GameWindow::updateGame()
         if(explodeIterator->second->isExploding())
         {
             explodeIterator->second->explode();
+            if(!explodeIterator->second->isExploding() && explodeIterator->first == clientId_)
+            {
+            	state_ = DEAD;
+            }
         }
         ++explodeIterator;
     }

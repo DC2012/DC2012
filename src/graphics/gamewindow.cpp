@@ -301,8 +301,9 @@ void GameWindow::processGameMessage(Message* message)
         // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
 
-        if (tokens[0] == "s")
+        if (tokens[0] == "S")
         {
+            ships_[clientId_]->explode();
             scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
             if(tokens[1].toInt() == clientId_)
             {
@@ -310,12 +311,10 @@ void GameWindow::processGameMessage(Message* message)
                 isClientDead_ = true;
             }
         }
-        else if (tokens[0] == "p")
+        else if (tokens[0] == "P")
         {
             otherGraphics_[tokens[1].toInt()]->setExpired();
         }
-
-        ships_[clientId_]->explode();
         break;
 
     case Message::HIT:

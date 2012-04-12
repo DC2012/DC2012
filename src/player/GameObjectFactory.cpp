@@ -32,7 +32,10 @@ GameObject* GameObjectFactory::create(const std::string &in)
              >> endCheck;
 
         if(!istr.good() || endCheck != SHIP_STR)
+        {
+            std::cout << "sihp game factory borke!!" << std::endl;
             break;
+        }
 
         tl = Point(tl_x, tl_y);
         tr = Point(tr_x, tr_y);
@@ -56,7 +59,10 @@ GameObject* GameObjectFactory::create(const std::string &in)
              >> endCheck;
 
         if(!istr.good() || endCheck != PROJECTILE_STR)
-                break;
+        {
+            std::cout << "projectile game factory borke!!" << std::endl;
+            break;
+        }
 
         tl = Point(tl_x, tl_y);
         tr = Point(tr_x, tr_y);
@@ -89,7 +95,10 @@ GameObject* GameObjectFactory::create(const std::string &in)
              >> endCheck;
 
         if(!istr.good() || endCheck != POWERUP_STR)
+        {
+            std::cout << "power up game factory borke!!" << std::endl;
             break;
+        }
 
         tl = Point(tl_x, tl_y);
         tr = Point(tr_x, tr_y);

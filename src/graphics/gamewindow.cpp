@@ -400,6 +400,16 @@ void GameWindow::updateGame()
         }
     }
 
+    std::map<int, ShipGraphicsObject*>::iterator explodeIterator = ships_.begin();
+    while(explodeIterator != ships_.end())
+    {
+        if(explodeIterator->second->isExploding())
+        {
+            explodeIterator->second->explode();
+        }
+        ++explodeIterator;
+    }
+
     processMessages();
 
     if(state_ == ALIVE)

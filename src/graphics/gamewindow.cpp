@@ -15,6 +15,7 @@
 #include <cmath>
 #include <sstream>
 #include "../env/gamemap.h"
+#include "../env/menus/Ships/pickyourship.h"
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
@@ -389,6 +390,12 @@ void GameWindow::updateGame()
         msg->setType(Message::UPDATE);
         client_->write(msg);
         delete msg;
+    }
+    else
+    {
+        PickYourShip shipChoser;
+        shipChoser.setModal(false);
+        shipChoser.exec();
     }
 }
 

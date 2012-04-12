@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "dlgconnection.h"
 #include "../../../graphics/gamewindow.h"
-#include "pickyourship.h"
 
 #include <QtCore>
 

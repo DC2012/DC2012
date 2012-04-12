@@ -128,10 +128,19 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
             if((posX += tileSize) == xSize)
             {
                 posX = 0;
-              posY += tileSize;
+                posY += tileSize;
             }
         }
     }
+}
+
+bool GameMap::isLand(const Point& location)
+{
+    Point temp(((int)(location.getX() / 25) * 25), ((int)(location.getY() / 25) * 25));
+    if(gameTiles_[temp] != 0)
+        if(gameTiles_[temp]->getTileType() == LAND)
+            return true;
+    return false;
 }
 
 

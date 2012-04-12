@@ -15,7 +15,7 @@
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QTimer>
-#include <QMutex>4
+#include <QMutex>
 #include "../../src/env/chat/ChatDlg.h"
 
 class GameWindow : public QGraphicsView
@@ -52,6 +52,7 @@ private:
     int clientId_;
     size_t timerCounter_;
     AudioController audio;
+    bool isClientDead_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

@@ -27,12 +27,20 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
 
     //Load the list of explosion pictures
     exAnim.push_back(ex1);
+    exAnim.push_back(ex1);
+    exAnim.push_back(ex2);
     exAnim.push_back(ex2);
     exAnim.push_back(ex3);
+    exAnim.push_back(ex3);
+    exAnim.push_back(ex4);
     exAnim.push_back(ex4);
     exAnim.push_back(ex5);
+    exAnim.push_back(ex5);
+    exAnim.push_back(ex6);
     exAnim.push_back(ex6);
     exAnim.push_back(ex7);
+    exAnim.push_back(ex7);
+    exAnim.push_back(ex8);
     exAnim.push_back(ex8);
     curPic = exAnim.begin();
 

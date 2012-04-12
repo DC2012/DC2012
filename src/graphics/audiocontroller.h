@@ -7,8 +7,8 @@
 #include <QVector>
 #include <QFile>
 #include <QTextStream>
-#include <phonon/MediaObject>
-#include <phonon/AudioOutput>
+#include <Phonon/MediaObject>
+#include <Phonon/AudioOutput>
 #include <QDesktopServices>
 
 class AudioController : public QObject

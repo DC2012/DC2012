@@ -23,12 +23,10 @@ void GOS_PowerUp::update(const std::string &str)
     switch(ObjectType(type))
     {
     case POWERUP:
-        // !!! needs to be changed when sizes are defined in sprites.h
-        sprite_w = double(CANNON_SPRITE_WIDTH);
-        sprite_h = double(CANNON_SPRITE_HEIGHT);
-        hb_w = double(CANNON_WIDTH);
-        hb_h = double(CANNON_HEIGHT);
-        // !!! needs to be changed when sizes are defined in sprites.h
+        sprite_w = double(POWERUP_SPRITE_WIDTH);
+        sprite_h = double(POWERUP_SPRITE_HEIGHT);
+        hb_w = double(POWERUP_WIDTH);
+        hb_h = double(POWERUP_HEIGHT);
 
         istr >> objID >> degree >> posX >> posY >> playerID >> speed >> ttl
              >> damage

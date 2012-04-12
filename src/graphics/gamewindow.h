@@ -38,6 +38,7 @@ public:
     
 signals:
     void shotFired(AudioController::Sounds, double);
+    void shipExplode(AudioController::Sounds, double);
     
 public slots:
     void updateGame();

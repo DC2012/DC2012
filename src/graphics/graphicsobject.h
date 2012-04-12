@@ -32,6 +32,7 @@ signals:
 private:
     GameObject* gameObject_;
     QGraphicsPixmapItem* pixmapItem_;
+    QList<QPixmap>* explodeAnim;
 };
 
 #endif // GRAPHICSOBJECT_H

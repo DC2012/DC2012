@@ -66,7 +66,8 @@ private:
     bool isClientDead_;
     PickYourShip shipChooser;
     shipState state_;
-	bool connected_;
+    bool connected_;
+    QGraphicsPixmapItem bg;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

@@ -2,6 +2,7 @@
 #define PICKYOURSHIP_H
 
 #include <QDialog>
+#include "client.h"
 
 namespace Ui {
 class PickYourShip;
@@ -24,7 +25,8 @@ private slots:
     void on_btnShip3_clicked();
 
 private:
-    Ui::PickYourShip *ui;
+    Ui::PickYourShip*   ui;
+    Client*             client_;
 };
 
 #endif // PICKYOURSHIP_H

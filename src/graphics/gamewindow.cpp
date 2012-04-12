@@ -379,6 +379,7 @@ void GameWindow::updateGame()
 
         if(map_->isLand(shipObj->getPosition()))
         {
+            ships_[clientId_]->explode();
             printf("Hit Land: %d %d\n", (int)shipObj->getPosition().getX(), (int)shipObj->getPosition().getY()); //Ship hit land, do something here
             fflush(stdout);
         }

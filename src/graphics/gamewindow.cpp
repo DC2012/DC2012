@@ -488,3 +488,12 @@ void GameWindow::removePixmap(QGraphicsPixmapItem* pixmap)
 {
     scene_->removeItem(pixmap);
 }
+
+QString GameWindow::getUsername()
+{
+    return username_;
+}
+void GameWindow::setUsername(QString str)
+{
+    username_ = str;
+}

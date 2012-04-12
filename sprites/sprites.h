@@ -23,6 +23,8 @@
 #define POWERUP_WIDTH 28
 #define POWERUP_HEIGHT 28
 
+#define MAP_IMAGE QString(":/sprites/finalMap.png")
+
 #define SPRITE_SHIP1 QString(":/sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString(":/sprites/spriteShip1Hit.png")
 #define SPRITE_SHIP1_MOVE1 QString(":/sprites/spriteShipMove1.png")

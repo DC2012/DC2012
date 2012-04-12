@@ -10,6 +10,7 @@
 #include "projectilegraphicsobject.h"
 #include "audiocontroller.h"
 #include "../player/Point.h"
+#include "../env/menus/Ships/pickyourship.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -54,6 +55,7 @@ private:
     size_t timerCounter_;
     AudioController audio;
     bool isClientDead_;
+    PickYourShip shipChooser;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

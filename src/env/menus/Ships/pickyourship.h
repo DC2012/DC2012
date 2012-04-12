@@ -15,6 +15,8 @@ class PickYourShip : public QDialog
 public:
     explicit PickYourShip(QWidget *parent = 0);
     ~PickYourShip();
+    bool isCreating();
+    void setCreating(bool creating);
 
 signals:
     void shipChosen(QString shipType);
@@ -25,6 +27,7 @@ private slots:
     void on_btnShip3_clicked();
 
 private:
+    bool                creating_;
     Ui::PickYourShip*   ui;
     Client*             client_;
 };

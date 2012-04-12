@@ -6,7 +6,6 @@ GameObject* GameObjectFactory::create(const std::string &in)
     std::istringstream istr(in);
     char endCheck;
     int type = -1;
-    int bonus;
     int objID, playerID, health, attackPower,
             damage, ttl, bonus;
     double posX, degree, posY, speed;

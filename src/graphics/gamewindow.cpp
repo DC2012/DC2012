@@ -15,7 +15,6 @@
 #include <cmath>
 #include <sstream>
 #include "../env/gamemap.h"
-#include "../env/menus/Ships/pickyourship.h"
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
@@ -272,6 +271,7 @@ void GameWindow::processGameMessage(Message* message)
             {
                 isClientDead_ = FALSE;
                 connect((ShipGraphicsObject*)graphic, SIGNAL(death()), this, SLOT(death()))   ;
+                shipChooser.setCreating(false);
             }
             ships_[message->getID()] = (ShipGraphicsObject*) graphic;
             scene_->addItem(graphic->getPixmapItem());
@@ -315,6 +315,7 @@ void GameWindow::processGameMessage(Message* message)
             otherGraphics_[tokens[1].toInt()]->setExpired();
         }
 
+        ships_[clientId_]->explode();
         break;
 
     case Message::HIT:
@@ -379,9 +380,8 @@ void GameWindow::updateGame()
 
         if(map_->isLand(shipObj->getPosition()))
         {
-            ships_[clientId_]->explode();
-            printf("Hit Land: %d %d\n", (int)shipObj->getPosition().getX(), (int)shipObj->getPosition().getY()); //Ship hit land, do something here
-            fflush(stdout);
+            death();
+            return;
         }
 
         centerOn(shipObj->getPosition().getX(), shipObj->getPosition().getY());
@@ -402,9 +402,12 @@ void GameWindow::updateGame()
     }
     else
     {
-        PickYourShip shipChoser;
-        shipChoser.setModal(false);
-        shipChoser.exec();
+        if(!shipChooser.isCreating())
+        {
+            shipChooser.setCreating(true);
+            shipChooser.setModal(false);
+            shipChooser.show();
+        }
     }
 }
 

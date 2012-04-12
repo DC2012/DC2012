@@ -100,6 +100,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     // this is set by the update game timer to prevent ships from spamming shots
     if (state_ == ALIVE)
     {
+        if(!ships_[clientId_]->canShoot())
+            return;
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
         Message msg;

@@ -51,7 +51,7 @@ void ProcessMessage(PDATA pdata)
 
             data = std::string("Accepted");
             // add new client to the clients map
-            if(pddata->clients.count(clientID) > 0)
+            if(pdata->clients.count(clientID) > 0)
             {
                 pdata->clients.erase(clientID);
             }

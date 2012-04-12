@@ -51,6 +51,9 @@ GameWindow::GameWindow(QWidget *parent)
         scene()->addItem(i->second);
     }
 
+    QPixmap bg(":/sprites/finalMap.png");
+    scene()->addPixmap(bg);
+
     // get instance to client so we can send and receive
     // at this point, client should be connected already
     client_ = Client::getInstance();
@@ -87,6 +90,12 @@ void GameWindow::start()
         QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
     }
 
+    if (!connect(this, SIGNAL(shipExplode(AudioController::Sounds, double)),
+                 &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
+
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
 }
@@ -100,6 +109,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     // this is set by the update game timer to prevent ships from spamming shots
     if (state_ == ALIVE)
     {
+        if(!ships_[clientId_]->canShoot())
+            return;
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
         Message msg;
@@ -310,12 +321,15 @@ void GameWindow::processGameMessage(Message* message)
 	
         if (tokens[0] == "S")
         {
-            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             std::cerr << "ship deletion" << std::endl;
+            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
+            emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
+            ships_[message->getID()]->explode();
+
             if(message->getID() == clientId_)
             {
                 //we died
-                ships_[clientId_]->explode();
+
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 

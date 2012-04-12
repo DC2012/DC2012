@@ -5,8 +5,19 @@ PickYourShip::PickYourShip(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PickYourShip)
 {
+    creating_ = false;
     client_ = Client::getInstance();
     ui->setupUi(this);
+}
+
+bool PickYourShip::isCreating()
+{
+    return creating_;
+}
+
+void PickYourShip::setCreating(bool state)
+{
+    creating_ = state;
 }
 
 PickYourShip::~PickYourShip()
@@ -22,7 +33,7 @@ void PickYourShip::on_btnShip1_clicked()
     msg.setID(0);
 
     client_->write(&msg);
-    this->close();
+    this->hide();
 }
 
 void PickYourShip::on_btnShip2_clicked()
@@ -33,7 +44,7 @@ void PickYourShip::on_btnShip2_clicked()
     msg.setID(0);
 
     client_->write(&msg);
-    this->close();
+    this->hide();
 }
 
 void PickYourShip::on_btnShip3_clicked()
@@ -44,5 +55,5 @@ void PickYourShip::on_btnShip3_clicked()
     msg.setID(0);
 
     client_->write(&msg);
-    this->close();
+    this->hide();
 }

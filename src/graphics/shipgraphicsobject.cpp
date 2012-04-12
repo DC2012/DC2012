@@ -131,13 +131,29 @@ bool ShipGraphicsObject::canShoot()
     return canShoot_;
 }
 
-void ShipGraphicsObject::gotHit()
+void ShipGraphicsObject::gotHit(GameObject* hitter)
 {
-    QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
-    pixmapSwitchTimer_.setSingleShot(true);
-    pixmapSwitchTimer_.start(100);
-    connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
+    QGraphicsPixmapItem* pixmapItem;
+
+    switch(hitter->getType())
+    {
+    case PROJECTILE:
+        if(!((GOM_Ship*)this->getGameObject())->takeDamage(((GOM_Projectile*)hitter)->getDamage()))
+        {
+            emit death();
+        }
+        pixmapItem = getPixmapItem();
+        pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
+        pixmapSwitchTimer_.setSingleShot(true);
+        pixmapSwitchTimer_.start(100);
+        connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
+        break;
+    case POWERUP:
+        //get powerup
+        //((GOM_Ship*)this->getGameObject())->applyPowerUp(((GOS_PowerUp*)hitter)->getBonus());
+        break;
+
+    }
 }
 
 void ShipGraphicsObject::switchPixmap()

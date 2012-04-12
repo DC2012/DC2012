@@ -15,6 +15,7 @@
 #include <cmath>
 #include <sstream>
 #include "../env/gamemap.h"
+#include "../env/menus/Ships/pickyourship.h"
 
 GameWindow::GameWindow(QWidget *parent)
     : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
@@ -268,7 +269,10 @@ void GameWindow::processGameMessage(Message* message)
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
         {
             if(message->getID() == clientId_)
+            {
                 isClientDead_ = FALSE;
+                connect((ShipGraphicsObject*)graphic, SIGNAL(death()), this, SLOT(death()))   ;
+            }
             ships_[message->getID()] = (ShipGraphicsObject*) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -294,12 +298,17 @@ void GameWindow::processGameMessage(Message* message)
         tokens = QString::fromStdString(message->getData()).split(" ");
 
         // 0 - object type where 's' is ship and 'p' is projectile
-        // 1 - object ID
+        // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
 
         if (tokens[0] == "s")
         {
             scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
+            if(tokens[1].toInt() == clientId_)
+            {
+                //we died
+                isClientDead_ = true;
+            }
         }
         else if (tokens[0] == "p")
         {
@@ -311,7 +320,7 @@ void GameWindow::processGameMessage(Message* message)
     case Message::HIT:
         // message client id = client id that was hit
         // data = object id that client id collided with
-        ships_[message->getID()]->gotHit();
+        ships_[message->getID()]->gotHit(otherGraphics_[QString(message->getData().c_str()).toInt()]->getGameObject());
         break;
 
     case Message::STATUS:
@@ -390,6 +399,12 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
+    else
+    {
+        PickYourShip shipChoser;
+        shipChoser.setModal(false);
+        shipChoser.exec();
+    }
 }
 
 
@@ -401,4 +416,11 @@ void GameWindow::setChatting(bool b)
 bool GameWindow::isChatting()
 {
     return GameWindow::isChatting_;
+}
+
+void GameWindow::death()
+{
+    Message msg(clientId_);
+    msg.setType(Message::DEATH);
+    client_->write(&msg);
 }

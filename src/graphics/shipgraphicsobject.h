@@ -16,7 +16,10 @@ public:
     void setCanShoot();
     bool canShoot();
     double shoot(QPoint clickPos);
-    void gotHit();
+    void gotHit(GameObject* hitter);
+
+signals:
+    void death();
 
 public slots:
     void explode();

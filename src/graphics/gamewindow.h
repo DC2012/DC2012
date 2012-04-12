@@ -34,6 +34,7 @@ signals:
 public slots:
     void updateGame();
     void addMessage(MessageWrapper* msgwrap);
+    void death();
 
 private:
     static const int FRAME_RATE = 40;

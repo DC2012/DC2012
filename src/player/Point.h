@@ -190,6 +190,25 @@ class Point
 -----------------------------------------------------------------------------*/
         Point& operator+=(const Point& rhs);
 
+/*-----------------------------------------------------------------------------
+--  FUNCTION:       operator<
+--
+--  DATE:           April 10th, 2012
+--
+--  REVISIONS:
+--
+--  DESIGNER:       Tyler Allison
+--
+--  PROGRAMMER:     Tyler Allison
+--
+--  INTERFACE:      operator<(const Point& rhs)
+--
+--  RETURNS:        bool
+--
+--  NOTES:          Comparison function for 2 points, returns whether one is
+--                  less than the other.
+--
+-----------------------------------------------------------------------------*/
         bool operator<(const Point& rhs) const;
 
 /*-----------------------------------------------------------------------------

@@ -114,7 +114,7 @@ void GOM_Ship::update(const std::string &str)
     std::istringstream istr(str);
     char endCheck;
     int type = -1;
-    double degree, posX, posY, speed;
+    double degree, posX, posY, speed, maxspeed;
     int objID, playerID, maxHealth, currentHealth, attackPower;
     double sprite_w, sprite_h, hb_w, hb_h;
     double tl_x, tl_y;
@@ -137,7 +137,7 @@ void GOM_Ship::update(const std::string &str)
         hb_w = double(SHIP2_WIDTH);
         hb_h = double(SHIP2_HEIGHT);
 
-        istr >> objID >> degree >> posX >> posY >> playerID >> speed
+        istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxspeed
              >> maxHealth
              >> currentHealth
              >> attackPower
@@ -162,6 +162,7 @@ void GOM_Ship::update(const std::string &str)
         pos_.setY(posY);
         playerID_ = playerID;
         speed_ = speed;
+		maxSpeed_ = maxspeed;
         maxHealth_ = maxHealth;
         currentHealth_ = currentHealth;
         attackPower_ = attackPower;

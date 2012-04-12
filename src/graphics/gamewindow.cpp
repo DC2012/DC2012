@@ -298,12 +298,17 @@ void GameWindow::processGameMessage(Message* message)
         tokens = QString::fromStdString(message->getData()).split(" ");
 
         // 0 - object type where 's' is ship and 'p' is projectile
-        // 1 - object ID
+        // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
 
         if (tokens[0] == "s")
         {
             scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
+            if(tokens[1].toInt() == clientId_)
+            {
+                //we died
+                isClientDead_ = true;
+            }
         }
         else if (tokens[0] == "p")
         {

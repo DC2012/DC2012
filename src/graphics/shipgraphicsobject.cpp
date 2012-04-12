@@ -47,6 +47,10 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     shipItem->setRotation(gameObject->getDegree() - 270);
 
     GraphicsObject::setPixmapItem(shipItem);
+    
+    shipHealth_ = 1;
+    
+    healthBar_->setRect(QRectF(0, 0, HEALTHBAR_WIDTH * shipHealth_, HEALTHBAR_HEIGHT));
 }
 
 ShipGraphicsObject::~ShipGraphicsObject()
@@ -59,12 +63,13 @@ ShipGraphicsObject::~ShipGraphicsObject()
     delete ex6;
     delete ex7;
     delete ex8;
+    delete healthBar_;
 }
 
 void ShipGraphicsObject::update(const std::string& data)
 {
     GraphicsObject::update(data);
-    GameObject* gameObject = getGameObject();
+    GOM_Ship* gameObject = (GOM_Ship*)getGameObject();
     QGraphicsPixmapItem* pixmap = getPixmapItem();
 
     pixmap->setOffset(gameObject->getSpriteTopLeft().getX(),
@@ -74,6 +79,19 @@ void ShipGraphicsObject::update(const std::string& data)
                                     gameObject->getPosition().getY());
 
     pixmap->setRotation(gameObject->getDegree() - 270);
+    currentHealth_ = gameObject->getCurrentHealth();
+    maxHealth_ = gameObject->getMaxHealth();
+    shipHealth_ = currentHealth_/(double)maxHealth_;
+    if(shipHealth_ > 0.25 && shipHealth_ < 0.51) {
+            healthBar_->setBrush(QBrush(Qt::yellow));
+        } else if (shipHealth_ <= 0.25) {
+            healthBar_->setBrush(QBrush(Qt::red));
+        } else {
+            healthBar_->setBrush(QBrush(Qt::green));
+        }
+        
+        healthBar_->setPos(gameObject->getSpriteTopLeft().getX(),
+                        gameObject->getSpriteTopLeft().getY());
 }
 
 void ShipGraphicsObject::setCanShoot()

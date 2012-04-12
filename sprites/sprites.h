@@ -50,6 +50,8 @@
 #define SPRITE_EXPLOSION7 QString(":/sprites/spriteExplosion7.png")
 #define SPRITE_EXPLOSION8 QString(":/sprites/spriteExplosion8.png")
 
+#define SPRITE_RUBBLE QString(":/sprites/rubble.png")
+
 #define SPRITE_POWERUP QString(":/sprites/spriteTreasureChest.png")
 
 #define SPRITE_CANNONBALL QString(":/sprites/spriteCannonball.png")

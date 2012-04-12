@@ -312,7 +312,7 @@ void GameWindow::processGameMessage(Message* message)
     case Message::HIT:
         // message client id = client id that was hit
         // data = object id that client id collided with
-        ships_[message->getID()]->gotHit();
+        ships_[message->getID()]->gotHit(otherGraphics_[QString(message->getData().c_str()).toInt()]->getGameObject());
         break;
 
     case Message::STATUS:

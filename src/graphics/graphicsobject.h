@@ -5,6 +5,9 @@
 #include <QObject>
 #include <string>
 #include "../player/GameObject.h"
+#include "../player/GOM_Projectile.h"
+#include "../player/GOM_Ship.h"
+#include "../player/GOS_PowerUp.h"
 #include "../../sprites/sprites.h"
 
 #define NO_ANIMATION        0;

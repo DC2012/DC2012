@@ -14,7 +14,7 @@ public:
     void setCanShoot();
     bool canShoot();
     double shoot(QPoint clickPos);
-    void gotHit();
+    void gotHit(GameObject* hitter);
 
 public slots:
     void switchPixmap();

@@ -9,7 +9,7 @@ Point getStartPoint(const std::map<int, GameObject *> &ships)
         Point(1725, 1025),
         Point(1250, 1275),
         Point(550, 1300),
-        Point(125, 950),
+        Point(250, 950),
         Point(500, 550),
 	Point(500, 551)
     };

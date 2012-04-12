@@ -322,7 +322,6 @@ void GameWindow::processGameMessage(Message* message)
         if (tokens[0] == "S")
         {
             std::cerr << "ship deletion" << std::endl;
-            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
             ships_[message->getID()]->explode();
 
@@ -471,4 +470,9 @@ void GameWindow::death()
         state_ = DYING;
         std::cerr << "dying" << std::endl;
     }
+}
+
+void GameWindow::removePixmap(QGraphicsPixmapItem* pixmap)
+{
+    scene_->removeItem(pixmap);
 }

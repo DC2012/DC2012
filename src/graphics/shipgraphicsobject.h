@@ -21,6 +21,7 @@ public:
 
 signals:
     void death();
+    void animateDone(QGraphicsPixmapItem *);
 
 public slots:
     void explode();

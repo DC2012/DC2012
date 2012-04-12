@@ -192,6 +192,8 @@ void ShipGraphicsObject::explode()
         curPic = exAnim.begin();
         pixmapSwitchTimer_.stop();
     }
+
+    emit animateDone(getPixmapItem());
 }
 
 /*

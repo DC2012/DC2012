@@ -4,7 +4,7 @@ AudioController::AudioController(QObject *parent) :
     QObject(parent)
 {
     createFilePaths();
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 10; i++)
     {
         mediaObjects.push_back(new Phonon::MediaObject(this));
         audioOutputs.push_back(new Phonon::AudioOutput(Phonon::GameCategory, this));

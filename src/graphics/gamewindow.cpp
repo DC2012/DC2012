@@ -17,7 +17,7 @@
 #include "../env/gamemap.h"
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD), connected_(false)
 {
     // typical initialization code
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
@@ -245,6 +245,7 @@ void GameWindow::processGameMessage(Message* message)
     switch (message->getType())
     {
     case Message::CONNECTION:
+		connected_ = true;
         clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
@@ -406,7 +407,7 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
-    else if(state_ == DEAD)
+    else if(state_ == DEAD && connected_)
     {
         if(!shipChooser.isCreating())
         {

@@ -64,6 +64,7 @@ private:
     bool isClientDead_;
     PickYourShip shipChooser;
     shipState state_;
+	bool connected_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

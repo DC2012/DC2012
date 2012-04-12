@@ -24,6 +24,7 @@ void update(sigval arg)
         if(projectile->move())
         {
             //  remove the projectile from map is true
+            delete pdata->projectiles[ii->first];
             pdata->projectiles.erase(ii->first);
         }
         else
@@ -51,6 +52,7 @@ void update(sigval arg)
                     std::cout << "sent deletion: " << sendMsg.getData() << "\n";
 
                     // delete the projectile
+                    delete pdata->projectiles[ii->first];
                     pdata->projectiles.erase(ii->first);
 
                     break;

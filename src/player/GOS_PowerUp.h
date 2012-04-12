@@ -46,12 +46,12 @@ class GOS_PowerUp : public GOM_Projectile
 			SPEED,
 			DAMAGE,
 			KRAKIFY,
-			SLOW,
+			SLOW
 			
 		};
 		
         // constructor for now
-        explicit GOS_PowerUp(objectType type = POWERUP, int objID = 0, double posX = 0, double posY = 0, 
+        explicit GOS_PowerUp(ObjectType type = POWERUP, int objID = 0, double posX = 0, double posY = 0, 
 	int ttl = 0, BONUS bonus);
 
         // destructor

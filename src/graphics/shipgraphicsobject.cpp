@@ -6,7 +6,7 @@
 #define RAD_TO_DEG ((DEG_CIRCLE / 2) / M_PI)
 
 ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
-    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this)
+    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this), exploding_(false)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();
@@ -15,6 +15,8 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
         shipPixmap.load(SPRITE_SHIP1);
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
+    else if (type == SHIP3)
+        shipPixmap.load(SPRITE_SHIP3);
 
     ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
     ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
@@ -47,10 +49,6 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
     shipItem->setRotation(gameObject->getDegree() - 270);
 
     GraphicsObject::setPixmapItem(shipItem);
-    
-    shipHealth_ = 1;
-    
-    healthBar_->setRect(QRectF(0, 0, HEALTHBAR_WIDTH * shipHealth_, HEALTHBAR_HEIGHT));
 }
 
 ShipGraphicsObject::~ShipGraphicsObject()
@@ -63,13 +61,12 @@ ShipGraphicsObject::~ShipGraphicsObject()
     delete ex6;
     delete ex7;
     delete ex8;
-    delete healthBar_;
 }
 
 void ShipGraphicsObject::update(const std::string& data)
 {
     GraphicsObject::update(data);
-    GOM_Ship* gameObject = (GOM_Ship*)getGameObject();
+    GameObject* gameObject = getGameObject();
     QGraphicsPixmapItem* pixmap = getPixmapItem();
 
     pixmap->setOffset(gameObject->getSpriteTopLeft().getX(),
@@ -79,19 +76,6 @@ void ShipGraphicsObject::update(const std::string& data)
                                     gameObject->getPosition().getY());
 
     pixmap->setRotation(gameObject->getDegree() - 270);
-    currentHealth_ = gameObject->getCurrentHealth();
-    maxHealth_ = gameObject->getMaxHealth();
-    shipHealth_ = currentHealth_/(double)maxHealth_;
-    if(shipHealth_ > 0.25 && shipHealth_ < 0.51) {
-            healthBar_->setBrush(QBrush(Qt::yellow));
-        } else if (shipHealth_ <= 0.25) {
-            healthBar_->setBrush(QBrush(Qt::red));
-        } else {
-            healthBar_->setBrush(QBrush(Qt::green));
-        }
-        
-        healthBar_->setPos(gameObject->getSpriteTopLeft().getX(),
-                        gameObject->getSpriteTopLeft().getY());
 }
 
 void ShipGraphicsObject::setCanShoot()
@@ -192,10 +176,6 @@ void ShipGraphicsObject::gotHit(GameObject* hitter)
         {
             emit death();
         }
-        pixmapItem = getPixmapItem();
-        pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
-        pixmapSwitchTimer_.start(100);
-        connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(explode()));
         break;
     case POWERUP:
         //get powerup
@@ -208,12 +188,38 @@ void ShipGraphicsObject::gotHit(GameObject* hitter)
 void ShipGraphicsObject::explode()
 {
     QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(**curPic);
-    if(++curPic == exAnim.end())
+
+    if(!exploding_)
     {
         curPic = exAnim.begin();
-        pixmapSwitchTimer_.stop();
+        exploding_ = true;
     }
+    else
+    {
+        if(curPic != exAnim.end())
+        {
+            pixmapItem->setPixmap(**curPic);
+            curPic++;
+        }
+        else
+        {
+            exploding_ = false;
+            emit animateDone(getPixmapItem());
+        }
+    }
+//    pixmapItem->setPixmap(**curPic);
+//    if(++curPic == exAnim.end())
+//    {
+
+//        pixmapSwitchTimer_.stop();
+//    }
+
+
+}
+
+bool ShipGraphicsObject::isExploding() const
+{
+    return exploding_;
 }
 
 /*

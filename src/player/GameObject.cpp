@@ -12,14 +12,21 @@ GameObject::GameObject(ObjectType type, int objID, double degree, double posX, d
             sprite_h = double(SHIP1_SPRITE_HEIGHT);
             hb_w = double(SHIP1_WIDTH);
             hb_h = double(SHIP1_HEIGHT);
-			break;
+	    break;
             
         case SHIP2:
             sprite_w = double(SHIP2_SPRITE_WIDTH);
             sprite_h = double(SHIP2_SPRITE_HEIGHT);
             hb_w = double(SHIP2_WIDTH);
             hb_h = double(SHIP2_HEIGHT);
-			break;
+	    break;
+
+        case SHIP3:
+            sprite_w = double(SHIP3_SPRITE_WIDTH);
+            sprite_h = double(SHIP3_SPRITE_HEIGHT);
+            hb_w = double(SHIP3_WIDTH);
+            hb_h = double(SHIP3_HEIGHT);
+	    break;
             
         case PROJECTILE:
             sprite_w = double(CANNON_SPRITE_WIDTH);

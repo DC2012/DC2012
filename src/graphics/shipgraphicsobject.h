@@ -18,15 +18,17 @@ public:
     bool canShoot();
     double shoot(QPoint clickPos);
     void gotHit(GameObject* hitter);
+    bool isExploding() const;
 
 signals:
     void death();
+    void animateDone(QGraphicsPixmapItem *);
 
 public slots:
     void explode();
 
 private:
-    bool canShoot_;
+    bool canShoot_, exploding_;
     QTimer pixmapSwitchTimer_;
     QList<const QPixmap*> exAnim;
     QList<const QPixmap*>::iterator curPic;

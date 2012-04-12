@@ -38,11 +38,13 @@ public:
     
 signals:
     void shotFired(AudioController::Sounds, double);
+    void shipExplode(AudioController::Sounds, double);
     
 public slots:
     void updateGame();
     void addMessage(MessageWrapper* msgwrap);
     void death();
+    void removePixmap(QGraphicsPixmapItem *);
 
 private:
     static const int FRAME_RATE = 40;
@@ -64,6 +66,8 @@ private:
     bool isClientDead_;
     PickYourShip shipChooser;
     shipState state_;
+    bool connected_;
+    QGraphicsPixmapItem bg;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

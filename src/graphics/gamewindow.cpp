@@ -17,7 +17,7 @@
 #include "../env/gamemap.h"
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD), connected_(false)
 {
     // typical initialization code
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
@@ -50,6 +50,10 @@ GameWindow::GameWindow(QWidget *parent)
     {
         scene()->addItem(i->second);
     }
+
+    bg.setPixmap(QPixmap(":/sprites/finalMap.png"));
+    bg.setOffset(0,0);
+    scene()->addItem(&bg);
 
     // get instance to client so we can send and receive
     // at this point, client should be connected already
@@ -87,6 +91,12 @@ void GameWindow::start()
         QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
     }
 
+    if (!connect(this, SIGNAL(shipExplode(AudioController::Sounds, double)),
+                 &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
+
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
 }
@@ -100,6 +110,8 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
     // this is set by the update game timer to prevent ships from spamming shots
     if (state_ == ALIVE)
     {
+        if(!ships_[clientId_]->canShoot())
+            return;
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
         Message msg;
@@ -245,6 +257,7 @@ void GameWindow::processGameMessage(Message* message)
     switch (message->getType())
     {
     case Message::CONNECTION:
+		connected_ = true;
         clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
@@ -265,7 +278,8 @@ void GameWindow::processGameMessage(Message* message)
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
         std::cerr << "creation" << std::endl;
-        if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
+        if (obj->getType() == SHIP1 || obj->getType() == SHIP2 || 
+            obj->getType() == SHIP3)
         {
             if(message->getID() == clientId_)
             {
@@ -279,6 +293,7 @@ void GameWindow::processGameMessage(Message* message)
         else
         {
             emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	    std::cerr << "projectile added id: " << std::endl;
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -287,11 +302,11 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::UPDATE:
         // update ship only if it's not our ship
-
         if(message->getID() != clientId_)
         {
             if (ships_.count(message->getID()) > 0)
             {
+		//std::cout << "updated the ship" << std::endl;
                 ships_[message->getID()]->update(message->getData());
             }
         }
@@ -299,20 +314,23 @@ void GameWindow::processGameMessage(Message* message)
 
 
     case Message::DELETION:
+	std::cerr << "deletion" << std::endl;      
         tokens = QString::fromStdString(message->getData()).split(" ");
 
         // 0 - object type where 's' is ship and 'p' is projectile
         // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
-std::cerr << "deletion" << std::endl;
+	
         if (tokens[0] == "S")
         {
-            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             std::cerr << "ship deletion" << std::endl;
+            emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
+            ships_[message->getID()]->explode();
+
             if(message->getID() == clientId_)
             {
                 //we died
-                ships_[clientId_]->explode();
+
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 
@@ -327,7 +345,21 @@ std::cerr << "deletion" << std::endl;
     case Message::HIT:
         // message client id = client id that was hit
         // data = object id that client id collided with
-        ships_[message->getID()]->gotHit(otherGraphics_[QString(message->getData().c_str()).toInt()]->getGameObject());
+        std::cerr << "got hit" << std::endl;
+        if(ships_.count(message->getID()) > 0)
+	{
+	  int id = QString(message->getData().c_str()).toInt();
+	  std::cerr << "id: " << id << std::endl;
+	  if(otherGraphics_.count(id) > 0)
+	  {
+	    ships_[message->getID()]->gotHit(otherGraphics_[id]->getGameObject());
+	  }
+	  else
+	  {
+	    std::cerr << "invalid objid" << std::endl; 
+	  }
+	}
+	std::cerr << "done hitting" << std::endl;
         break;
 
     case Message::STATUS:
@@ -369,6 +401,16 @@ void GameWindow::updateGame()
         }
     }
 
+    std::map<int, ShipGraphicsObject*>::iterator explodeIterator = ships_.begin();
+    while(explodeIterator != ships_.end())
+    {
+        if(explodeIterator->second->isExploding())
+        {
+            explodeIterator->second->explode();
+        }
+        ++explodeIterator;
+    }
+
     processMessages();
 
     if(state_ == ALIVE)
@@ -399,6 +441,7 @@ void GameWindow::updateGame()
         // send new coordinates of our ship to server
         // the message is dynamically allocated although typically there is no need to do so
         // but for some reason we're getting segfaults
+	//std::cerr << "send update: " << shipObj->toString() << std::endl;
         Message* msg = new Message;
         msg->setID(clientId_);
         msg->setData(shipObj->toString());
@@ -406,7 +449,7 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
-    else if(state_ == DEAD)
+    else if(state_ == DEAD && connected_)
     {
         if(!shipChooser.isCreating())
         {
@@ -439,4 +482,9 @@ void GameWindow::death()
         state_ = DYING;
         std::cerr << "dying" << std::endl;
     }
+}
+
+void GameWindow::removePixmap(QGraphicsPixmapItem* pixmap)
+{
+    scene_->removeItem(pixmap);
 }

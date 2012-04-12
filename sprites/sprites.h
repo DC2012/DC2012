@@ -6,6 +6,8 @@
 #define SHIP1_SPRITE_HEIGHT 110
 #define SHIP2_SPRITE_WIDTH 50
 #define SHIP2_SPRITE_HEIGHT 160
+#define SHIP3_SPRITE_WIDTH 34
+#define SHIP3_SPRITE_HEIGHT 70
 #define CANNON_SPRITE_WIDTH 12
 #define CANNON_SPRITE_HEIGHT 12
 #define POWERUP_SPRITE_WIDTH 28
@@ -22,6 +24,8 @@
 #define CANNON_HEIGHT 10
 #define POWERUP_WIDTH 28
 #define POWERUP_HEIGHT 28
+
+#define MAP_IMAGE QString(":/sprites/finalMap.png")
 
 #define SPRITE_SHIP1 QString(":/sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString(":/sprites/spriteShip1Hit.png")

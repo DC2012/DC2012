@@ -104,7 +104,11 @@ void ProcessMessage(PDATA pdata)
                                    playerID, speed, health, attack);
 
             // add the game object to the map
-            pdata->ships.erase(clientID);
+            if(pdata->ships.count(clientID) > 0)
+            {
+                delete pdata->ships[clientID];
+                pdata->ships.erase(clientID);
+            }
             pdata->ships[clientID] = gameObject;
 
             sendMessage.setID(clientID);
@@ -159,12 +163,16 @@ void ProcessMessage(PDATA pdata)
             // send DELETION msg to all clients
             ostr.clear();
             ostr.str("");
-            ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
-            sendMessage.setAll(ostr.str(), Message::DELETION);
-            server->write(&sendMessage);
 
-            // delete the ship on server
-            pdata->ships.erase(clientID);
+            if(pdata->ships.count(clientID) > 0)
+            {
+                ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
+                sendMessage.setAll(ostr.str(), Message::DELETION);
+                server->write(&sendMessage);
+
+                delete pdata->ships[clientID];
+                pdata->ships.erase(clientID);
+            }
             break;
 
         case Message::UPDATE:

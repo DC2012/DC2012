@@ -126,7 +126,6 @@ int GameObjectFactory::getObjectID(const std::string &str)
     case SHIP2:
         istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
              >> attackPower
-             >> attackPower
              >> tl_x >> tl_y
              >> tr_x >> tr_y
              >> bl_x >> bl_y

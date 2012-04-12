@@ -4,7 +4,7 @@ AudioController::AudioController(QObject *parent) :
     QObject(parent)
 {
     createFilePaths();
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 30; i++)
     {
         mediaObjects.push_back(new Phonon::MediaObject(this));
         audioOutputs.push_back(new Phonon::AudioOutput(Phonon::GameCategory, this));
@@ -67,7 +67,6 @@ int AudioController::getNextAvailable()
     {
         if(mediaObjects[(i + current) % mediaObjects.size()]->state() == Phonon::StoppedState)
         {
-            Phonon::MediaObject * result = mediaObjects[(i + current) % mediaObjects.size()];
             current = (current + i + 1) % mediaObjects.size();
             std::cout << current << std::endl;
             return i;

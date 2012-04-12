@@ -87,6 +87,12 @@ void GameWindow::start()
         QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
     }
 
+    if (!connect(this, SIGNAL(shipExplode(AudioController::Sounds, double)),
+                 &audio, SLOT(playSound(AudioController::Sounds, double)), Qt::QueuedConnection))
+    {
+        QMessageBox::information(NULL, QString("Error"), QString("connect failed"));
+    }
+
     readThread->start();
     timer_.start(1000 / FRAME_RATE);
 }
@@ -313,11 +319,15 @@ void GameWindow::processGameMessage(Message* message)
         if (tokens[0] == "S")
         {
             scene_->removeItem(ships_[message->getID()]->getPixmapItem());
+            emit shipExplode(AudioController::DIE, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+            ships_[message->getID()]->explode();
             std::cerr << "ship deletion" << std::endl;
             if(message->getID() == clientId_)
             {
                 //we died
-                ships_[clientId_]->explode();
+                emit shipExplode(AudioController::DIE, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+                std::cerr << "projectile added id: " << std::endl;
+
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 

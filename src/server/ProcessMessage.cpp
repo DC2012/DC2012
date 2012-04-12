@@ -96,6 +96,8 @@ void ProcessMessage(PDATA pdata)
 	    degree   = 0;
             posX     = pt.getX();
             posY     = pt.getY();
+            //posX = 400 * (pdata->ships.size()+1);
+            //posY = 500;
 	    playerID = clientID;
             speed    = 0;
 	    
@@ -205,7 +207,10 @@ void ProcessMessage(PDATA pdata)
             
             // retrieve object's ID from the data string
             if((objID = GameObjectFactory::getObjectID(data)) == -1)
+			{
+				std::cout << "updated failed" << std::endl;
                 break;
+			}
             
             // update only if the object exists
             if(pdata->ships.count(clientID) > 0)

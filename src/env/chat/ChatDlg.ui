@@ -25,6 +25,10 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QPlainTextEdit" name="textEdit_chat">
+     <property name="styleSheet">
+      <string notr="true">background: url(:/src/env/chat/chatBackground.png);
+color: rgb(255, 255, 255);</string>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>

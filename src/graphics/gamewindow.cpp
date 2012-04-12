@@ -52,7 +52,6 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     bg.setPixmap(QPixmap(":/sprites/finalMap.png"));
-    bg.setOffset(0,0);
     scene()->addItem(&bg);
 
     // get instance to client so we can send and receive
@@ -325,13 +324,14 @@ void GameWindow::processGameMessage(Message* message)
         {
             std::cerr << "ship deletion" << std::endl;
             emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
+	    std::cerr << "shipExplode emitted" << std::endl;
             ships_[message->getID()]->explode();
+	    std::cerr << "ship.explode() called" << std::endl;
 
             if(message->getID() == clientId_)
             {
                 //we died
 
-                state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 
             }
@@ -364,6 +364,11 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::STATUS:
         // unimplemented
+        break;
+
+    case Message::CHAT:
+            // send to ChatDlg
+        chatdlg_->incomingMsg(message->getData());
         break;
 
     }
@@ -407,6 +412,10 @@ void GameWindow::updateGame()
         if(explodeIterator->second->isExploding())
         {
             explodeIterator->second->explode();
+            if(!explodeIterator->second->isExploding() && explodeIterator->first == clientId_)
+            {
+            	state_ = DEAD;
+            }
         }
         ++explodeIterator;
     }
@@ -488,3 +497,13 @@ void GameWindow::removePixmap(QGraphicsPixmapItem* pixmap)
 {
     scene_->removeItem(pixmap);
 }
+
+QString GameWindow::getUsername()
+{
+    return username_;
+}
+void GameWindow::setUsername(QString str)
+{
+    username_ = str;
+}
+

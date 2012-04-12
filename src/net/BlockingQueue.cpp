@@ -38,8 +38,8 @@ void BlockingQueue::push(Message* m)
 Message* BlockingQueue::pop()
 {
   Message* result;
-  //P(cntsemid_); //decrement message count, block at 0
-  while(q_.empty());
+  P(cntsemid_); //decrement message count, block at 0
+  //while(q_.empty());
   pthread_mutex_lock(&queueLock); //get queue lock
   if(q_.size() == 0)
   {

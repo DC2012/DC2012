@@ -1,5 +1,14 @@
 #include "shipgraphicsobject.h"
 
+const QPixmap* ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
+const QPixmap* ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
+const QPixmap* ShipGraphicsObject::ex3 = new QPixmap(SPRITE_EXPLOSION3);
+const QPixmap* ShipGraphicsObject::ex4 = new QPixmap(SPRITE_EXPLOSION4);
+const QPixmap* ShipGraphicsObject::ex5 = new QPixmap(SPRITE_EXPLOSION5);
+const QPixmap* ShipGraphicsObject::ex6 = new QPixmap(SPRITE_EXPLOSION6);
+const QPixmap* ShipGraphicsObject::ex7 = new QPixmap(SPRITE_EXPLOSION7);
+const QPixmap* ShipGraphicsObject::ex8 = new QPixmap(SPRITE_EXPLOSION8);
+
 #define M_PI 3.14159265358979323846
 #define DEG_CIRCLE 360
 #define DEG_TO_RAD (M_PI / (DEG_CIRCLE / 2))
@@ -15,6 +24,17 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
         shipPixmap.load(SPRITE_SHIP1);
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
+
+    //Load the list of explosion pictures
+    exAnim.push_back(ex1);
+    exAnim.push_back(ex2);
+    exAnim.push_back(ex3);
+    exAnim.push_back(ex4);
+    exAnim.push_back(ex5);
+    exAnim.push_back(ex6);
+    exAnim.push_back(ex7);
+    exAnim.push_back(ex8);
+    curPic = exAnim.begin();
 
     QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);
 
@@ -135,15 +155,19 @@ void ShipGraphicsObject::gotHit()
 {
     QGraphicsPixmapItem* pixmapItem = getPixmapItem();
     pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
-    pixmapSwitchTimer_.setSingleShot(true);
-    pixmapSwitchTimer_.start(100);
+    pixmapSwitchTimer_.start(50);
     connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(switchPixmap()));
 }
 
-void ShipGraphicsObject::switchPixmap()
+void ShipGraphicsObject::explode()
 {
     QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1));
+    pixmapItem->setPixmap(**curPic);
+    if(++curPic == exAnim.end())
+    {
+        pixmapSwitchTimer_.stop();
+        delete this; //done explosion animation
+    }
 }
 
 /*

@@ -193,8 +193,8 @@ void ShipGraphicsObject::explode()
     pixmapItem->setPixmap(**curPic);
     if(++curPic == exAnim.end())
     {
+        curPic = exAnim.begin();
         pixmapSwitchTimer_.stop();
-        delete this; //done explosion animation
     }
 }
 

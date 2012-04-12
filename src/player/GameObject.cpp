@@ -27,6 +27,9 @@ GameObject::GameObject(ObjectType type, int objID, double degree, double posX, d
             hb_w = double(CANNON_WIDTH);
             hb_h = double(CANNON_HEIGHT);
             break;
+
+        case POWERUP:
+            // needs to be coded when powerup sprite sizes are defined in sprites.h
             
         default:
             // default values??

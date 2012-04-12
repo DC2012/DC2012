@@ -37,7 +37,7 @@
 
 class GOM_Projectile : public GameObjectMoveable
 {
-    private:
+    protected:
         int ttl_;
         int damage_;
         static size_t projectileCount_;

@@ -74,13 +74,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
                 return new GOS_Obstacle(ObjectType(type), objID, degree,
                         posX, posY);
 		
-	case POWERUP:
-		istr >> objID >> degree >> posX >> posY >> bonus >> endCheck;
-		
-		if(!istr.good() || endCheck != POWERUP_STR)
-			break;
-			
-            return new GOS_PowerUp(ObjectType(type), objID, posX, posY, ttl, GOS_PowerUp::BONUS(bonus));
+        //case POWERUP:
+
 	}
 	return NULL;
 }

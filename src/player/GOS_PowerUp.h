@@ -33,43 +33,39 @@
 #ifndef GOS_POWERUP_H_
 #define GOS_POWERUP_H_
 
-#include "GameObjectStationary.h"
+#include "GOM_Projectile.h"
 
-class GOS_PowerUp : public GameObjectStationary
+class GOS_PowerUp : public GOM_Projectile
 {
     
     public:
     
     	enum BONUS
-		{
-			HEALTH,
-			SPEED,
-			DAMAGE,
-			KRAKIFY,
-                        SLOW,
-                        NON
-		};
+        {
+            HEALTH,
+            SPEED,
+            DAMAGE,
+            KRAKIFY,
+            SLOW,
+            NON
+        };
 		
         // constructor for now
         explicit GOS_PowerUp(ObjectType type = POWERUP, int objID = 0, double degree = 0, double posX = 0, double posY = 0,
-        int ttl = 0, BONUS bonus = NON);
+                             int playerID = 0, double speed = 0, int ttl = 0, int damage = 0, BONUS bonus = NON)
+            :GOM_Projectile(type, objID, degree, posX, posY, playerID, speed, ttl, damage), bonus_(bonus){}
 
         // destructor
         virtual ~GOS_PowerUp(){}
         
-        virtual void update(const std::string &str);
-        virtual std::string toString() const;
-
-        // for testing purposes
-        virtual void print(std::ostream& os) const;
-        
-        virtual BONUS getBonus();
+        void update(const std::string &str);
+        std::string toString() const;
+        BONUS getBonus() const;
+        bool move();
         
         
     private:
-        static size_t powerUpCount_;
-        BONUS 		  bonus_;
-        int ttl_;
+        BONUS bonus_;
     
 };
 

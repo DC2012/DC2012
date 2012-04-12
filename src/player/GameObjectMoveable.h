@@ -158,6 +158,8 @@ class GameObjectMoveable : public GameObject
 		virtual void update(const std::string &str) = 0;
 		virtual std::string toString() const = 0;
 
+                virtual bool move() = 0;
+
 		// for testing purposes
 		virtual void print(std::ostream& os) const;
 };

@@ -7,7 +7,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 	char endCheck;
 	int type = -1;
         int objID, playerID, health, attackPower,
-		damage, ttl;
+		damage, ttl, bonus;
         double posX, degree, posY, speed;
         double tl_x, tl_y;
         double tr_x, tr_y;
@@ -75,13 +75,13 @@ GameObject* GameObjectFactory::create(const std::string &in)
                         posX, posY);
 		
 	case POWERUP:
-		istr >> objID >> degree >> posX >> posY >> endCheck;
+		istr >> objID >> degree >> posX >> posY >> bonus >> endCheck;
 		
 		if(!istr.good() || endCheck != POWERUP_STR)
 			break;
 			
-                return new GOS_PowerUp(ObjectType(type), objID, degree,
-                        posX, posY);
+                return new GOS_PowerUp(BONUS bonus, ObjectType type, int objID, double posX, double posY, 
+							int ttl);
 	}
 	return NULL;
 }
@@ -91,13 +91,13 @@ int GameObjectFactory::getObjectID(const std::string &str)
 	std::istringstream istr(str);
 	char endCheck;
 	int type = -1;
-        double degree, posX, posY, speed;
-        int objID, playerID, health, attackPower,
-		damage, ttl;
-        double tl_x, tl_y;
-        double tr_x, tr_y;
-        double bl_x, bl_y;
-        double br_x, br_y;
+    double degree, posX, posY, speed;
+    int objID, playerID, health, attackPower,
+	damage, ttl, bonus;
+    double tl_x, tl_y;
+    double tr_x, tr_y;
+    double bl_x, bl_y;
+    double br_x, br_y;
 	
 	istr >> type;
 	switch(ObjectType(type))
@@ -141,7 +141,7 @@ int GameObjectFactory::getObjectID(const std::string &str)
 		return objID;
 		
 	case POWERUP:
-		istr >> objID >> degree >> posX >> posY >> endCheck;
+		istr >> objID >> degree >> posX >> posY >> bonus >> endCheck;
 		
 		if(!istr.good() || endCheck != POWERUP_STR)
 			break;

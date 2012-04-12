@@ -6,7 +6,7 @@
 #define RAD_TO_DEG ((DEG_CIRCLE / 2) / M_PI)
 
 ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
-    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this)
+    : GraphicsObject(gameObject), canShoot_(true), pixmapSwitchTimer_(this), exploding_(false)
 {
     QPixmap shipPixmap;
     ObjectType type = gameObject->getType();
@@ -27,12 +27,20 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
 
     //Load the list of explosion pictures
     exAnim.push_back(ex1);
+    exAnim.push_back(ex1);
+    exAnim.push_back(ex2);
     exAnim.push_back(ex2);
     exAnim.push_back(ex3);
+    exAnim.push_back(ex3);
+    exAnim.push_back(ex4);
     exAnim.push_back(ex4);
     exAnim.push_back(ex5);
+    exAnim.push_back(ex5);
+    exAnim.push_back(ex6);
     exAnim.push_back(ex6);
     exAnim.push_back(ex7);
+    exAnim.push_back(ex7);
+    exAnim.push_back(ex8);
     exAnim.push_back(ex8);
     curPic = exAnim.begin();
 
@@ -186,12 +194,38 @@ void ShipGraphicsObject::gotHit(GameObject* hitter)
 void ShipGraphicsObject::explode()
 {
     QGraphicsPixmapItem* pixmapItem = getPixmapItem();
-    pixmapItem->setPixmap(**curPic);
-    if(++curPic == exAnim.end())
+
+    if(!exploding_)
     {
         curPic = exAnim.begin();
-        pixmapSwitchTimer_.stop();
+        exploding_ = true;
     }
+    else
+    {
+        if(curPic != exAnim.end())
+        {
+            pixmapItem->setPixmap(**curPic);
+            curPic++;
+        }
+        else
+        {
+            exploding_ = false;
+            emit animateDone(getPixmapItem());
+        }
+    }
+//    pixmapItem->setPixmap(**curPic);
+//    if(++curPic == exAnim.end())
+//    {
+
+//        pixmapSwitchTimer_.stop();
+//    }
+
+
+}
+
+bool ShipGraphicsObject::isExploding() const
+{
+    return exploding_;
 }
 
 /*

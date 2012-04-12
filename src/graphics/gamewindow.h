@@ -44,6 +44,7 @@ public slots:
     void updateGame();
     void addMessage(MessageWrapper* msgwrap);
     void death();
+    void removePixmap(QGraphicsPixmapItem *);
 
 private:
     static const int FRAME_RATE = 40;

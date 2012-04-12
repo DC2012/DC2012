@@ -52,7 +52,6 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     bg.setPixmap(QPixmap(":/sprites/finalMap.png"));
-    bg.setOffset(0,0);
     scene()->addItem(&bg);
 
     // get instance to client so we can send and receive
@@ -323,7 +322,6 @@ void GameWindow::processGameMessage(Message* message)
         if (tokens[0] == "S")
         {
             std::cerr << "ship deletion" << std::endl;
-            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
             ships_[message->getID()]->explode();
 
@@ -401,6 +399,16 @@ void GameWindow::updateGame()
         }
     }
 
+    std::map<int, ShipGraphicsObject*>::iterator explodeIterator = ships_.begin();
+    while(explodeIterator != ships_.end())
+    {
+        if(explodeIterator->second->isExploding())
+        {
+            explodeIterator->second->explode();
+        }
+        ++explodeIterator;
+    }
+
     processMessages();
 
     if(state_ == ALIVE)
@@ -472,4 +480,9 @@ void GameWindow::death()
         state_ = DYING;
         std::cerr << "dying" << std::endl;
     }
+}
+
+void GameWindow::removePixmap(QGraphicsPixmapItem* pixmap)
+{
+    scene_->removeItem(pixmap);
 }

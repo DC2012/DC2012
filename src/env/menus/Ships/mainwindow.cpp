@@ -55,9 +55,6 @@ void MainWindow::connect_accept(QString port, QString ip, QString username)
     {
         mDialog.close();
         this->hide();
-        PickYourShip shipDialog;
-        connect(&shipDialog, SIGNAL(shipChosen(QString)), this, SLOT(assignShip(QString)));
-        shipDialog.exec();
 
         Message msg;
         msg.setID(0);

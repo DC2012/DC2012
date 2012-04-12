@@ -78,6 +78,7 @@ void update(sigval arg)
                     ostr.clear();
                     ostr.str("");
                     ostr << "S" << " " << ship->getObjID() << " 0";
+		    sendMsg.setID(itShip->first);
                     sendMsg.setAll(ostr.str(), Message::DELETION);
                     server->write(&sendMsg);
                     std::cout << "sent deletion: " << sendMsg.getData() << "\n";
@@ -85,6 +86,7 @@ void update(sigval arg)
                     ostr.clear();
                     ostr.str("");
                     ostr << "S" << " " << bship->getObjID() << " 0";
+		    sendMsg.setID(iitShip->first);
                     sendMsg.setAll(ostr.str(), Message::DELETION);
                     server->write(&sendMsg);
                     std::cout << "sent deletion: " << sendMsg.getData() << "\n";

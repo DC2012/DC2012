@@ -4,9 +4,9 @@ size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
 GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, double posY, 
-	int playerID, double speed, int health, int attackPower)
+        int playerID, double speed, int maxHealth, int attackPower)
 :GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
-	health_(health), attackPower_(attackPower)
+        maxHealth_(maxHealth), attackPower_(attackPower)
 {
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
@@ -16,11 +16,24 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     decel_ = 0.02;
     maxSpeed_ = 3.6;
     shipCount_++;
+    bonus_ = GOS_PowerUp::NON;
+    currentHealth_ = maxHealth_;
 }
 
-int GOM_Ship::getHealth()const
+int GOM_Ship::getMaxHealth() const
 {
-	return health_;
+    return maxHealth_;
+}
+
+int GOM_Ship::getCurrentHealth()const
+{
+        return currentHealth_;
+}
+
+void GOM_Ship::setCurrentHealth(int health)
+{
+    if(health <= maxHealth_)
+        currentHealth_ = health;
 }
     
 void GOM_Ship::accelerate()
@@ -99,106 +112,115 @@ void GOM_Ship::setActionFlag(int flag, bool val)
 
 void GOM_Ship::update(const std::string &str)
 {
-	std::istringstream istr(str);
-	char endCheck;
-        int type = -1;
-        double degree, posX, posY, speed;
-        int objID, playerID, health, attackPower;
-        double sprite_w, sprite_h, hb_w, hb_h;
-        double tl_x, tl_y;
-        double tr_x, tr_y;
-        double bl_x, bl_y;
-        double br_x, br_y;
-	
-	istr >> type;
-	switch(ObjectType(type))
-	{
-	case SHIP1:
-		sprite_w = double(SHIP1_SPRITE_WIDTH);
-		sprite_h = double(SHIP1_SPRITE_HEIGHT);
-		hb_w = double(SHIP1_WIDTH);
-		hb_h = double(SHIP1_HEIGHT);
-		
-	case SHIP2:
-		sprite_w = double(SHIP2_SPRITE_WIDTH);
-		sprite_h = double(SHIP2_SPRITE_HEIGHT);
-		hb_w = double(SHIP2_WIDTH);
-		hb_h = double(SHIP2_HEIGHT);
+    std::istringstream istr(str);
+    char endCheck;
+    int type = -1;
+    double degree, posX, posY, speed;
+    int objID, playerID, maxHealth, currentHealth, attackPower;
+    double sprite_w, sprite_h, hb_w, hb_h;
+    double tl_x, tl_y;
+    double tr_x, tr_y;
+    double bl_x, bl_y;
+    double br_x, br_y;
 
-		istr >> objID >> degree >> posX >> posY >> playerID >> speed >> health
-                        >> attackPower
-                        >> tl_x >> tl_y
-                        >> tr_x >> tr_y
-                        >> bl_x >> bl_y
-                        >> br_x >> br_y
-                        >> endCheck;
-		
-		if(!istr.good() || endCheck != SHIP_STR)
-			break;
+    istr >> type;
+    switch(ObjectType(type))
+    {
+    case SHIP1:
+        sprite_w = double(SHIP1_SPRITE_WIDTH);
+        sprite_h = double(SHIP1_SPRITE_HEIGHT);
+        hb_w = double(SHIP1_WIDTH);
+        hb_h = double(SHIP1_HEIGHT);
 
-                hb_.tLeft = Point(tl_x, tl_y);
-                hb_.tRight = Point(tr_x, tr_y);
-                hb_.bLeft = Point(bl_x, bl_y);
-                hb_.bRight = Point(br_x, br_y);
-		
-		type_ = ObjectType(type);
-		objID_ = objID;
-                degree_.setDegree(degree);
-                pos_.setX(posX);
-                pos_.setY(posY);
-		playerID_ = playerID;
-                speed_ = speed;
-		health_ = health;
-		attackPower_ = attackPower;
-		spritePt_.setX(pos_.getX()-(sprite_w/2));
-		spritePt_.setY(pos_.getY()-(sprite_h/2));
-		break;
-	}
+    case SHIP2:
+        sprite_w = double(SHIP2_SPRITE_WIDTH);
+        sprite_h = double(SHIP2_SPRITE_HEIGHT);
+        hb_w = double(SHIP2_WIDTH);
+        hb_h = double(SHIP2_HEIGHT);
+
+        istr >> objID >> degree >> posX >> posY >> playerID >> speed
+             >> maxHealth
+             >> currentHealth
+             >> attackPower
+             >> tl_x >> tl_y
+             >> tr_x >> tr_y
+             >> bl_x >> bl_y
+             >> br_x >> br_y
+             >> endCheck;
+
+        if(!istr.good() || endCheck != SHIP_STR)
+            break;
+
+        hb_.tLeft = Point(tl_x, tl_y);
+        hb_.tRight = Point(tr_x, tr_y);
+        hb_.bLeft = Point(bl_x, bl_y);
+        hb_.bRight = Point(br_x, br_y);
+
+        type_ = ObjectType(type);
+        objID_ = objID;
+        degree_.setDegree(degree);
+        pos_.setX(posX);
+        pos_.setY(posY);
+        playerID_ = playerID;
+        speed_ = speed;
+        maxHealth_ = maxHealth;
+        currentHealth_ = currentHealth;
+        attackPower_ = attackPower;
+        spritePt_.setX(pos_.getX()-(sprite_w/2));
+        spritePt_.setY(pos_.getY()-(sprite_h/2));
+        break;
+    }
 }
 
 std::string GOM_Ship::toString() const
 {
-	std::ostringstream ostr;
-	
-	ostr << int(type_) << " ";
-	ostr << objID_ << " ";
-        ostr << degree_.getDegree() << " ";
-        ostr << pos_.getX() << " ";
-        ostr << pos_.getY() << " ";
-	ostr << playerID_ << " ";
-        ostr << speed_ << " ";
-	ostr << health_ << " ";
-	ostr << attackPower_ << " ";
-        ostr << hb_.tLeft.getX() << " ";
-        ostr << hb_.tLeft.getY() << " ";
-        ostr << hb_.tRight.getX() << " ";
-        ostr << hb_.tRight.getY() << " ";
-        ostr << hb_.bLeft.getX() << " ";
-        ostr << hb_.bLeft.getY() << " ";
-        ostr << hb_.bRight.getX() << " ";
-        ostr << hb_.bRight.getY() << " ";
-	ostr << SHIP_STR;
-	
-	return ostr.str();
+    std::ostringstream ostr;
+
+    ostr << int(type_) << " ";
+    ostr << objID_ << " ";
+    ostr << degree_.getDegree() << " ";
+    ostr << pos_.getX() << " ";
+    ostr << pos_.getY() << " ";
+    ostr << playerID_ << " ";
+    ostr << speed_ << " ";
+    ostr << maxHealth_ << " ";
+    ostr << currentHealth_ << " ";
+    ostr << attackPower_ << " ";
+    ostr << hb_.tLeft.getX() << " ";
+    ostr << hb_.tLeft.getY() << " ";
+    ostr << hb_.tRight.getX() << " ";
+    ostr << hb_.tRight.getY() << " ";
+    ostr << hb_.bLeft.getX() << " ";
+    ostr << hb_.bLeft.getY() << " ";
+    ostr << hb_.bRight.getX() << " ";
+    ostr << hb_.bRight.getY() << " ";
+    ostr << SHIP_STR;
+
+    return ostr.str();
 }
 
 void GOM_Ship::print(std::ostream& os)const
 {
-	os << "Number #" << shipCount_ << " ship" << std::endl;
-	GameObjectMoveable::print(os);
-	os << "health:\t\t" << health_ << std::endl;
-	os << "attackPower:\t" << attackPower_ << std::endl;
-	os << "flags:\t\t";
-	os << "rotateL=" << actionFlags_[ROTATE_L];
-	os << " rotateR=" << actionFlags_[ROTATE_R];
-	os << " accelerate=" << actionFlags_[ACCEL];
-	os << " decelerate=" << actionFlags_[DECEL] << std::endl << std::endl;
+    os << "Number #" << shipCount_ << " ship" << std::endl;
+    GameObjectMoveable::print(os);
+    os << "health:\t\t" << currentHealth_ << std::endl;
+    os << "attackPower:\t" << attackPower_ << std::endl;
+    os << "flags:\t\t";
+    os << "rotateL=" << actionFlags_[ROTATE_L];
+    os << " rotateR=" << actionFlags_[ROTATE_R];
+    os << " accelerate=" << actionFlags_[ACCEL];
+    os << " decelerate=" << actionFlags_[DECEL] << std::endl << std::endl;
 }
 
 bool GOM_Ship::takeDamage(int dmg)
 {
-    health_ -= dmg;
-    if(health_ <= 0)
+    currentHealth_ -= dmg;
+    if(currentHealth_ <= 0)
         return false;
     return true;
+}
+
+void GOM_Ship::applyPowerUp(GOS_PowerUp::BONUS bonus)
+{
+    //switch()
 }

@@ -15,10 +15,9 @@
 #include <cmath>
 #include <sstream>
 #include "../env/gamemap.h"
-#include "../env/menus/Ships/pickyourship.h"
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD)
 {
     // typical initialization code
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
@@ -27,7 +26,7 @@ GameWindow::GameWindow(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    isClientDead_ = TRUE;
+
 
     map_ = new GameMap(":/src/env/maps/finalMap.tmx");
     // env chat message stuff
@@ -121,7 +120,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
 
-    if(!isClientDead_)
+    if(state_ == ALIVE)
     {
         QLineEdit *le = chatdlg_->findChild<QLineEdit *>("lineEdit_input");
 
@@ -179,7 +178,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 
 void GameWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(!isClientDead_)
+    if(state_ == ALIVE)
     {
         GOM_Ship* myShip = (GOM_Ship *) ships_[clientId_]->getGameObject();
 
@@ -249,10 +248,10 @@ void GameWindow::processGameMessage(Message* message)
         clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
-            data = std::string("0");
-            sendMsg.setID(clientId_);
-            sendMsg.setAll(data, Message::RESPAWN);
-            client_->write(&sendMsg);
+//            data = std::string("0");
+//            sendMsg.setID(clientId_);
+//            sendMsg.setAll(data, Message::RESPAWN);
+//            client_->write(&sendMsg);
         }
         else if (message->getData() == "Refused")
         {
@@ -265,20 +264,21 @@ void GameWindow::processGameMessage(Message* message)
         obj = GameObjectFactory::create(message->getData());
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
-
+        std::cerr << "creation" << std::endl;
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
         {
             if(message->getID() == clientId_)
             {
-                isClientDead_ = FALSE;
+                state_ = ALIVE;
                 connect((ShipGraphicsObject*)graphic, SIGNAL(death()), this, SLOT(death()))   ;
+                shipChooser.setCreating(false);
             }
             ships_[message->getID()] = (ShipGraphicsObject*) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
         else
         {
-            //emit shotFired(AudioController::SHOOT1, 50);
+            emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -287,9 +287,13 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::UPDATE:
         // update ship only if it's not our ship
+
         if(message->getID() != clientId_)
         {
-            ships_[message->getID()]->update(message->getData());
+            if (ships_.count(message->getID()) > 0)
+            {
+                ships_[message->getID()]->update(message->getData());
+            }
         }
         break;
 
@@ -300,21 +304,24 @@ void GameWindow::processGameMessage(Message* message)
         // 0 - object type where 's' is ship and 'p' is projectile
         // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
-
-        if (tokens[0] == "s")
+std::cerr << "deletion" << std::endl;
+        if (tokens[0] == "S")
         {
-            scene_->removeItem(ships_[tokens[1].toInt()]->getPixmapItem());
-            if(tokens[1].toInt() == clientId_)
+            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
+            std::cerr << "ship deletion" << std::endl;
+            if(message->getID() == clientId_)
             {
                 //we died
-                isClientDead_ = true;
+                ships_[clientId_]->explode();
+                state_ = DEAD;
+                std::cerr << "i'm dead" << std::endl;
+
             }
         }
-        else if (tokens[0] == "p")
+        else if (tokens[0] == "P")
         {
             otherGraphics_[tokens[1].toInt()]->setExpired();
         }
-
         break;
 
     case Message::HIT:
@@ -332,7 +339,7 @@ void GameWindow::processGameMessage(Message* message)
 
 void GameWindow::updateGame()
 {
-    if(!isClientDead_)
+    if(state_ == ALIVE)
     {
         // ship can only shoot once every ~800 ms
         timerCounter_++;
@@ -364,7 +371,7 @@ void GameWindow::updateGame()
 
     processMessages();
 
-    if(!isClientDead_)
+    if(state_ == ALIVE)
     {
         // update our own ship
         GOM_Ship* shipObj = (GOM_Ship *) ships_[clientId_]->getGameObject();
@@ -379,9 +386,8 @@ void GameWindow::updateGame()
 
         if(map_->isLand(shipObj->getPosition()))
         {
-            ships_[clientId_]->explode();
-            printf("Hit Land: %d %d\n", (int)shipObj->getPosition().getX(), (int)shipObj->getPosition().getY()); //Ship hit land, do something here
-            fflush(stdout);
+            death();
+            return;
         }
 
         centerOn(shipObj->getPosition().getX(), shipObj->getPosition().getY());
@@ -400,11 +406,14 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
-    else
+    else if(state_ == DEAD)
     {
-        PickYourShip shipChoser;
-        shipChoser.setModal(false);
-        shipChoser.exec();
+        if(!shipChooser.isCreating())
+        {
+            shipChooser.setCreating(true);
+            shipChooser.setModal(false);
+            shipChooser.show();
+        }
     }
 }
 
@@ -421,7 +430,13 @@ bool GameWindow::isChatting()
 
 void GameWindow::death()
 {
-    Message msg(clientId_);
-    msg.setType(Message::DEATH);
-    client_->write(&msg);
+    if(state_ == ALIVE)
+    {
+        Message msg(clientId_);
+        msg.setType(Message::DEATH);
+        msg.setData("1");
+        client_->write(&msg);
+        state_ = DYING;
+        std::cerr << "dying" << std::endl;
+    }
 }

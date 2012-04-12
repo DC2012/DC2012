@@ -10,6 +10,7 @@
 #include "projectilegraphicsobject.h"
 #include "audiocontroller.h"
 #include "../player/Point.h"
+#include "../env/menus/Ships/pickyourship.h"
 
 #include <QGraphicsView>
 #include <QGraphicsPixmapItem>
@@ -27,6 +28,13 @@ public:
     void start();
     void setChatting(bool b);
     bool isChatting();
+
+    enum shipState
+    {
+        ALIVE,
+        DYING,
+        DEAD
+    };
     
 signals:
     void shotFired(AudioController::Sounds, double);
@@ -54,6 +62,8 @@ private:
     size_t timerCounter_;
     AudioController audio;
     bool isClientDead_;
+    PickYourShip shipChooser;
+    shipState state_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

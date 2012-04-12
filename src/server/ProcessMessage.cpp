@@ -51,7 +51,10 @@ void ProcessMessage(PDATA pdata)
 
             data = std::string("Accepted");
             // add new client to the clients map
-            pdata->clients.erase(clientID);
+            if(pdata->clients.count(clientID) > 0)
+            {
+                pdata->clients.erase(clientID);
+            }
             pdata->clients[clientID] = playerName;
             
             printf("client (ID: %d) connected\n", clientID);
@@ -104,7 +107,11 @@ void ProcessMessage(PDATA pdata)
                                    playerID, speed, health, attack);
 
             // add the game object to the map
-            pdata->ships.erase(clientID);
+            if(pdata->ships.count(clientID) > 0)
+            {
+                delete pdata->ships[clientID];
+                pdata->ships.erase(clientID);
+            }
             pdata->ships[clientID] = gameObject;
 
             sendMessage.setID(clientID);
@@ -141,7 +148,11 @@ void ProcessMessage(PDATA pdata)
             //std::cout << "recved data: " << recvMessage->getData() << std::endl;
             
             // add projectile object to the projectil map
-            pdata->projectiles.erase(objID);
+            if(pdata->projectiles.count(objID) > 0)
+            {
+                delete pdata->projectiles[objID];
+                pdata->projectiles.erase(objID);
+            }
             pdata->projectiles[objID] = gameObject;
 
             //Send CREATION message to all clients
@@ -159,12 +170,16 @@ void ProcessMessage(PDATA pdata)
             // send DELETION msg to all clients
             ostr.clear();
             ostr.str("");
-            ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
-            sendMessage.setAll(ostr.str(), Message::DELETION);
-            server->write(&sendMessage);
 
-            // delete the ship on server
-            pdata->ships.erase(clientID);
+            if(pdata->ships.count(clientID) > 0)
+            {
+                ostr << "S " << pdata->ships[clientID]->getObjID() << " 1";
+                sendMessage.setAll(ostr.str(), Message::DELETION);
+                server->write(&sendMessage);
+
+                delete pdata->ships[clientID];
+                pdata->ships.erase(clientID);
+            }
             break;
 
         case Message::UPDATE:
@@ -175,7 +190,7 @@ void ProcessMessage(PDATA pdata)
                 break;
             
             // update only if the object exists
-            if(pdata->ships[clientID] != NULL)
+            if(pdata->ships.count(clientID) > 0)
                 pdata->ships[clientID]->update(data);
 
             //pdata->ships[objID]->printHitBox(std::cout);

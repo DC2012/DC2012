@@ -15,7 +15,7 @@ $QM -project
 mv $(find . -name "*.pro") DC2012.pro
 grep -v 'src/server' DC2012.pro > tmp.pro
 mv tmp.pro DC2012.pro
-sed -i '4iQT += phonon' DC2012.pro
+sed -i '4iQT += phonon xml' DC2012.pro
 $QM
 make -j4
 

@@ -364,6 +364,11 @@ void GameWindow::processGameMessage(Message* message)
         // unimplemented
         break;
 
+    case Message::CHAT:
+            // send to ChatDlg
+        chatdlg_->incomingMsg(message->getData());
+        break;
+
     }
 }
 

@@ -52,7 +52,6 @@ GameWindow::GameWindow(QWidget *parent)
     }
 
     bg.setPixmap(QPixmap(":/sprites/finalMap.png"));
-    bg.setOffset(0,0);
     scene()->addItem(&bg);
 
     // get instance to client so we can send and receive

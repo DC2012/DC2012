@@ -29,5 +29,6 @@
         <file>sprites/spriteShip2.png</file>
         <file>sprites/spriteShip2Hit.png</file>
         <file>src/env/maps/finalMap.tmx</file>
+        <file>sprites/finalMap.png</file>
     </qresource>
 </RCC>

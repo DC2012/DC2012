@@ -14,6 +14,8 @@
 #define SHIP1_HEIGHT 90
 #define SHIP2_WIDTH 30
 #define SHIP2_HEIGHT 125
+#define SHIP3_WIDTH 30
+#define SHIP3_HEIGHT 50
 #define CANNON_WIDTH 10
 #define CANNON_HEIGHT 10
 
@@ -29,12 +31,20 @@
 #define SPRITE_SHIP2_MOVE2 QString(":/sprites/spriteShip2Move2.png")
 #define SPRITE_SHIP2_MOVE3 QString(":/sprites/spriteShip2Move3.png")
 
+#define SPRITE_SHIP3 QString(":/sprites/spriteShip3.png")
+#define SPRITE_SHIP3_HIT QString(":/sprites/spriteShip3Hit.png")
+#define SPRITE_SHIP3_MOVE1 QString(":/sprites/spriteShip3Move1.png")
+#define SPRITE_SHIP3_MOVE2 QString(":/sprites/spriteShip3Move2.png")
+#define SPRITE_SHIP3_MOVE3 QString(":/sprites/spriteShip3Move3.png")
+
 #define SPRITE_EXPLOSION1 QString(":/sprites/spriteExplosion1.png")
 #define SPRITE_EXPLOSION2 QString(":/sprites/spriteExplosion2.png")
 #define SPRITE_EXPLOSION3 QString(":/sprites/spriteExplosion3.png")
 #define SPRITE_EXPLOSION4 QString(":/sprites/spriteExplosion4.png")
 #define SPRITE_EXPLOSION5 QString(":/sprites/spriteExplosion5.png")
 #define SPRITE_EXPLOSION6 QString(":/sprites/spriteExplosion6.png")
+#define SPRITE_EXPLOSION7 QString(":/sprites/spriteExplosion7.png")
+#define SPRITE_EXPLOSION8 QString(":/sprites/spriteExplosion8.png")
 
 #define SPRITE_CANNONBALL QString(":/sprites/spriteCannonball.png")
 #define SPRITE_BULLET QString(":/sprites/spriteBullet.png")

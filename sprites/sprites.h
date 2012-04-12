@@ -8,6 +8,8 @@
 #define SHIP2_SPRITE_HEIGHT 160
 #define CANNON_SPRITE_WIDTH 12
 #define CANNON_SPRITE_HEIGHT 12
+#define POWERUP_SPRITE_WIDTH 28
+#define POWERUP_SPRITE_HEIGHT 28
 
 // hitbox sizes
 #define SHIP1_WIDTH 20
@@ -18,6 +20,8 @@
 #define SHIP3_HEIGHT 50
 #define CANNON_WIDTH 10
 #define CANNON_HEIGHT 10
+#define POWERUP_WIDTH 28
+#define POWERUP_HEIGHT 28
 
 #define SPRITE_SHIP1 QString(":/sprites/spriteShip1.png")
 #define SPRITE_SHIP1_HIT QString(":/sprites/spriteShip1Hit.png")
@@ -45,6 +49,8 @@
 #define SPRITE_EXPLOSION6 QString(":/sprites/spriteExplosion6.png")
 #define SPRITE_EXPLOSION7 QString(":/sprites/spriteExplosion7.png")
 #define SPRITE_EXPLOSION8 QString(":/sprites/spriteExplosion8.png")
+
+#define SPRITE_POWERUP QString(":/sprites/spriteTreasureChest.png")
 
 #define SPRITE_CANNONBALL QString(":/sprites/spriteCannonball.png")
 #define SPRITE_BULLET QString(":/sprites/spriteBullet.png")

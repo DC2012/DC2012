@@ -4,9 +4,9 @@ size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
 GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, double posY, 
-        int playerID, double speed, int maxHealth, int attackPower)
+        int playerID, double speed, int maxHealth, int attackPower, double maxSpeed)
 :GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
-        maxHealth_(maxHealth), attackPower_(attackPower)
+  maxHealth_(maxHealth), attackPower_(attackPower),maxSpeed_(maxSpeed)
 {
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
@@ -14,7 +14,6 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     actionFlags_.push_back(false);
     accel_ = 0.02;
     decel_ = 0.02;
-    maxSpeed_ = 3.6;
     shipCount_++;
     bonus_ = GOS_PowerUp::NON;
     currentHealth_ = maxHealth_;
@@ -183,6 +182,7 @@ std::string GOM_Ship::toString() const
     ostr << pos_.getY() << " ";
     ostr << playerID_ << " ";
     ostr << speed_ << " ";
+    ostr << maxSpeed_ << " ";
     ostr << maxHealth_ << " ";
     ostr << currentHealth_ << " ";
     ostr << attackPower_ << " ";

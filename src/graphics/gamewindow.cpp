@@ -215,8 +215,8 @@ void GameWindow::keyReleaseEvent(QKeyEvent *event)
             if(!event->isAutoRepeat())
                 myShip->setActionFlag(ROTATE_R, false);
             break;
-        case Qt::Key_Space:
-            QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
+        case Qt::Key_Space:        
+            //QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
             break;
         }
     }

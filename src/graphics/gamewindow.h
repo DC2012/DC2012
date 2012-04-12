@@ -28,6 +28,8 @@ public:
     void start();
     void setChatting(bool b);
     bool isChatting();
+    QString getUsername();
+    void setUsername(QString);
 
     enum shipState
     {
@@ -68,6 +70,7 @@ private:
     shipState state_;
     bool connected_;
     QGraphicsPixmapItem bg;
+    QString username_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

@@ -65,6 +65,7 @@ void MainWindow::connect_accept(QString port, QString ip, QString username)
         GameWindow *gameWindow = new GameWindow();
         gameWindow->setFocus();
         gameWindow->start();
+        gameWindow->setUsername(username);
     }
     else
     {

@@ -22,6 +22,7 @@
 
 #include "ChatDlg.h"
 #include "ui_ChatDlg.h"
+#include <string>
 #include <QMessageBox>
 #include "../../../src/graphics/gamewindow.h"
 #include <QPalette>
@@ -34,6 +35,8 @@ ChatDlg::ChatDlg(QWidget *parent, int clientID) :
 {
 
     ui->setupUi(this);
+
+    // Signals and Slots--------------------------------------------
     connect(ui->lineEdit_input, SIGNAL(returnPressed()), this, SLOT(doChat()));
 
     this->setWindowOpacity(0.8);
@@ -53,6 +56,7 @@ ChatDlg::~ChatDlg()
 void ChatDlg::doChat()
 {
     Client * client = Client::getInstance();
+    std::string sText;
 
     // This is where we will need to send a Message to server of
     // type CHAT
@@ -60,10 +64,13 @@ void ChatDlg::doChat()
     p->setChatting(false);
     ui->lineEdit_input->setVisible(false);
 
-    msg_->setData(ui->lineEdit_input->text().toStdString());
+    sText = "[" + p->getUsername().toStdString() + "] " + ui->lineEdit_input->text().toStdString();
+    msg_->setData(sText);
     this->clearFocus();
     p->setFocus();
+
     client->write(msg_);
+    ui->lineEdit_input->clear();
     //this->close();
 
 }
@@ -71,4 +78,10 @@ void ChatDlg::doChat()
 void ChatDlg::setClientID(int ID)
 {
     clientID_ = ID;
+}
+
+void ChatDlg::incomingMsg(std::string str)
+{
+    QString chatmsg(str.c_str());
+    ui->textEdit_chat->appendPlainText(chatmsg);
 }

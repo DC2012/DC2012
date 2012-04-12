@@ -4,9 +4,9 @@ size_t GOM_Ship::shipCount_ = 0;
 
 //constructor
 GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, double posY, 
-        int playerID, double speed, int maxHealth, int attackPower)
+        int playerID, double speed, int maxHealth, int attackPower, double maxSpeed)
 :GameObjectMoveable(type, objID, degree ,posX ,posY ,playerID ,speed), 
-        maxHealth_(maxHealth), attackPower_(attackPower)
+  maxHealth_(maxHealth), attackPower_(attackPower),maxSpeed_(maxSpeed)
 {
     actionFlags_.push_back(false);
     actionFlags_.push_back(false);
@@ -14,7 +14,6 @@ GOM_Ship::GOM_Ship(ObjectType type, int objID, double degree, double posX, doubl
     actionFlags_.push_back(false);
     accel_ = 0.02;
     decel_ = 0.02;
-    maxSpeed_ = 3.6;
     shipCount_++;
     bonus_ = GOS_PowerUp::NON;
     currentHealth_ = maxHealth_;
@@ -115,7 +114,7 @@ void GOM_Ship::update(const std::string &str)
     std::istringstream istr(str);
     char endCheck;
     int type = -1;
-    double degree, posX, posY, speed;
+    double degree, posX, posY, speed, maxspeed;
     int objID, playerID, maxHealth, currentHealth, attackPower;
     double sprite_w, sprite_h, hb_w, hb_h;
     double tl_x, tl_y;
@@ -138,7 +137,7 @@ void GOM_Ship::update(const std::string &str)
         hb_w = double(SHIP2_WIDTH);
         hb_h = double(SHIP2_HEIGHT);
 
-        istr >> objID >> degree >> posX >> posY >> playerID >> speed
+        istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxspeed
              >> maxHealth
              >> currentHealth
              >> attackPower
@@ -163,6 +162,7 @@ void GOM_Ship::update(const std::string &str)
         pos_.setY(posY);
         playerID_ = playerID;
         speed_ = speed;
+		maxSpeed_ = maxspeed;
         maxHealth_ = maxHealth;
         currentHealth_ = currentHealth;
         attackPower_ = attackPower;
@@ -183,6 +183,7 @@ std::string GOM_Ship::toString() const
     ostr << pos_.getY() << " ";
     ostr << playerID_ << " ";
     ostr << speed_ << " ";
+    ostr << maxSpeed_ << " ";
     ostr << maxHealth_ << " ";
     ostr << currentHealth_ << " ";
     ostr << attackPower_ << " ";

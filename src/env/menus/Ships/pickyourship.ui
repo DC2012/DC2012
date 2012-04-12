@@ -91,10 +91,10 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
    <widget class="QPushButton" name="btnShip1">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>60</y>
-      <width>131</width>
-      <height>71</height>
+      <x>120</x>
+      <y>80</y>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -106,15 +106,15 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
      </font>
     </property>
     <property name="text">
-     <string>Ship1</string>
+     <string>Galleon</string>
     </property>
     <property name="icon">
      <iconset resource="../../../../images.qrc">
-      <normaloff>:/src/env/menus/Ships/images/old.png</normaloff>:/src/env/menus/Ships/images/old.png</iconset>
+      <normaloff>:/src/env/menus/Ships/images/battleship2.png</normaloff>:/src/env/menus/Ships/images/battleship2.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>50</width>
+      <width>60</width>
       <height>50</height>
      </size>
     </property>
@@ -122,10 +122,10 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
    <widget class="QPushButton" name="btnShip2">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>120</x>
       <y>160</y>
-      <width>131</width>
-      <height>71</height>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -137,11 +137,11 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
      </font>
     </property>
     <property name="text">
-     <string>Ship2</string>
+     <string>Battleship</string>
     </property>
     <property name="icon">
-     <iconset resource="../../../../images.qrc">
-      <normaloff>:/src/env/menus/Ships/images/sub2.gif</normaloff>:/src/env/menus/Ships/images/sub2.gif</iconset>
+     <iconset>
+      <normaloff>:src/env/menus/Ships/images/battleship.png</normaloff>:src/env/menus/Ships/images/battleship.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -153,10 +153,10 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
    <widget class="QPushButton" name="btnShip3">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>260</y>
-      <width>131</width>
-      <height>81</height>
+      <x>120</x>
+      <y>240</y>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -168,15 +168,15 @@ radius: 1.35, stop: 0 #000, stop: 1 #808080);
      </font>
     </property>
     <property name="text">
-     <string>Ship3</string>
+     <string>Dingy</string>
     </property>
     <property name="icon">
      <iconset resource="../../../../images.qrc">
-      <normaloff>:/src/env/menus/Ships/images/canoe.gif</normaloff>:/src/env/menus/Ships/images/canoe.gif</iconset>
+      <normaloff>:/src/env/menus/Ships/images/dingy.png</normaloff>:/src/env/menus/Ships/images/dingy.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>50</width>
+      <width>60</width>
       <height>50</height>
      </size>
     </property>

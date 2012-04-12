@@ -35,7 +35,7 @@
 
 #include "GameObjectStationary.h"
 
-class GOS_PowerUp : public GOM_Projectile
+class GOS_PowerUp : public GameObjectStationary
 {
     
     public:
@@ -46,13 +46,13 @@ class GOS_PowerUp : public GOM_Projectile
 			SPEED,
 			DAMAGE,
 			KRAKIFY,
-			SLOW
-			
+                        SLOW,
+                        NON
 		};
 		
         // constructor for now
-        explicit GOS_PowerUp(ObjectType type = POWERUP, int objID = 0, double posX = 0, double posY = 0, 
-	int ttl = 0, BONUS bonus);
+        explicit GOS_PowerUp(ObjectType type = POWERUP, int objID = 0, double degree = 0, double posX = 0, double posY = 0,
+        int ttl = 0, BONUS bonus = NON);
 
         // destructor
         virtual ~GOS_PowerUp(){}
@@ -69,6 +69,7 @@ class GOS_PowerUp : public GOM_Projectile
     private:
         static size_t powerUpCount_;
         BONUS 		  bonus_;
+        int ttl_;
     
 };
 

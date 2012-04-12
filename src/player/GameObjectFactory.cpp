@@ -9,7 +9,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
     int bonus;
     int objID, playerID, maxHealth, currentHealth, attackPower,
             damage, ttl;
-    double posX, degree, posY, speed;
+    double posX, degree, posY, speed, maxSpeed;
     double tl_x, tl_y;
     double tr_x, tr_y;
     double bl_x, bl_y;
@@ -21,7 +21,8 @@ GameObject* GameObjectFactory::create(const std::string &in)
     {
     case SHIP1:
     case SHIP2:
-        istr >> objID >> degree >> posX >> posY >> playerID >> speed
+    case SHIP3:
+        istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxSpeed
              >> maxHealth
              >> currentHealth
              >> attackPower
@@ -43,7 +44,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
         br = Point(br_x, br_y);
 
         gameObject = new GOM_Ship(ObjectType(type), objID, degree, posX,
-                                  posY, playerID, speed, maxHealth, attackPower);
+                                  posY, playerID, speed, maxHealth, attackPower,maxSpeed);
         gameObject->setHitBox(tl, tr, bl, br);
         ((GOM_Ship*)gameObject)->setCurrentHealth(currentHealth);
 

@@ -98,7 +98,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
     // shoot only when a ship is allowed to shoot which is once every ~800 ms
     // this is set by the update game timer to prevent ships from spamming shots
-    if (ships_[clientId_]->canShoot())
+    if (state_ == ALIVE)
     {
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 

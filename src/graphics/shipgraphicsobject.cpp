@@ -174,10 +174,6 @@ void ShipGraphicsObject::gotHit(GameObject* hitter)
         {
             emit death();
         }
-        pixmapItem = getPixmapItem();
-        pixmapItem->setPixmap(QPixmap(SPRITE_SHIP1_HIT));
-        pixmapSwitchTimer_.start(100);
-        connect(&pixmapSwitchTimer_, SIGNAL(timeout()), this, SLOT(explode()));
         break;
     case POWERUP:
         //get powerup

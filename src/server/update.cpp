@@ -38,7 +38,7 @@ void update(sigval arg)
                 {
                     // send HIT msg to the collided client
                     ostr.clear();
-                    ostr << ship->getObjID();
+                    ostr << projectile->getObjID();
                     sendMsg.setID(ship->getPlayerID());
                     sendMsg.setAll(ostr.str(), Message::HIT);
                     server->write(&sendMsg, ship->getPlayerID());

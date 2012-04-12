@@ -17,7 +17,7 @@
 #include "../env/gamemap.h"
 
 GameWindow::GameWindow(QWidget *parent)
-    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD)
+    : QGraphicsView(parent), timer_(this), scene_(new QGraphicsScene()), timerCounter_(0), state_(DEAD), connected_(false)
 {
     // typical initialization code
     setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
@@ -98,7 +98,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
     // shoot only when a ship is allowed to shoot which is once every ~800 ms
     // this is set by the update game timer to prevent ships from spamming shots
-    if (ships_[clientId_]->canShoot())
+    if (state_ == ALIVE)
     {
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
@@ -245,6 +245,7 @@ void GameWindow::processGameMessage(Message* message)
     switch (message->getType())
     {
     case Message::CONNECTION:
+		connected_ = true;
         clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
@@ -279,6 +280,7 @@ void GameWindow::processGameMessage(Message* message)
         else
         {
             emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	    std::cerr << "projectile added id: " << std::endl;
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -287,11 +289,11 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::UPDATE:
         // update ship only if it's not our ship
-
         if(message->getID() != clientId_)
         {
             if (ships_.count(message->getID()) > 0)
             {
+		//std::cout << "updated the ship" << std::endl;
                 ships_[message->getID()]->update(message->getData());
             }
         }
@@ -299,12 +301,13 @@ void GameWindow::processGameMessage(Message* message)
 
 
     case Message::DELETION:
+	std::cerr << "deletion" << std::endl;      
         tokens = QString::fromStdString(message->getData()).split(" ");
 
         // 0 - object type where 's' is ship and 'p' is projectile
         // 1 - object ID for projectils or clientID for ships
         // 2 - explode flag (1 means object should explode, 0 don't explode)
-std::cerr << "deletion" << std::endl;
+	
         if (tokens[0] == "S")
         {
             scene_->removeItem(ships_[message->getID()]->getPixmapItem());
@@ -327,7 +330,21 @@ std::cerr << "deletion" << std::endl;
     case Message::HIT:
         // message client id = client id that was hit
         // data = object id that client id collided with
-        ships_[message->getID()]->gotHit(otherGraphics_[QString(message->getData().c_str()).toInt()]->getGameObject());
+        std::cerr << "got hit" << std::endl;
+        if(ships_.count(message->getID()) > 0)
+	{
+	  int id = QString(message->getData().c_str()).toInt();
+	  std::cerr << "id: " << id << std::endl;
+	  if(otherGraphics_.count(id) > 0)
+	  {
+	    ships_[message->getID()]->gotHit(otherGraphics_[id]->getGameObject());
+	  }
+	  else
+	  {
+	    std::cerr << "invalid objid" << std::endl; 
+	  }
+	}
+	std::cerr << "done hitting" << std::endl;
         break;
 
     case Message::STATUS:
@@ -399,6 +416,7 @@ void GameWindow::updateGame()
         // send new coordinates of our ship to server
         // the message is dynamically allocated although typically there is no need to do so
         // but for some reason we're getting segfaults
+	//std::cerr << "send update: " << shipObj->toString() << std::endl;
         Message* msg = new Message;
         msg->setID(clientId_);
         msg->setData(shipObj->toString());
@@ -406,7 +424,7 @@ void GameWindow::updateGame()
         client_->write(msg);
         delete msg;
     }
-    else if(state_ == DEAD)
+    else if(state_ == DEAD && connected_)
     {
         if(!shipChooser.isCreating())
         {

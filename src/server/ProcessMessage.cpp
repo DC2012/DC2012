@@ -22,7 +22,7 @@ void ProcessMessage(PDATA pdata)
 
     // object creation parameters
     int type, objID, playerID, speed, health, attack;
-    double degree, posX, posY;
+    double degree, posX, posY, maxSpeed;
     
     while(pdata->isRunning && (recvMessage = server->read()))
     {
@@ -90,21 +90,39 @@ void ProcessMessage(PDATA pdata)
             istr.str(recvMessage->getData());
             istr >> type;
 
-            // get a furthest start point from other ships
-            pt = getStartPoint(pdata->ships);
-
+	    // get a furthest start point from other ships
+            pt = getStartPoint(pdata->ships);    
             objID    = pdata->objCount++;
-            degree   = 0;
+	    degree   = 0;
             posX     = pt.getX();
             posY     = pt.getY();
-            playerID = clientID;
+	    playerID = clientID;
             speed    = 0;
-            health   = 100;     // hard-coded need to fix
-            attack   = 30;      // hard-coded need to fix
+	    
+	    switch(type)
+	    {
+	      case 0:    //Galeon
+		health   = 100;     
+		attack   = 30;   
+		maxSpeed = 3.6;
+		break;
+		
+	      case 1:   //Battleship
+		health   = 200;     
+		attack   = 50;
+		maxSpeed = 2;
+		break;   
+		
+	      case 2:   //Dingy
+		health   = 5;     
+		attack   = 200;
+		maxSpeed = 6;
+		break;
+	    }
 
             // create the GOM_Ship object
             gameObject = new GOM_Ship(ObjectType(type), objID, degree, posX, posY,
-                                   playerID, speed, health, attack);
+                                   playerID, speed, health, attack, maxSpeed);
 
             // add the game object to the map
             if(pdata->ships.count(clientID) > 0)

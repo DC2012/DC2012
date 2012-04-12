@@ -318,15 +318,14 @@ void GameWindow::processGameMessage(Message* message)
 	
         if (tokens[0] == "S")
         {
-            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
-            emit shipExplode(AudioController::DIE, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
-            ships_[message->getID()]->explode();
             std::cerr << "ship deletion" << std::endl;
+            scene_->removeItem(ships_[message->getID()]->getPixmapItem());
+            emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(ships_[clientId_]->getGameObject()));
+            ships_[message->getID()]->explode();
+
             if(message->getID() == clientId_)
             {
                 //we died
-                emit shipExplode(AudioController::DIE, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
-                std::cerr << "projectile added id: " << std::endl;
 
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;

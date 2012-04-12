@@ -269,7 +269,10 @@ void GameWindow::processGameMessage(Message* message)
         if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
         {
             if(message->getID() == clientId_)
+            {
                 isClientDead_ = FALSE;
+                connect((ShipGraphicsObject*)graphic, SIGNAL(death()), this, SLOT(death()))   ;
+            }
             ships_[message->getID()] = (ShipGraphicsObject*) graphic;
             scene_->addItem(graphic->getPixmapItem());
         }
@@ -408,4 +411,11 @@ void GameWindow::setChatting(bool b)
 bool GameWindow::isChatting()
 {
     return GameWindow::isChatting_;
+}
+
+void GameWindow::death()
+{
+    Message msg(clientId_);
+    msg.setType(Message::DEATH);
+    client_->write(&msg);
 }

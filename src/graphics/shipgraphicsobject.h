@@ -16,6 +16,9 @@ public:
     double shoot(QPoint clickPos);
     void gotHit(GameObject* hitter);
 
+signals:
+    void death();
+
 public slots:
     void switchPixmap();
 

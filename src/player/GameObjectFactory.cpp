@@ -121,9 +121,10 @@ int GameObjectFactory::getObjectID(const std::string &str)
     std::istringstream istr(str);
     char endCheck;
     int type = -1;
-    double degree, posX, posY, speed, maxspeed;
-    int objID, playerID, health, attackPower,
-    damage, ttl, bonus;
+    int bonus;
+    int objID, playerID, maxHealth, currentHealth, attackPower,
+            damage, ttl;
+    double posX, degree, posY, speed, maxSpeed;
     double tl_x, tl_y;
     double tr_x, tr_y;
     double bl_x, bl_y;
@@ -134,7 +135,9 @@ int GameObjectFactory::getObjectID(const std::string &str)
     {
     case SHIP1:
     case SHIP2:
-        istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxspeed >> health
+        istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxSpeed
+             >> maxHealth
+             >> currentHealth
              >> attackPower
              >> tl_x >> tl_y
              >> tr_x >> tr_y

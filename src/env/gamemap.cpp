@@ -134,6 +134,24 @@ void GameMap::arrangeElements(QDomElement root, QString tagname, QString attribu
     }
 }
 
+/*-----------------------------------------------------------------------------
+--  FUNCTION:       isLand
+--
+--  DATE:           April 10th, 2012
+--
+--  REVISIONS:
+--
+--  DESIGNER:       Tyler Allison
+--
+--  PROGRAMMER:     Tyler Allison
+--
+--  INTERFACE:      isLand(const Point& location)
+--
+--  RETURNS:        bool
+--
+--  NOTES:          Returns whether or not a point is on a land tile.
+--
+-----------------------------------------------------------------------------*/
 bool GameMap::isLand(const Point& location)
 {
     Point temp(((int)(location.getX() / 25) * 25), ((int)(location.getY() / 25) * 25));

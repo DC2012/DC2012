@@ -92,8 +92,10 @@ void update(sigval arg)
                     // delete the ships
                     delete pdata->ships[itShip->first];
 		    delete pdata->ships[iitShip->first];
+		    std::cout << "free memory done" << std::endl;
                     pdata->ships.erase(itShip->first);
 		    pdata->ships.erase(iitShip->first);
+		    std::cout << "map erase done" << std::endl;
 
                     break;
                 }

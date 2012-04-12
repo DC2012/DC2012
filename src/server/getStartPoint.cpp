@@ -10,7 +10,8 @@ Point getStartPoint(const std::map<int, GameObject *> &ships)
         Point(1250, 1275),
         Point(550, 1300),
         Point(125, 950),
-        Point(500, 550)
+        Point(500, 550),
+	Point(500, 551)
     };
     std::map<int, GameObject *>::const_iterator it;
     std::vector<double> minDistances;
@@ -36,5 +37,5 @@ Point getStartPoint(const std::map<int, GameObject *> &ships)
         }
     }
     
-    return points[furthestIndex];
+    return points[furthestIndex % MAX_PLAYERS];
 }

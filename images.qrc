@@ -9,9 +9,9 @@
         <file>src/env/menus/Ships/images/sub2.gif</file>
         <file>src/env/menus/Ships/images/underwater.jpg</file>
         <file>src/env/menus/Ships/images/wood.jpg</file>
-	<file>src/env/menus/Ships/images/battleship.png</file>
-	<file>src/env/menus/Ships/images/battleship2.png</file>
-	<file>src/env/menus/Ships/images/dingy.png</file>
+        <file>src/env/menus/Ships/images/battleship.png</file>
+        <file>src/env/menus/Ships/images/battleship2.png</file>
+        <file>src/env/menus/Ships/images/dingy.png</file>
         <file>sprites/spriteBullet.png</file>
         <file>sprites/spriteCannonball.png</file>
         <file>sprites/spriteCursor.png</file>
@@ -29,6 +29,5 @@
         <file>sprites/spriteShip2.png</file>
         <file>sprites/spriteShip2Hit.png</file>
         <file>src/env/maps/finalMap.tmx</file>
-        <file>battleship.png</file>
     </qresource>
 </RCC>

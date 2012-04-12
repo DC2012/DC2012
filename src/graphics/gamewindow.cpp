@@ -51,8 +51,7 @@ GameWindow::GameWindow(QWidget *parent)
         scene()->addItem(i->second);
     }
 
-    QPixmap background(":/sprites/finalMap.png");
-    bg.setPixmap(background);
+    bg.setPixmap(QPixmap(":/sprites/finalMap.png"));
     bg.setOffset(0,0);
     scene()->addItem(&bg);
 

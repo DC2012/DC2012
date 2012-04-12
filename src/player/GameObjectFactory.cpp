@@ -80,8 +80,7 @@ GameObject* GameObjectFactory::create(const std::string &in)
 		if(!istr.good() || endCheck != POWERUP_STR)
 			break;
 			
-                return new GOS_PowerUp(BONUS bonus, ObjectType type, int objID, double posX, double posY, 
-							int ttl);
+            return new GOS_PowerUp(ObjectType(type), objID, posX, posY, ttl, GOS_PowerUp::BONUS(bonus));
 	}
 	return NULL;
 }

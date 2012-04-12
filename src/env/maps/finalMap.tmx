@@ -3,7 +3,9 @@
  <tileset firstgid="1" name="tileLandTest2" tilewidth="25" tileheight="25">
   <image source="../editSprites/tileLandTest2.png" width="25" height="25"/>
  </tileset>
- <layer name="Tile Layer 1" width="160" height="120">
+<dimensions xdimension="160" ydimension="120">
+</dimensions>
+<layer name="Tile Layer 1" width="160" height="120">
   <data>
    <tile gid="1"/>
    <tile gid="1"/>

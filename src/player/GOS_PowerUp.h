@@ -35,13 +35,24 @@
 
 #include "GameObjectStationary.h"
 
-class GOS_PowerUp : public GameObjectStationary
+class GOS_PowerUp : public GOM_Projectile
 {
-    private:
-        static size_t powerUpCount_;
+    
     public:
+    
+    	enum BONUS
+		{
+			HEALTH,
+			SPEED,
+			DAMAGE,
+			KRAKIFY,
+			SLOW,
+			
+		};
+		
         // constructor for now
-        explicit GOS_PowerUp(ObjectType type = POWERUP, int objID = 0, double degree = 0, double posX = 0, double posY = 0);
+        explicit GOS_PowerUp(objectType type = POWERUP, int objID = 0, double posX = 0, double posY = 0, 
+	int ttl = 0, BONUS bonus);
 
         // destructor
         virtual ~GOS_PowerUp(){}
@@ -51,6 +62,14 @@ class GOS_PowerUp : public GameObjectStationary
 
         // for testing purposes
         virtual void print(std::ostream& os) const;
+        
+        virtual BONUS getBonus();
+        
+        
+    private:
+        static size_t powerUpCount_;
+        BONUS 		  bonus_;
+    
 };
 
 #endif

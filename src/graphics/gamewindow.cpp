@@ -323,7 +323,9 @@ void GameWindow::processGameMessage(Message* message)
         {
             std::cerr << "ship deletion" << std::endl;
             emit shipExplode(AudioController::DIE, ships_[message->getID()]->getGameObject()->getObjDistance(*(ships_[clientId_]->getGameObject())));
+	    std::cerr << "shipExplode emitted" << std::endl;
             ships_[message->getID()]->explode();
+	    std::cerr << "ship.explode() called" << std::endl;
 
             if(message->getID() == clientId_)
             {

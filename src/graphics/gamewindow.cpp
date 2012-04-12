@@ -98,7 +98,7 @@ void GameWindow::mousePressEvent(QMouseEvent *event)
 
     // shoot only when a ship is allowed to shoot which is once every ~800 ms
     // this is set by the update game timer to prevent ships from spamming shots
-    if (ships_[clientId_]->canShoot())
+    if (state_ == ALIVE)
     {
         double angle = ships_[clientId_]->shoot(mapToScene(event->pos()).toPoint());
 
@@ -307,12 +307,12 @@ void GameWindow::processGameMessage(Message* message)
 std::cerr << "deletion" << std::endl;
         if (tokens[0] == "S")
         {
-            ships_[clientId_]->explode();
             scene_->removeItem(ships_[message->getID()]->getPixmapItem());
             std::cerr << "ship deletion" << std::endl;
             if(message->getID() == clientId_)
             {
                 //we died
+                ships_[clientId_]->explode();
                 state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 

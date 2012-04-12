@@ -28,6 +28,13 @@ public:
     void start();
     void setChatting(bool b);
     bool isChatting();
+
+    enum shipState
+    {
+        ALIVE,
+        DYING,
+        DEAD
+    };
     
 signals:
     void shotFired(AudioController::Sounds, double);
@@ -56,6 +63,7 @@ private:
     AudioController audio;
     bool isClientDead_;
     PickYourShip shipChooser;
+    shipState state_;
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);

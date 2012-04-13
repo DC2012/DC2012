@@ -262,6 +262,7 @@ void GameWindow::processGameMessage(Message* message)
     case Message::CONNECTION:
         if (message->getData() == "Accepted")
         {
+	      clientId_ = message->getID();
 	      connected_ = true;
         }
         else if (message->getData() == "Refused")

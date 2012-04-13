@@ -291,7 +291,11 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
-            emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	  if(state_ == ALIVE)
+	  {
+	    emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	  }
+            
 	    std::cerr << "projectile added id: " << std::endl;
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());

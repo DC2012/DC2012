@@ -252,6 +252,12 @@ void GameWindow::processGameMessage(Message* message)
     QGraphicsPixmapItem* px;
     Message sendMsg;
     std::string data;
+    
+    // for debugging hit box
+    static QGraphicsItem *line1, *line2, *line3, *line4;
+    Hitbox shipBox;
+    QPen pen;
+    
     if(message->getType() != Message::CONNECTION && !connected_)
     {
       return; 
@@ -305,12 +311,29 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::UPDATE:
         // update ship only if it's not our ship
+        
+	
+	
         if(message->getID() != clientId_)
         {
             if (ships_.count(message->getID()) > 0)
             {
 		//std::cout << "updated the ship" << std::endl;
                 ships_[message->getID()]->update(message->getData());
+		
+		/*
+		scene_->removeItem(line1);
+		scene_->removeItem(line2);
+		scene_->removeItem(line3);
+		scene_->removeItem(line4);
+		shipBox = ships_[message->getID()]->getGameObject()->getHitbox();
+		pen = QPen(Qt::SolidLine);
+		pen.setWidth(1);
+		line1 = scene_->addLine(shipBox.tLeft.getX(), shipBox.tLeft.getY(), shipBox.tRight.getX(), shipBox.tRight.getY(), pen);
+		line2 = scene_->addLine(shipBox.tRight.getX(), shipBox.tRight.getY(), shipBox.bRight.getX(), shipBox.bRight.getY(), pen);
+		line3 = scene_->addLine(shipBox.bRight.getX(), shipBox.bRight.getY(), shipBox.bLeft.getX(), shipBox.bLeft.getY(), pen);
+		line4 = scene_->addLine(shipBox.bLeft.getX(), shipBox.bLeft.getY(), shipBox.tLeft.getX(), shipBox.tLeft.getY(), pen);
+		*/
             }
         }
         break;

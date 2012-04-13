@@ -260,14 +260,9 @@ void GameWindow::processGameMessage(Message* message)
     switch (message->getType())
     {
     case Message::CONNECTION:
-		connected_ = true;
-        clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
-//            data = std::string("0");
-//            sendMsg.setID(clientId_);
-//            sendMsg.setAll(data, Message::RESPAWN);
-//            client_->write(&sendMsg);
+	      connected_ = true;
         }
         else if (message->getData() == "Refused")
         {

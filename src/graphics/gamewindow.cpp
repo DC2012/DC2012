@@ -252,6 +252,10 @@ void GameWindow::processGameMessage(Message* message)
     QGraphicsPixmapItem* px;
     Message sendMsg;
     std::string data;
+    if(message->getType() != Message::CONNECTION && !connected_)
+    {
+      return; 
+    }
 
     switch (message->getType())
     {

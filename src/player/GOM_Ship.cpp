@@ -137,6 +137,12 @@ void GOM_Ship::update(const std::string &str)
         hb_w = double(SHIP2_WIDTH);
         hb_h = double(SHIP2_HEIGHT);
 
+    case SHIP3:
+        sprite_w = double(SHIP3_SPRITE_WIDTH);
+        sprite_h = double(SHIP3_SPRITE_HEIGHT);
+        hb_w = double(SHIP3_WIDTH);
+        hb_h = double(SHIP3_HEIGHT);
+        
         istr >> objID >> degree >> posX >> posY >> playerID >> speed >> maxspeed
              >> maxHealth
              >> currentHealth

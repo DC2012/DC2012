@@ -215,8 +215,8 @@ void GameWindow::keyReleaseEvent(QKeyEvent *event)
             if(!event->isAutoRepeat())
                 myShip->setActionFlag(ROTATE_R, false);
             break;
-        case Qt::Key_Space:
-            QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
+        case Qt::Key_Space:        
+            //QMessageBox::information(this, "Fire!", "Assume that a bullet was fired.");
             break;
         }
     }
@@ -252,18 +252,24 @@ void GameWindow::processGameMessage(Message* message)
     QGraphicsPixmapItem* px;
     Message sendMsg;
     std::string data;
+    
+    // for debugging hit box
+    static QGraphicsItem *line1, *line2, *line3, *line4;
+    Hitbox shipBox;
+    QPen pen;
+    
+    if(message->getType() != Message::CONNECTION && !connected_)
+    {
+      return; 
+    }
 
     switch (message->getType())
     {
     case Message::CONNECTION:
-		connected_ = true;
-        clientId_ = message->getID();
         if (message->getData() == "Accepted")
         {
-//            data = std::string("0");
-//            sendMsg.setID(clientId_);
-//            sendMsg.setAll(data, Message::RESPAWN);
-//            client_->write(&sendMsg);
+	      clientId_ = message->getID();
+	      connected_ = true;
         }
         else if (message->getData() == "Refused")
         {
@@ -277,7 +283,8 @@ void GameWindow::processGameMessage(Message* message)
         objID = GameObjectFactory::getObjectID(message->getData());
         graphic = GraphicsObjectFactory::create(obj);
         std::cerr << "creation" << std::endl;
-        if (obj->getType() == SHIP1 || obj->getType() == SHIP2)
+        if (obj->getType() == SHIP1 || obj->getType() == SHIP2 || 
+            obj->getType() == SHIP3)
         {
             if(message->getID() == clientId_)
             {
@@ -290,7 +297,11 @@ void GameWindow::processGameMessage(Message* message)
         }
         else
         {
-            emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	  if(state_ == ALIVE)
+	  {
+	    emit shotFired(AudioController::SHOOT1, ships_[clientId_]->getGameObject()->getObjDistance(*obj));
+	  }
+            
 	    std::cerr << "projectile added id: " << std::endl;
             otherGraphics_[objID] = (ProjectileGraphicsObject *) graphic;
             scene_->addItem(graphic->getPixmapItem());
@@ -300,12 +311,29 @@ void GameWindow::processGameMessage(Message* message)
 
     case Message::UPDATE:
         // update ship only if it's not our ship
+        
+	
+	
         if(message->getID() != clientId_)
         {
             if (ships_.count(message->getID()) > 0)
             {
 		//std::cout << "updated the ship" << std::endl;
                 ships_[message->getID()]->update(message->getData());
+		
+		/*
+		scene_->removeItem(line1);
+		scene_->removeItem(line2);
+		scene_->removeItem(line3);
+		scene_->removeItem(line4);
+		shipBox = ships_[message->getID()]->getGameObject()->getHitbox();
+		pen = QPen(Qt::SolidLine);
+		pen.setWidth(1);
+		line1 = scene_->addLine(shipBox.tLeft.getX(), shipBox.tLeft.getY(), shipBox.tRight.getX(), shipBox.tRight.getY(), pen);
+		line2 = scene_->addLine(shipBox.tRight.getX(), shipBox.tRight.getY(), shipBox.bRight.getX(), shipBox.bRight.getY(), pen);
+		line3 = scene_->addLine(shipBox.bRight.getX(), shipBox.bRight.getY(), shipBox.bLeft.getX(), shipBox.bLeft.getY(), pen);
+		line4 = scene_->addLine(shipBox.bLeft.getX(), shipBox.bLeft.getY(), shipBox.tLeft.getX(), shipBox.tLeft.getY(), pen);
+		*/
             }
         }
         break;
@@ -331,7 +359,6 @@ void GameWindow::processGameMessage(Message* message)
             {
                 //we died
 
-                state_ = DEAD;
                 std::cerr << "i'm dead" << std::endl;
 
             }
@@ -412,6 +439,10 @@ void GameWindow::updateGame()
         if(explodeIterator->second->isExploding())
         {
             explodeIterator->second->explode();
+            if(!explodeIterator->second->isExploding() && explodeIterator->first == clientId_)
+            {
+            	state_ = DEAD;
+            }
         }
         ++explodeIterator;
     }
@@ -502,3 +533,4 @@ void GameWindow::setUsername(QString str)
 {
     username_ = str;
 }
+

@@ -15,6 +15,8 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
         shipPixmap.load(SPRITE_SHIP1);
     else if (type == SHIP2)
         shipPixmap.load(SPRITE_SHIP2);
+    else if (type == SHIP3)
+        shipPixmap.load(SPRITE_SHIP3);
 
     ShipGraphicsObject::ex1 = new QPixmap(SPRITE_EXPLOSION1);
     ShipGraphicsObject::ex2 = new QPixmap(SPRITE_EXPLOSION2);
@@ -27,21 +29,29 @@ ShipGraphicsObject::ShipGraphicsObject(GameObject* gameObject)
 
     //Load the list of explosion pictures
     exAnim.push_back(ex1);
+    exAnim.push_back(ex1);    
     exAnim.push_back(ex1);
     exAnim.push_back(ex2);
     exAnim.push_back(ex2);
+    exAnim.push_back(ex2);
+    exAnim.push_back(ex3);
     exAnim.push_back(ex3);
     exAnim.push_back(ex3);
     exAnim.push_back(ex4);
     exAnim.push_back(ex4);
+    exAnim.push_back(ex4);
+    exAnim.push_back(ex5);
     exAnim.push_back(ex5);
     exAnim.push_back(ex5);
     exAnim.push_back(ex6);
     exAnim.push_back(ex6);
+    exAnim.push_back(ex6);
+    exAnim.push_back(ex7);
     exAnim.push_back(ex7);
     exAnim.push_back(ex7);
     exAnim.push_back(ex8);
     exAnim.push_back(ex8);
+    exAnim.push_back(ex8);    
     curPic = exAnim.begin();
 
     QGraphicsPixmapItem* shipItem = new QGraphicsPixmapItem(shipPixmap);

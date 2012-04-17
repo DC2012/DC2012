@@ -16,7 +16,8 @@ public:
         {
             return new ProjectileGraphicsObject(gameObject);
         }
-        else if (gameObject->getType() == SHIP1 || gameObject->getType() == SHIP2)
+        else if (gameObject->getType() == SHIP1 || gameObject->getType() == SHIP2 ||
+                 gameObject->getType() == SHIP3)
         {
             return new ShipGraphicsObject(gameObject);
         }

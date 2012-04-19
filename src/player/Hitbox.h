@@ -30,6 +30,9 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <cmath>
+
+const double PII = 4.0 * atan(1.0);
 
 class Hitbox
 {
@@ -106,6 +109,9 @@ class Hitbox
 --                  Checks if there is a collision between two Hitbox
 -----------------------------------------------------------------------------*/
         bool isCollision(const Hitbox& other);
+
+        bool isCollisionNew(Hitbox other, Point shipPos, double shipDegree);
+        void rotatePointAround(Point &pt, const Point &centre_pt, const double &degree);
 
 /*-----------------------------------------------------------------------------
 --  FUNCTION:
